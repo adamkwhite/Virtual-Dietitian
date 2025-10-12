@@ -139,6 +139,80 @@ project_template/
 - Monitoring and observability
 - Deployment-specific code
 
+### Understanding Domain vs Application
+
+**Domain Layer = "What your agent knows"**
+
+Business logic independent of any framework. Examples:
+
+```python
+# domain/tools/calculator.py
+def calculate_mortgage(principal: float, rate: float, years: int) -> float:
+    """Pure business logic - no LLM, no LangChain"""
+    monthly_rate = rate / 12 / 100
+    num_payments = years * 12
+    return principal * (monthly_rate * (1 + monthly_rate)**num_payments) / \
+           ((1 + monthly_rate)**num_payments - 1)
+
+# domain/models.py
+from pydantic import BaseModel
+
+class CustomerQuery(BaseModel):
+    question: str
+    customer_id: str
+    priority: str
+    
+# domain/prompts/templates.py
+MORTGAGE_ADVISOR_PROMPT = """You are a mortgage advisor.
+Customer context: {customer_history}
+Question: {question}
+Provide clear, compliant advice."""
+```
+
+**Application Layer = "How your agent uses it"**
+
+Framework-specific orchestration that ties domain logic together:
+
+```python
+# application/agents/mortgage_agent.py
+from langgraph.graph import StateGraph
+from domain.tools.calculator import calculate_mortgage
+from domain.prompts.templates import MORTGAGE_ADVISOR_PROMPT
+
+def build_mortgage_agent():
+    """Uses domain logic in a LangGraph workflow"""
+    graph = StateGraph()
+    graph.add_node("calculate", lambda state: {
+        "payment": calculate_mortgage(
+            state["principal"], 
+            state["rate"], 
+            state["years"]
+        )
+    })
+    # ... rest of workflow
+```
+
+**When to put code in Domain vs Application:**
+
+Put in **Domain** if it's:
+- Business rules (mortgage calculations, risk scoring)
+- Data models (Pydantic models, state definitions)
+- Custom tools that don't need LLM (parsers, validators, formatters)
+- Prompt templates (just strings)
+- Exceptions specific to your business (InvalidLoanAmount)
+- Utilities (date formatting for your industry)
+
+Put in **Application** if it's:
+- Agent graphs/chains
+- Routing logic between agents
+- LLM-based decision making
+- Workflow state machines
+- Multi-agent coordination
+
+**The test:** If you deleted LangChain/LangGraph tomorrow and switched to raw OpenAI, would this code still be useful?
+- Yes → Domain
+- No → Application
+
 **Benefits:**
 - Easy to test (mock external services)
 - Swap frameworks without rewriting business logic
