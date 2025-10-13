@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Nutrition Analyzer
+  version: 1.0.0
+  description: Analyzes nutritional content of meals
+servers:
+  - url: https://nutrition-analyzer-epp4v6loga-uc.a.run.app
+paths:
+  /:
+    post:
+      operationId: analyzeNutrition
+      summary: Analyze nutritional content of a meal description
+      description: Takes a meal description and returns detailed nutritional information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meal_description:
+                  type: string
+                  description: Description of the meal
+              required:
+                - meal_description
+      responses:
+        '200':
+          description: Successful nutritional analysis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_nutrition:
+                    type: object
+                    properties:
+                      calories:
+                        type: number
+                      protein_g:
+                        type: number
+                      carbs_g:
+                        type: number
+                      fat_g:
+                        type: number
+                      fiber_g:
+                        type: number
+                      sodium_mg:
+                        type: number
+                      vitamin_c_mg:
+                        type: number
+                      iron_mg:
+                        type: number
+                      calcium_mg:
+                        type: number
+                  macro_percentages:
+                    type: object
+                    properties:
+                      protein_pct:
+                        type: integer
+                      carbs_pct:
+                        type: integer
+                      fat_pct:
+                        type: integer
+                  insights:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        message:
+                          type: string
+                  follow_up:
+                    type: string
