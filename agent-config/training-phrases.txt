@@ -1,0 +1,41 @@
+# Training Phrases for log_meal Intent
+
+## Basic Meal Descriptions
+I had oatmeal with blueberries for breakfast
+I ate chicken and rice for lunch
+Just had an apple and banana
+I had salmon, quinoa, and broccoli
+Scrambled eggs with whole wheat toast
+Greek yogurt with strawberries
+Grilled chicken salad
+Oatmeal and almond butter
+I ate a bagel with cream cheese
+Just finished eating tuna and carrots
+
+## With Quantities
+I had half a banana
+I ate two eggs
+I had a cup of oatmeal
+I ate 100g of chicken breast
+Just had three strawberries
+
+## Different Meal Times
+For breakfast I had oatmeal
+Lunch was grilled chicken and vegetables
+My dinner was salmon with quinoa
+I had a snack of almonds and an apple
+Just ate breakfast: eggs and toast
+
+## Casual/Conversational
+Just ate some oatmeal
+Had chicken for lunch
+Finished my breakfast
+I'm logging oatmeal and blueberries
+Want to track my lunch: chicken salad
+
+## Multiple Foods
+I had chicken, rice, broccoli, and avocado
+Just ate oatmeal, banana, almond butter, and milk
+Lunch was salmon, sweet potato, and spinach
+I had eggs, whole wheat toast, and strawberries
+Snack was apple, almonds, and greek yogurt

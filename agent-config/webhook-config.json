@@ -1,0 +1,57 @@
+{
+  "webhook_name": "nutrition-analyzer",
+  "webhook_url": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "request_mapping": {
+    "description": "Extract food items from user message and map to webhook request format",
+    "parameters": {
+      "food_items": {
+        "type": "array",
+        "description": "List of food items mentioned by user",
+        "items": {
+          "name": "string - food name",
+          "quantity": "number - serving quantity (default 1.0)"
+        }
+      }
+    },
+    "example": {
+      "food_items": [
+        {"name": "oatmeal", "quantity": 1},
+        {"name": "blueberries", "quantity": 0.5},
+        {"name": "almond butter", "quantity": 1}
+      ]
+    }
+  },
+  "response_mapping": {
+    "description": "Use webhook response to format agent reply",
+    "fields": {
+      "total_nutrition": {
+        "calories": "number",
+        "protein_g": "number",
+        "carbs_g": "number",
+        "fat_g": "number",
+        "fiber_g": "number",
+        "sodium_mg": "number"
+      },
+      "macro_percentages": {
+        "protein_pct": "number",
+        "carbs_pct": "number",
+        "fat_pct": "number"
+      },
+      "insights": [
+        {
+          "type": "string (benefit|warning|recommendation)",
+          "message": "string"
+        }
+      ],
+      "follow_up": "string - question to ask user"
+    }
+  },
+  "authentication": {
+    "type": "none",
+    "note": "Function is publicly accessible with --allow-unauthenticated"
+  }
+}

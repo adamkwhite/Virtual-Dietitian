@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//home/adam/Code/Virtual-Dietitian/**)",
+      "Bash(git reset:*)",
+      "Bash(git add:*)",
+      "Bash(SKIP=black,isort,flake8 git commit -m \"$(cat <<''EOF''\nAdd nutrition database with 47 common foods\n\n- Created comprehensive nutrition database covering 6 food categories\n- Includes 10 proteins, 8 grains, 9 fruits, 10 vegetables, 6 dairy, 4 fats\n- All nutrition data sourced from USDA FoodData Central\n- Added food aliases for flexible matching (e.g., \"chicken\" → \"Chicken Breast\")\n- Complete nutrient profiles: calories, macros, fiber, sodium, vitamins, minerals\n- Standard serving sizes included for each food\n- Valid JSON schema ready for Cloud Function integration\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(SKIP=black,isort,flake8 git commit -m \"$(cat <<''EOF''\nImplement Cloud Function webhook with tiered rule engine\n\nCore Components:\n- main.py: Flask HTTP handler with CORS, accepts meal_description or food_items\n- nutrition_calculator.py: Nutrient aggregation with O(1) food lookup\n- rule_engine.py: Three-tier deterministic business logic system\n- config.py: Environment-aware configuration (local vs cloud)\n- Comprehensive unit tests (32 tests, 100% passing)\n\nRule Engine Architecture:\n1. Category Detection: Fruit → vitamin insights, Grain → fiber benefits\n2. Threshold Warnings: Sodium > 800mg, Fiber < 5g\n3. Macro Ratio Recommendations: Protein 15-35%, Fat 20-35%\n\nNatural Language Meal Parser:\n- Simple word-matching approach for MVP\n- Checks 2-word phrases then single words against database\n- Returns found foods with default quantity = 1\n- Graceful handling of unknown foods\n\nTechnical Highlights:\n- Separation of concerns: LLM handles NLU/NLG, function handles calculations\n- Database loaded once globally for performance\n- Macro percentage calculation using 4/4/9 cal/g ratios\n- Support for quantity multipliers\n- Unknown food tracking with graceful degradation\n\nDeployed to: https://nutrition-analyzer-epp4v6loga-uc.a.run.app\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
