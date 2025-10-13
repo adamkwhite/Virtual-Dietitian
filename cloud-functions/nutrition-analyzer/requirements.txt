@@ -1,0 +1,12 @@
+# Cloud Function Dependencies for Virtual Dietitian
+# Python 3.12 compatible versions
+
+# Cloud Functions framework
+functions-framework==3.*
+
+# Environment variables
+python-dotenv==1.*
+
+# Testing (for local development)
+pytest==8.*
+pytest-cov==6.*
