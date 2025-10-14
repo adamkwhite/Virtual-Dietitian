@@ -180,7 +180,7 @@ Virtual-Dietitian/
 
 ## Technology Stack
 
-- **Backend:** Python 3.12, Flask
+- **Backend:** Python 3.12, Google Cloud Functions Framework
 - **Cloud Platform:** Google Cloud Platform
   - Cloud Functions Gen2 (serverless compute)
   - Vertex AI Agent Builder (conversational AI)
