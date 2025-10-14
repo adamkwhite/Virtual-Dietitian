@@ -71,5 +71,11 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Demo:** `docs/demo/demo-script.md`
 - **Documentation:** `docs/deployment/`, `docs/demo/`
 
+## Live Demo
+**Demo URL:** https://storage.googleapis.com/virtual-dietitian-demo/index.html
+**Cloud Function:** https://nutrition-analyzer-epp4v6loga-uc.a.run.app
+**GCP Project:** virtualdietitian
+**Region:** us-central1
+
 ## Maintainer
 adamkwhite

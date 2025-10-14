@@ -5,7 +5,15 @@
       "Bash(gcloud services:*)",
       "Bash(python3:*)",
       "Read(//home/adam/Code/Virtual-Dietitian/issues/**)",
-      "Bash(gcloud functions deploy:*)"
+      "Bash(gcloud functions deploy:*)",
+      "Bash(gh pr list:*)",
+      "Read(//home/adam/Code/**)",
+      "Bash(gcloud functions describe:*)",
+      "Bash(gcloud functions list:*)",
+      "Bash(gcloud alpha agent list:*)",
+      "Bash(gsutil mb:*)",
+      "WebSearch",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
