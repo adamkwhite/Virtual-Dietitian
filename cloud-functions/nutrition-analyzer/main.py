@@ -3,12 +3,17 @@ Cloud Function webhook for Virtual Dietitian AI Agent.
 Handles nutrition analysis requests from Vertex AI Agent Builder.
 """
 
+import os
 import re
 
 import functions_framework
 from flask import jsonify
 from nutrition_calculator import NUTRITION_DB, calculate_nutrition
 from rule_engine import apply_rules
+
+# Feature flag: Enable USDA API fallback
+# Set env var ENABLE_USDA_API=true to enable
+ENABLE_USDA_API = os.environ.get("ENABLE_USDA_API", "false").lower() == "true"
 
 
 def parse_meal_description(meal_description: str):
@@ -130,8 +135,8 @@ def analyze_nutrition(request):
                 headers,
             )
 
-        # Calculate total nutrition
-        nutrition_result = calculate_nutrition(food_items)
+        # Calculate total nutrition (with optional USDA API fallback)
+        nutrition_result = calculate_nutrition(food_items, use_usda_fallback=ENABLE_USDA_API)
 
         if "error" in nutrition_result:
             return jsonify(nutrition_result), 400, headers
