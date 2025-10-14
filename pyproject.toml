@@ -1,0 +1,26 @@
+# Python project configuration for Virtual Dietitian
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.env
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "cloud-functions/nutrition-analyzer"]
+python_files = "test_*.py"
+python_functions = "test_*"
+addopts = "-v --cov=cloud-functions --cov-report=term-missing"

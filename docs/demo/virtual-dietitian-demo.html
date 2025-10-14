@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Dietitian - AI-Powered Nutrition Analysis</title>
+    <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+            min-height: 100vh;
+            color: #1D1C1C;
+        }
+
+        .header {
+            background: #1D1C1C;
+            padding: 20px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFDC00;
+            letter-spacing: -0.5px;
+        }
+
+        .powered-by {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1D1C1C;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            color: #FFDC00;
+            background: linear-gradient(135deg, #FFDC00 0%, #ffc400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-color: #FFDC00;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1D1C1C;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            background: linear-gradient(135deg, #FFDC00 0%, #ffc400 100%);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            margin: 50px 0;
+            box-shadow: 0 10px 40px rgba(255, 220, 0, 0.3);
+        }
+
+        .demo-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1D1C1C;
+            margin-bottom: 20px;
+        }
+
+        .demo-section p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chat-prompt {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .chat-prompt-text {
+            font-size: 16px;
+            color: #1D1C1C;
+            font-weight: 600;
+        }
+
+        .arrow {
+            font-size: 36px;
+            animation: bounce 2s infinite;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .examples {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .examples h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1D1C1C;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .example-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .example-item {
+            background: #fafafa;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 18px 24px;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .example-item:hover {
+            background: #fff9e6;
+            border-color: #FFDC00;
+            transform: translateX(5px);
+        }
+
+        .example-item::before {
+            content: "💬";
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        df-messenger {
+            z-index: 999;
+            position: fixed;
+            --df-messenger-font-color: #1D1C1C;
+            --df-messenger-font-family: Inter, sans-serif;
+            --df-messenger-chat-background: #ffffff;
+            --df-messenger-message-user-background: #FFDC00;
+            --df-messenger-message-bot-background: #f5f5f5;
+            --df-messenger-send-icon-color: #FFDC00;
+            --df-messenger-send-icon-color-hover: #ffc400;
+            bottom: 24px;
+            right: 24px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 14px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+
+            .demo-section {
+                padding: 35px 25px;
+            }
+
+            .demo-section h2 {
+                font-size: 28px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <div>
+                <div class="logo-text">Virtual Dietitian</div>
+                <div class="powered-by">AI-Powered Nutrition Technology</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Virtual Dietitian <span class="highlight">Demo</span></h1>
+            <p class="tagline">AI-powered technology to fuel your best health through nutrition. Get instant analysis and personalized recommendations for every meal.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Try It Now</h2>
+            <p>Click the chat bubble in the bottom right corner to start analyzing your meals with AI</p>
+            <div class="chat-prompt">
+                <span class="chat-prompt-text">👉 Start chatting to analyze your meal</span>
+            </div>
+            <div class="arrow">↘️</div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🥗</span>
+                <h3>Instant Analysis</h3>
+                <p>Describe your meal in plain English and get comprehensive nutritional breakdown in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💡</span>
+                <h3>Smart Insights</h3>
+                <p>Receive personalized recommendations based on your meal's nutritional profile and health goals.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3>Actionable Guidance</h3>
+                <p>Get practical suggestions to optimize your nutrition and maintain balanced eating habits.</p>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h3>Sample Meals to Try</h3>
+            <div class="example-list">
+                <div class="example-item">I had grilled chicken with quinoa and broccoli for lunch</div>
+                <div class="example-item">I ate oatmeal with blueberries and almond butter for breakfast</div>
+                <div class="example-item">I had a turkey sandwich with avocado and sweet potato fries</div>
+                <div class="example-item">I ate salmon with brown rice and asparagus for dinner</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Virtual Dietitian Demo</p>
+        <p style="margin-top: 10px; color: #ccc; font-size: 12px;">This is a demonstration of AI-powered nutrition analysis technology</p>
+    </div>
+
+    <df-messenger
+        project-id="virtualdietitian"
+        agent-id="70e21911-92e8-418f-9a11-aa98868ba1fe"
+        language-code="en"
+        max-query-length="-1">
+        <df-messenger-chat-bubble
+            chat-title="Virtual Dietitian">
+        </df-messenger-chat-bubble>
+    </df-messenger>
+</body>
+</html>

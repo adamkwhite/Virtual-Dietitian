@@ -6,9 +6,6 @@ Professional template for AI agent and ML projects with clean architecture, Dock
 
 ### Prerequisites
 - Python 3.11+
-- Docker & Docker Compose
-- WSL2 (Ubuntu)
-- VSCode
 
 ### Initial Setup
 
@@ -29,7 +26,7 @@ Professional template for AI agent and ML projects with clean architecture, Dock
    ```bash
    # Production dependencies
    pip install -r requirements.txt
-   
+
    # Development dependencies (testing, linting, formatting)
    pip install -r requirements-dev.txt
    ```
@@ -161,7 +158,7 @@ class CustomerQuery(BaseModel):
     question: str
     customer_id: str
     priority: str
-    
+
 # domain/prompts/templates.py
 MORTGAGE_ADVISOR_PROMPT = """You are a mortgage advisor.
 Customer context: {customer_history}
@@ -184,8 +181,8 @@ def build_mortgage_agent():
     graph = StateGraph()
     graph.add_node("calculate", lambda state: {
         "payment": calculate_mortgage(
-            state["principal"], 
-            state["rate"], 
+            state["principal"],
+            state["rate"],
             state["years"]
         )
     })
@@ -330,7 +327,7 @@ When starting a new project from this template:
 
 ## Git Configuration
 
-Default branch: `main`  
+Default branch: `main`
 GitHub user: `adamkwhite`
 
 ## License
