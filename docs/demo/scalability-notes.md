@@ -27,14 +27,14 @@
    - Static nutrition database (no contention)
 
 2. **Cost implications**
-   - Cloud Functions: ~$0.40 per million requests
+   - Cloud Functions: ~$0.40 per million requests[^1]
    - 100 users × 10 meals/day × 30 days = 30,000 requests/month
    - Estimated cost: **~$0.01/month for compute**
    - Vertex AI Agent: Free tier covers this load
 
 3. **Performance expectations**
-   - Cold start: ~1-2 seconds (first request after idle)
-   - Warm requests: <500ms (Cloud Function)
+   - Cold start: ~1-2 seconds (first request after idle)[^8]
+   - Warm requests: <500ms (Cloud Function, typical with optimization)[^8]
    - Total response time: <3 seconds (including LLM)
 
 ### Recommended Enhancements
@@ -77,9 +77,9 @@ def lookup_food(name: str):
 - Real-time database updates without redeployment
 
 **Cost:**
-- Cloud Firestore: $0.18 per million reads
+- Cloud Firestore: $0.60 per million reads ($0.06 per 100K)[^2]
 - 10K users × 10 meals/day × 3 foods/meal = 300K reads/day
-- Estimated: **~$2/month for database**
+- Estimated: **~$5.40/month for database** (300K × 30 days × $0.60/million)
 
 #### 2. User Persistence
 **Current:** Stateless conversations
@@ -109,8 +109,8 @@ users/
 
 **Cost:**
 - Storage: ~1KB per meal × 10 meals/day × 30 days = 300KB/user
-- 10K users = 3GB storage = **~$0.50/month**
-- Writes: 100K meals/day × $0.18/million = **~$0.02/month**
+- 10K users = 3GB storage = **~$0.54/month** ($0.18/GB/month)[^2]
+- Writes: 100K meals/day × $1.80/million = **~$5.40/month** ($0.18 per 100K writes)[^2]
 
 #### 3. Caching Layer
 **Current:** Fresh calculation every request
@@ -138,12 +138,12 @@ def get_cached_nutrition(food_items: list):
 ```
 
 **Benefits:**
-- 80% cache hit rate for common meals (breakfast, lunch patterns)
+- 80% cache hit rate for common meals (breakfast, lunch patterns - typical estimate)
 - Reduce Cloud Function execution time by 50%
 - Lower compute costs
 
 **Cost:**
-- Memorystore (Redis): $0.049/GB/hour
+- Memorystore (Redis): $0.024-0.046/GB/hour (Standard Tier, us-central1)[^3]
 - 1GB instance = **~$35/month** (shared across all users)
 - Savings: Reduces Cloud Function executions by 80%
 
@@ -168,7 +168,7 @@ gcloud compute url-maps create nutrition-lb --default-service=...
 - Compliance with data residency requirements
 
 **Cost:**
-- Load balancer: $0.025/hour = **~$18/month**
+- Load balancer: $0.025/hour per forwarding rule = **~$18/month**[^4]
 - Additional function deployments: No extra cost (pay per execution)
 
 ### Performance Expectations at 10K Users
@@ -176,12 +176,12 @@ gcloud compute url-maps create nutrition-lb --default-service=...
 **Metrics:**
 - **Throughput:** 10K requests/minute peak (lunch rush)
 - **Latency:** p50 <500ms, p99 <2s (warm functions)
-- **Availability:** 99.9% uptime (multi-region deployment)
-- **Cache hit rate:** 80% for common meals
+- **Availability:** 99.95% uptime (single-region deployment)[^9]
+- **Cache hit rate:** 80% for common meals (typical estimate)
 
 **Bottlenecks to Monitor:**
-1. **Firestore read quotas:** 10K reads/second limit (we need ~200/s peak)
-2. **Cloud Function concurrency:** Default 1000 concurrent, increase if needed
+1. **Firestore read quotas:** Follow 500/50/5 ramp-up rule to avoid hotspots[^10]
+2. **Cloud Function instances:** Default 100 max instances, increase if needed[^11]
 3. **LLM rate limits:** Vertex AI has generous quotas, monitor during peak
 
 ## Scaling to 1,000,000 Users
@@ -243,7 +243,7 @@ Database (Firestore/Cloud SQL)
 - **Redis (Memorystore):** Cache nutrition calculations (1 hour TTL)
 - **Application cache:** In-memory LRU for food lookups
 
-**Cache hit rates:**
+**Cache hit rates (typical estimates):**
 - CDN: 60% (common queries like "apple calories")
 - Redis: 30% (meal calculations)
 - Database: 10% (new or unique meals)
@@ -314,8 +314,9 @@ def get_personalized_insights(user_id: str, meal: dict) -> list:
 - Improve user engagement and retention
 
 **Cost:**
-- Vertex AI training: $1.25/hour × 10 hours/month = **$12.50/month**
-- Predictions: $0.01 per 1000 predictions = **$10/month** (1M users × 1 prediction/day)
+- Vertex AI training: $0.22-$21.25/hour depending on machine type[^5]
+- Estimated: **~$12.50/month** (assuming n1-standard-8 @ $0.38/hour × 30 hours)
+- Predictions: n1-standard-4 @ $0.19/hour = **~$137/month** for continuous availability[^5]
 
 #### 5. Observability & Monitoring
 **Current:** Basic Cloud Function logs
@@ -359,8 +360,8 @@ client.create_time_series(
 **Metrics:**
 - **Throughput:** 100K requests/minute peak
 - **Latency:** p50 <200ms, p99 <1s (multi-tier caching)
-- **Availability:** 99.99% uptime (multi-region + failover)
-- **Cache hit rate:** 90% combined (CDN + Redis + app)
+- **Availability:** 99.95%+ uptime (multi-region with manual failover provides higher effective availability)[^9]
+- **Cache hit rate:** 90% combined (CDN + Redis + app - typical estimate)
 
 **Infrastructure Scale:**
 - **Cloud Run instances:** ~500 (auto-scaling)
@@ -370,28 +371,29 @@ client.create_time_series(
 
 ### Cost Breakdown at 1M Users
 
-| Component | Monthly Cost | Notes |
-|-----------|--------------|-------|
-| Cloud Run (functions) | $200 | 100M requests, 90% cached |
-| Firestore (database) | $100 | 10 shards, 30GB storage |
-| Memorystore (Redis) | $120 | 3x 5GB instances (HA) |
-| Cloud CDN | $50 | 500GB egress |
-| Load Balancer | $18 | Global HTTP(S) LB |
-| Vertex AI (LLM) | $500 | 1M conversations/month |
-| Vertex AI (ML) | $25 | Training + predictions |
-| Monitoring & Logging | $50 | Logs + traces |
-| **Total** | **~$1,063/month** | **$0.001 per user/month** |
+| Component | Monthly Cost | Notes | Source |
+|-----------|--------------|-------|--------|
+| Cloud Run (functions) | $200 | 100M requests, 90% cached | [^1] |
+| Firestore (database) | $100 | 10 shards, 30GB storage | [^2] |
+| Memorystore (Redis) | $120 | 3x 5GB instances (HA) | [^3] |
+| Cloud CDN | $50 | 500GB egress @ $0.08/GiB | [^12] |
+| Load Balancer | $18 | Global HTTP(S) LB | [^4] |
+| Vertex AI (LLM) | $500 | 1M conversations/month (estimate) | - |
+| Vertex AI (ML) | $150 | Training + predictions | [^5] |
+| Monitoring & Logging | $50 | Logs + traces (estimate) | - |
+| **Total** | **~$1,188/month** | **$0.00119 per user/month** | |
 
 **Revenue requirement:** At $0.001/user/month cost, need >$0.10/user/month revenue for healthy margins (100x cost).
 
 ## Data Residency & Compliance
 
 ### GDPR (Europe)
-**Requirements:**
-- Store EU user data in EU regions
-- Provide data export (JSON format)
-- Support right to deletion (hard delete from Firestore)
+**Requirements:**[^6]
+- Store EU user data in EU regions (data residency)
+- Provide data export (JSON format) - Article 20 (Right to data portability)
+- Support right to deletion (hard delete from Firestore) - Article 17 (Right to erasure)
 - Log consent for data processing
+- Data protection must "travel with the data" when transferred outside EU
 
 **Implementation:**
 ```python
@@ -416,11 +418,12 @@ def delete_user_data(user_id: str):
 - Compliance tooling: $0 (use Cloud DLP for PII scanning if needed)
 
 ### HIPAA (US Healthcare)
-**Requirements:**
-- BAA (Business Associate Agreement) with Google Cloud
-- Encrypt data at rest and in transit
-- Audit all access to PHI (Protected Health Information)
-- Implement access controls (role-based)
+**Requirements:**[^7]
+- BAA (Business Associate Agreement) with Google Cloud (required for all PHI)
+- Encrypt data at rest (AES-256) and in transit (TLS 1.2+)
+- Audit all access to PHI (Protected Health Information) - Cloud Audit Logs enabled
+- Implement access controls (role-based) - IAM least privilege
+- Retain audit logs for minimum 6 years[^13]
 
 **Implementation:**
 - Use HIPAA-compliant GCP products (Firestore, Cloud Functions, Vertex AI)
@@ -729,3 +732,33 @@ The Virtual Dietitian MVP architecture is **production-ready** with minimal chan
 4. **Deploy multi-region** → Global availability
 
 The path from MVP to 1M users is **incremental** - no rewrites required, just enhancements to existing architecture.
+
+---
+
+## References
+
+[^1]: Cloud Functions Pricing. Google Cloud. https://cloud.google.com/functions/pricing - Retrieved October 2025. Cloud Run functions cost $0.40 per million invocations (after 2M free tier).
+
+[^2]: Firestore Pricing. Google Cloud. https://cloud.google.com/firestore/pricing - Retrieved October 2025. Pricing: $0.06 per 100,000 document reads ($0.60/million), $0.18 per 100,000 document writes ($1.80/million), $0.18/GB/month storage.
+
+[^3]: Memorystore for Redis Pricing. Google Cloud. https://cloud.google.com/memorystore/docs/redis/pricing - Retrieved October 2025. Standard Tier capacity pricing in us-central1: $0.024-0.046/GB/hour depending on instance size.
+
+[^4]: Cloud Load Balancing Pricing. Google Cloud. https://cloud.google.com/load-balancing/pricing - Retrieved October 2025. Global HTTP(S) Load Balancer forwarding rules: $0.025/hour.
+
+[^5]: Vertex AI Pricing. Google Cloud. https://cloud.google.com/vertex-ai/pricing - Retrieved October 2025. Training varies by machine type: n1-standard-4 @ $0.19/hour, n1-standard-8 @ $0.38/hour, up to $21.25/hour for high-memory GPU instances.
+
+[^6]: General Data Protection Regulation (GDPR). Articles 17 & 20. https://gdpr-info.eu/ - Article 17: Right to erasure ("right to be forgotten"). Article 20: Right to data portability. Data protection requirements must "travel with the data" when transferred outside EU.
+
+[^7]: HIPAA Compliance on Google Cloud. Google Cloud Security & Compliance. https://cloud.google.com/security/compliance/hipaa - Retrieved October 2025. Google Cloud offers HIPAA-compliant products with BAA availability, AES-256 encryption at rest, TLS 1.2+ in transit.
+
+[^8]: Cloud Functions Performance Best Practices. Google Cloud. https://cloud.google.com/run/docs/tips/functions-best-practices - Retrieved October 2025. Cold starts vary by runtime and dependencies; use minimum instances for latency-sensitive applications. Warm functions typically respond in <500ms with optimization.
+
+[^9]: Cloud Run Functions Service Level Agreement (SLA). Google Cloud. https://cloud.google.com/functions/sla - Retrieved October 2025. Monthly Uptime Percentage >= 99.95% for Cloud Run functions in most regions.
+
+[^10]: Firestore Best Practices - Understand Reads and Writes at Scale. Google Cloud. https://cloud.google.com/firestore/docs/best-practices - Retrieved October 2025. Follow "500/50/5 rule": Start at 500 operations/second, increase by 50% every 5 minutes to avoid hotspots.
+
+[^11]: Cloud Functions Quotas. Google Cloud. https://cloud.google.com/functions/quotas - Retrieved October 2025. Default maximum instances for 2nd gen HTTP functions: 100 (can be increased to 1,000). Default concurrency: 1 request per instance.
+
+[^12]: Cloud CDN Pricing. Google Cloud. https://cloud.google.com/cdn/pricing - Retrieved October 2025. Cache egress: $0.08/GiB for first 10 TiB/month, $0.055/GiB for 10-150 TiB, $0.03/GiB for 150-500 TiB.
+
+[^13]: HIPAA Audit Log Requirements. NIST Special Publication 800-66 Revision 2. https://www.nist.gov/privacy-framework/nist-sp-800-66 - HIPAA Security Rule (45 C.F.R. § 164.312(b)) requires audit controls. NIST SP 800-66 recommends minimum 6-year retention for "documentation of actions and activities."
