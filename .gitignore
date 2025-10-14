@@ -23,6 +23,7 @@ venv/
 env/
 ENV/
 .venv
+virtual-dietitian-venv/
 
 # Byte-compiled / optimized / DLL files
 # - Python creates .pyc files when importing modules

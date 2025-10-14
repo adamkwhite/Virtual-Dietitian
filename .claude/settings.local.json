@@ -13,7 +13,9 @@
       "Bash(gcloud alpha agent list:*)",
       "Bash(gsutil mb:*)",
       "WebSearch",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pip install:*)",
+      "Bash(pre-commit run:*)"
     ],
     "deny": [],
     "ask": []
