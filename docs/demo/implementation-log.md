@@ -275,18 +275,6 @@ All materials ready for:
 **Solution:** Removed data store from Start Page fulfillment section
 **Outcome:** Playbook now handles all user inputs
 
-#### 4. Request Format Mismatch
-**Problem:** Agent sends `{"meal_description": "..."}`, function expected `{"food_items": [...]}`
-**Solution:** Updated Cloud Function to accept both formats and parse natural language
-**Implementation:** Added `parse_meal_description()` function with word-matching logic
-**Trade-offs:** See below
-
-#### 5. Empty Insights in Response
-**Problem:** Tool returned `{"insights": [{}, {}, {}]}` - empty objects instead of insight details
-**Root Cause:** OpenAPI schema didn't fully specify nested object structures
-**Solution:** Updated OpenAPI schema with complete response structure including insight properties
-**Status:** Testing updated schema
-
 ### Technical Trade-offs
 
 #### OpenAPI Tool vs Webhooks Configuration
