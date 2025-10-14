@@ -18,7 +18,9 @@ class Config:
     ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
 
     # Nutrition database path
-    NUTRITION_DB_PATH = os.getenv("NUTRITION_DB_PATH", "../../data/nutrition_db.json")
+    # Default points to local copy (used in deployment)
+    # Master copy maintained at ../../data/nutrition_db.json for reference
+    NUTRITION_DB_PATH = os.getenv("NUTRITION_DB_PATH", "./nutrition_db.json")
 
     @classmethod
     def is_cloud(cls):

@@ -84,7 +84,7 @@ Built as a demonstration of rapid prototyping with serverless architecture and A
 
 4. **Test locally:**
    ```bash
-   python3 test_usda_local.py
+   python3 manual_test_usda_local.py
    ```
 
 ### Deployment
@@ -127,7 +127,8 @@ Virtual-Dietitian/
 │       ├── nutrition_calculator.py   # Nutrition aggregation logic
 │       ├── rule_engine.py            # Health insight rules
 │       ├── usda_client.py            # USDA API integration
-│       ├── nutrition_db.json         # Static food database (47 foods)
+│       ├── nutrition_db.json         # Nutrition database (deployed copy)
+│       ├── config.py                 # Configuration management
 │       ├── requirements.txt          # Python dependencies
 │       ├── test_*.py                 # Unit tests
 │       └── .env.example              # Environment variable template
@@ -136,6 +137,10 @@ Virtual-Dietitian/
 │   ├── agent-instructions.txt        # Agent prompt and behavior
 │   ├── webhook-config.json           # Webhook integration settings
 │   └── test-cases.md                 # Manual test scenarios
+│
+├── data/                             # Master reference data
+│   ├── nutrition_db.json             # 47-food database (master copy)
+│   └── README.md                     # Data directory documentation
 │
 ├── docs/
 │   ├── demo/
@@ -238,7 +243,18 @@ curl -X POST https://nutrition-analyzer-epp4v6loga-uc.a.run.app \
 
 **POST** `/analyze_nutrition`
 
-**Request Body:**
+The webhook accepts two request formats:
+
+#### Format 1: Natural Language (Agent Builder)
+```json
+{
+  "meal_description": "I had oatmeal with blueberries and almond butter"
+}
+```
+
+The function uses word-matching to extract known foods from the description. All foods default to quantity = 1.
+
+#### Format 2: Structured Data (Direct API)
 ```json
 {
   "food_items": [
@@ -248,7 +264,9 @@ curl -X POST https://nutrition-analyzer-epp4v6loga-uc.a.run.app \
 }
 ```
 
-**Response:**
+Explicit food items with optional quantities (default 1.0).
+
+**Response (Both Formats):**
 ```json
 {
   "total_nutrition": {

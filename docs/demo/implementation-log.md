@@ -239,7 +239,7 @@ All materials ready for:
 ## Technical Notes
 - Using WSL Ubuntu for all development
 - Native gcloud installation in Linux environment
-- Virtual environment: `venv/` (Python 3.12.3)
+- Virtual environment: `virtual-dietitian-venv/` (Python 3.12.3)
 - Pre-commit hooks: Black, isort, flake8
 - Environment config: `.env` files for local vs cloud
 
@@ -583,6 +583,6 @@ All materials ready for:
 ## Technical Notes
 - Using WSL Ubuntu for all development
 - Native gcloud installation in Linux environment
-- Virtual environment: `venv/` (Python 3.12.3)
+- Virtual environment: `virtual-dietitian-venv/` (Python 3.12.3)
 - Pre-commit hooks: Black, isort, flake8
 - Environment config: `.env` files for local vs cloud
