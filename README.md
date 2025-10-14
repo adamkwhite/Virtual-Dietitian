@@ -30,7 +30,7 @@ Built as a demonstration of rapid prototyping with serverless architecture and A
 - Python 3.12 serverless function
 - Parses meal descriptions and calculates nutrition
 - Implements tiered rule engine for health insights
-- 100% test coverage with pytest
+- Comprehensive test coverage with pytest
 
 **Vertex AI Agent Builder**
 - Natural language understanding (NLU)
@@ -129,7 +129,7 @@ Virtual-Dietitian/
 │       ├── usda_client.py            # USDA API integration
 │       ├── nutrition_db.json         # Static food database (47 foods)
 │       ├── requirements.txt          # Python dependencies
-│       ├── test_*.py                 # Unit tests (100% coverage)
+│       ├── test_*.py                 # Unit tests
 │       └── .env.example              # Environment variable template
 │
 ├── agent-config/                     # Vertex AI Agent Builder config
@@ -160,12 +160,14 @@ Virtual-Dietitian/
 - [x] Tiered rule engine (3 rule types)
 - [x] Cloud Function webhook deployment
 - [x] Vertex AI Agent Builder integration
-- [x] 100% test coverage
+- [x] 100% test coverage on core modules
 - [x] Demo page with Dialogflow Messenger widget
 
 ### Phase 2 (Current) - 🚧 In Progress
 - [x] USDA FoodData Central API integration (500,000+ foods)
 - [x] Feature flag for gradual rollout
+- [x] SonarCloud code quality integration
+- [ ] Test coverage for USDA client module
 - [ ] Enhanced error handling and logging
 - [ ] Performance optimization (caching)
 
@@ -196,11 +198,13 @@ pytest --cov=. --cov-report=html
 ```
 
 ### Test Coverage
-- **Overall:** 100% coverage
-- **Core modules:**
+- **Overall:** ~45% coverage (see SonarCloud badge above)
+- **Core modules (MVP):** 100% coverage
   - `nutrition_calculator.py` - 100%
   - `rule_engine.py` - 100%
   - `main.py` - 100%
+- **Phase 2 modules:** Pending test coverage
+  - `usda_client.py` - 0% (tracked in issue #7)
 
 ### Manual Testing
 ```bash
