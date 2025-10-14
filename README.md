@@ -4,6 +4,8 @@ AI-powered nutrition analysis agent built with Google Cloud Agent Builder. Analy
 
 **Live Demo:** https://storage.googleapis.com/virtual-dietitian-demo/index.html
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=adamkwhite_Virtual-Dietitian&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=adamkwhite_Virtual-Dietitian)
+
 ## Overview
 
 Virtual Dietitian is a conversational AI agent that:
