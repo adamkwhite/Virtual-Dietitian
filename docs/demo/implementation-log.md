@@ -424,6 +424,162 @@ All materials ready for:
 
 ---
 
+## Session 7: Code Quality & SonarCloud Integration ✅ COMPLETED
+**Duration:** ~1 hour
+**Status:** Complete
+**Date:** October 14, 2025
+
+### Achievements
+- ✅ **SonarCloud Integration** - Public code quality analysis platform configured
+- ✅ **GitHub Actions Workflow** - Two-stage CI/CD pipeline (quick-checks → sonarcloud)
+- ✅ **Code Formatting Fixed** - Resolved all linting issues discovered by automated checks
+- ✅ **Pre-commit Hooks Enforced** - Eliminated practice of bypassing hooks with env vars
+- ✅ **Documentation Accuracy** - Fixed README claims about test coverage and technology stack
+- ✅ **Quality Gate** - Successfully computing after establishing baseline with 2 analyses
+
+### Challenges Encountered
+
+#### 1. Code Formatting Violations
+**Problem:** PR #4 workflow failed - Black, isort, and flake8 found unformatted code
+**Root Cause:** Previous sessions had bypassed pre-commit hooks with `PRE_COMMIT_ALLOW_NO_CONFIG=1`
+**Solution:**
+- Created project-level venv and installed formatting tools
+- Ran `pre-commit run --all-files` to fix all violations
+- Committed without bypassing hooks
+**Lesson:** Never bypass pre-commit hooks - they catch issues before CI/CD
+
+#### 2. Pytest Collection Errors
+**Problem:** Pytest tried to collect `test_api_direct.py` and `test_usda_local.py` as test files
+**Root Cause:** Files starting with `test_` are collected by pytest, but these are manual scripts requiring API keys
+**Solution:** Renamed to `manual_test_api_direct.py` and `manual_test_usda_local.py`
+**Files Modified:**
+- `cloud-functions/nutrition-analyzer/test_usda_local.py` → `manual_test_usda_local.py`
+- `cloud-functions/nutrition-analyzer/test_api_direct.py` → `manual_test_api_direct.py`
+
+#### 3. Flake8 Import Order Warnings
+**Problem:** `E402 module level import not at top of file` in manual test scripts
+**Root Cause:** Scripts intentionally modify `sys.path` before importing local modules
+**Solution:** Added `# noqa: E402` comments to suppress warnings on intentional violations
+**Rationale:** Need to modify sys.path BEFORE importing to find modules in same directory
+
+#### 4. Quality Gate "Not Computed"
+**Problem:** SonarCloud badge showed "Quality Gate not computed" despite successful analysis
+**Root Cause:** "Previous version" new code period requires 2+ analyses to establish baseline
+**Analysis:** Only 1 analysis existed on main branch after PR #5 merge
+**Solution:** Made second commit (added code quality badges) to trigger second analysis
+**Outcome:** Quality gate computed successfully, showing "Passed" status
+
+### Technical Details
+
+#### Technology Stack Correction
+**Problem:** README incorrectly listed "Flask" as backend framework
+**Reality:** Using `functions-framework` (Google's Cloud Functions framework)
+**Clarification:**
+- We use `@functions_framework.http` decorator
+- Flask is a transitive dependency, not directly used
+- Only Flask import is `jsonify()` utility function
+- Functions Framework handles GCP Cloud Functions integration
+
+**Why Functions Framework?**
+1. **Cloud Functions Native** - Designed for GCP Cloud Functions Gen2
+2. **Handles GCP Integration** - HTTP request/response format for Cloud Functions
+3. **Simpler Deployment** - No WSGI, app routing, or server setup needed
+4. **Official Google Tool** - Maintained by Google for Cloud Functions development
+5. **Local Testing** - Provides CLI for local development
+
+**Alternative (Flask):**
+- Would require deployment to Cloud Run or App Engine instead
+- More boilerplate (Flask app initialization, routes, blueprints)
+- More configuration for serverless deployment
+
+**For simple webhook:** Functions Framework is the perfect fit
+
+#### SonarCloud Configuration
+**Files Created:**
+- `sonar-project.properties` - Project configuration (keys, sources, exclusions)
+- `.github/workflows/build.yml` - Two-stage CI/CD pipeline
+
+**Workflow Stages:**
+1. **Quick Validation** (quick-checks job)
+   - Black formatting check
+   - isort import sorting check
+   - flake8 linting check
+
+2. **Analysis** (sonarcloud job)
+   - Runs pytest with coverage
+   - Generates coverage.xml report
+   - Uploads to SonarCloud for analysis
+
+**Quality Metrics:**
+- **Overall Coverage:** 44.8%
+- **Bugs:** 0
+- **Vulnerabilities:** 0
+- **Code Smells:** 5
+- **Duplicated Lines:** 0.0%
+
+#### Test Coverage Reality Check
+**README Claims (Before):** "100% test coverage"
+**Actual Coverage:** 44.8% overall
+
+**Breakdown:**
+- **Core MVP modules:** 100% coverage
+  - `nutrition_calculator.py` - 100%
+  - `rule_engine.py` - 100%
+  - `main.py` - 100%
+- **Phase 2 modules:** 0% coverage
+  - `usda_client.py` - 0% (228 lines untested)
+
+**Documentation Updates:**
+- Clarified "100% on core modules" vs overall coverage
+- Added SonarCloud badge showing real-time coverage metric
+- Created issue #7 to track USDA client test coverage work
+- Updated Phase 2 features to show SonarCloud integration complete
+
+### Files Created/Modified
+- `sonar-project.properties` - SonarCloud configuration
+- `.github/workflows/build.yml` - CI/CD pipeline with linting and SonarCloud
+- `cloud-functions/nutrition-analyzer/manual_test_usda_local.py` - Renamed from test_usda_local.py
+- `cloud-functions/nutrition-analyzer/manual_test_api_direct.py` - Renamed from test_api_direct.py
+- `cloud-functions/nutrition-analyzer/usda_client.py` - Formatting fixes (black, isort)
+- `cloud-functions/nutrition-analyzer/nutrition_calculator.py` - Formatting fixes
+- `.gitignore` - Added virtual-dietitian-venv/
+- `README.md` - Added Code Quality section with 4 badges, fixed coverage claims, corrected tech stack
+
+### GitHub Issues Created
+- **Issue #6:** Migrate from deprecated sonarcloud-github-action to sonarqube-scan-action
+- **Issue #7:** Add test coverage for USDA client module
+
+### Pull Requests
+- **PR #4:** Initial SonarCloud integration (closed - had formatting issues)
+- **PR #5:** Fix code formatting and linting issues (merged)
+
+### SonarCloud Badges Added
+1. **Quality Gate Status** - Shows pass/fail status
+2. **Coverage** - Shows overall test coverage percentage
+3. **Bugs** - Shows number of reliability issues
+4. **Vulnerabilities** - Shows number of security issues
+
+### Outcome
+**Code quality infrastructure complete:**
+- ✅ Automated linting and formatting checks in CI/CD
+- ✅ SonarCloud analyzing every push and PR
+- ✅ Real-time code quality metrics visible in README
+- ✅ Quality gate passing (all conditions met)
+- ✅ Documentation accurately reflects current state
+- ✅ Pre-commit hooks properly enforced
+
+**Technical Debt Identified:**
+- USDA client module needs test coverage (tracked in issue #7)
+- SonarCloud GitHub Action is deprecated (tracked in issue #6)
+- Could improve coverage from 44.8% to ~90%+ with USDA tests
+
+### Next Steps
+- [ ] Add test coverage for USDA client module (issue #7)
+- [ ] Migrate to non-deprecated SonarCloud action (issue #6)
+- [ ] Continue Phase 2 enhancements (error handling, caching)
+
+---
+
 ## Technical Notes
 - Using WSL Ubuntu for all development
 - Native gcloud installation in Linux environment
