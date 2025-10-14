@@ -4,6 +4,9 @@
 # Cloud Functions framework
 functions-framework==3.*
 
+# HTTP requests (for USDA API)
+requests==2.*
+
 # Environment variables
 python-dotenv==1.*
 

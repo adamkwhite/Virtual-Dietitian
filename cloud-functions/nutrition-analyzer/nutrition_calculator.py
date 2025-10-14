@@ -1,6 +1,7 @@
 """
 Nutrition calculation and aggregation logic.
 Loads food database and calculates total nutritional values.
+Supports fallback to USDA API when foods not in static database.
 """
 
 import json
@@ -47,17 +48,20 @@ def load_nutrition_db():
 NUTRITION_DB = load_nutrition_db()
 
 
-def find_food(food_name: str) -> Dict[str, Any]:
+def find_food(food_name: str, use_usda_fallback: bool = False) -> Dict[str, Any]:
     """
     Find food in database by name or alias.
+    Optionally falls back to USDA API if not found in static database.
 
     How it works:
     - Converts input to lowercase: "CHICKEN" -> "chicken"
     - Looks up in our dictionary: O(1) operation
+    - If not found and use_usda_fallback=True, queries USDA API
     - Returns food data if found, None if not
 
     Args:
         food_name: Name of food (case-insensitive)
+        use_usda_fallback: If True, query USDA API when not in static DB
 
     Returns:
         Food data dict with nutrition info, or None if not found
@@ -66,11 +70,48 @@ def find_food(food_name: str) -> Dict[str, Any]:
         find_food("chicken") -> {id, name, nutrition: {calories: 165, ...}}
         find_food("grilled chicken") -> same result (alias match)
         find_food("pizza") -> None (not in our 47-food database)
+        find_food("pizza", use_usda_fallback=True) -> USDA API result
     """
-    return NUTRITION_DB.get(food_name.lower())
+    # First, try static database
+    static_result = NUTRITION_DB.get(food_name.lower())
+
+    if static_result:
+        return static_result
+
+    # Fallback to USDA API if enabled
+    if use_usda_fallback:
+        try:
+            from usda_client import get_usda_client
+
+            usda_client = get_usda_client()
+            nutrition_data = usda_client.get_nutrition_per_100g(food_name)
+
+            if nutrition_data:
+                # Convert USDA format to our internal format
+                return {
+                    "id": f"usda_{food_name.lower().replace(' ', '_')}",
+                    "name": food_name.title(),
+                    "category": nutrition_data["category"],
+                    "nutrition": {
+                        "calories": nutrition_data["calories"],
+                        "protein_g": nutrition_data["protein_g"],
+                        "carbs_g": nutrition_data["carbs_g"],
+                        "fat_g": nutrition_data["fat_g"],
+                        "fiber_g": nutrition_data["fiber_g"],
+                        "sodium_mg": nutrition_data["sodium_mg"],
+                        "vitamin_c_mg": nutrition_data["vitamin_c_mg"],
+                        "iron_mg": nutrition_data["iron_mg"],
+                        "calcium_mg": nutrition_data["calcium_mg"],
+                    },
+                    "source": "usda"
+                }
+        except Exception as e:
+            print(f"USDA API fallback failed for '{food_name}': {e}")
+
+    return None
 
 
-def calculate_nutrition(food_items: List[Dict[str, Any]]) -> Dict[str, Any]:
+def calculate_nutrition(food_items: List[Dict[str, Any]], use_usda_fallback: bool = False) -> Dict[str, Any]:
     """
     Calculate total nutrition from list of food items.
 
@@ -115,8 +156,8 @@ def calculate_nutrition(food_items: List[Dict[str, Any]]) -> Dict[str, Any]:
         food_name = item.get("name", "")
         quantity = float(item.get("quantity", 1.0))  # Default to 1 serving
 
-        # Look up food in database
-        food_data = find_food(food_name)
+        # Look up food in database (with optional USDA fallback)
+        food_data = find_food(food_name, use_usda_fallback=use_usda_fallback)
 
         if not food_data:
             # Food not found - track it and skip
