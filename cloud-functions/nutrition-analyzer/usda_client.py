@@ -4,8 +4,9 @@ Provides food lookup and nutrition data retrieval from USDA database.
 """
 
 import os
-import requests
 from typing import Dict, List, Optional
+
+import requests
 
 
 class USDAClient:
@@ -131,15 +132,15 @@ class USDAClient:
 
         # Map USDA nutrient IDs to our schema
         nutrient_map = {
-            1008: "calories",       # Energy (kcal)
-            1003: "protein_g",      # Protein
-            1005: "carbs_g",        # Carbohydrate, by difference
-            1004: "fat_g",          # Total lipid (fat)
-            1079: "fiber_g",        # Fiber, total dietary
-            1093: "sodium_mg",      # Sodium
-            1162: "vitamin_c_mg",   # Vitamin C
-            1087: "calcium_mg",     # Calcium
-            1089: "iron_mg",        # Iron
+            1008: "calories",  # Energy (kcal)
+            1003: "protein_g",  # Protein
+            1005: "carbs_g",  # Carbohydrate, by difference
+            1004: "fat_g",  # Total lipid (fat)
+            1079: "fiber_g",  # Fiber, total dietary
+            1093: "sodium_mg",  # Sodium
+            1162: "vitamin_c_mg",  # Vitamin C
+            1087: "calcium_mg",  # Calcium
+            1089: "iron_mg",  # Iron
         }
 
         nutrition_data = {}

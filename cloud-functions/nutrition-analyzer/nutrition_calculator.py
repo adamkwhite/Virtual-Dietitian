@@ -103,7 +103,7 @@ def find_food(food_name: str, use_usda_fallback: bool = False) -> Dict[str, Any]
                         "iron_mg": nutrition_data["iron_mg"],
                         "calcium_mg": nutrition_data["calcium_mg"],
                     },
-                    "source": "usda"
+                    "source": "usda",
                 }
         except Exception as e:
             print(f"USDA API fallback failed for '{food_name}': {e}")
@@ -111,7 +111,9 @@ def find_food(food_name: str, use_usda_fallback: bool = False) -> Dict[str, Any]
     return None
 
 
-def calculate_nutrition(food_items: List[Dict[str, Any]], use_usda_fallback: bool = False) -> Dict[str, Any]:
+def calculate_nutrition(
+    food_items: List[Dict[str, Any]], use_usda_fallback: bool = False
+) -> Dict[str, Any]:
     """
     Calculate total nutrition from list of food items.
 

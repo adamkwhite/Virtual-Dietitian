@@ -6,6 +6,7 @@ Tests both static database and USDA API fallback.
 
 import os
 import sys
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -14,27 +15,29 @@ load_dotenv()
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(__file__))
 
-from nutrition_calculator import calculate_nutrition
+from nutrition_calculator import calculate_nutrition  # noqa: E402
+
 
 def test_static_db_food():
     """Test with food in static database (should be fast)."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TEST 1: Static Database Food (Chicken)")
-    print("="*60)
+    print("=" * 60)
 
     food_items = [{"name": "chicken", "quantity": 1}]
     result = calculate_nutrition(food_items, use_usda_fallback=False)
 
     print(f"✓ Calories: {result['total_nutrition']['calories']}")
     print(f"✓ Protein: {result['total_nutrition']['protein_g']}g")
-    print(f"✓ Source: Static DB (fast)")
+    print("✓ Source: Static DB (fast)")
     return result
+
 
 def test_usda_api_food():
     """Test with food NOT in static database (requires USDA API)."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TEST 2: USDA API Food (Sushi)")
-    print("="*60)
+    print("=" * 60)
 
     # Check if USDA API is enabled
     enable_usda = os.environ.get("ENABLE_USDA_API", "false").lower() == "true"
@@ -67,14 +70,15 @@ def test_usda_api_food():
 
     print(f"✓ Calories: {result['total_nutrition']['calories']}")
     print(f"✓ Protein: {result['total_nutrition']['protein_g']}g")
-    print(f"✓ Source: USDA API (slower but 500,000+ foods)")
+    print("✓ Source: USDA API (slower but 500,000+ foods)")
     return result
+
 
 def test_mixed_foods():
     """Test with both static DB and USDA API foods."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TEST 3: Mixed Foods (Chicken + Sushi)")
-    print("="*60)
+    print("=" * 60)
 
     enable_usda = os.environ.get("ENABLE_USDA_API", "false").lower() == "true"
 
@@ -84,7 +88,7 @@ def test_mixed_foods():
 
     food_items = [
         {"name": "chicken", "quantity": 1},  # Static DB
-        {"name": "sushi", "quantity": 1}     # USDA API
+        {"name": "sushi", "quantity": 1},  # USDA API
     ]
 
     print("\nProcessing mixed sources...")
@@ -92,14 +96,15 @@ def test_mixed_foods():
 
     print(f"✓ Total Calories: {result['total_nutrition']['calories']}")
     print(f"✓ Total Protein: {result['total_nutrition']['protein_g']}g")
-    print(f"✓ Fallback: Chicken (static) + Sushi (USDA)")
+    print("✓ Fallback: Chicken (static) + Sushi (USDA)")
     return result
+
 
 def main():
     """Run all tests."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("USDA API Integration - Local Testing")
-    print("="*60)
+    print("=" * 60)
 
     # Check environment setup
     print("\n📋 Environment Check:")
@@ -107,7 +112,9 @@ def main():
     api_key = os.environ.get("USDA_API_KEY", "")
 
     print(f"  ENABLE_USDA_API: {enable_usda}")
-    print(f"  USDA_API_KEY: {'✓ Set' if api_key and api_key != 'YOUR_API_KEY_HERE' else '✗ Not set'}")
+    print(
+        f"  USDA_API_KEY: {'✓ Set' if api_key and api_key != 'YOUR_API_KEY_HERE' else '✗ Not set'}"
+    )
 
     if not api_key or api_key == "YOUR_API_KEY_HERE":
         print("\n⚠️  Setup Required:")
@@ -121,14 +128,15 @@ def main():
     test_usda_api_food()
     test_mixed_foods()
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("✓ Testing Complete!")
-    print("="*60)
+    print("=" * 60)
     print("\nNext steps:")
     print("  1. If tests pass, deploy with: ./scripts/deploy_function_with_usda.sh YOUR_API_KEY")
     print("  2. Test deployed function with curl commands")
     print("  3. Try via the Virtual Dietitian chat interface")
     print()
+
 
 if __name__ == "__main__":
     main()
