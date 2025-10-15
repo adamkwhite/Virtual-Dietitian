@@ -25,9 +25,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE (Sessions 1-7 done)
-**Current Branch:** main
-**Last Updated:** October 14, 2025
+**Implementation Status:** Phase 2 COMPLETE (Sessions 1-8 done)
+**Current Branch:** feature/multi-language-support
+**Last Updated:** October 15, 2025
 
 ### Completed Sessions
 - ✅ Session 1: GCP Setup & Environment Configuration
@@ -37,6 +37,7 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 5: End-to-End Testing & Demo Preparation
 - ✅ Session 6: Agent Builder Integration & Live Deployment
 - ✅ Session 7: Code Quality & SonarCloud Integration
+- ✅ Session 8: Multi-Language Support & Agent Configuration Fixes
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
@@ -48,14 +49,13 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ SonarCloud integration with CI/CD pipeline
 - ✅ Demo page deployed to GCS
 
-### Recent Changes (Session 7 - October 14, 2025)
-- Added SonarCloud integration for code quality analysis
-- Set up GitHub Actions two-stage CI/CD pipeline
-- Fixed all code formatting violations (black, isort, flake8)
-- Added comprehensive code quality badges to README
-- Fixed documentation discrepancies (test coverage, tech stack, API docs)
-- Created PROJECT_STATUS.md for accurate project tracking
-- Identified technical debt: USDA client needs test coverage (Issue #7)
+### Recent Changes (Session 8 - October 15, 2025)
+- **Multi-Language Support:** Added French/Spanish food name translation (32 translations)
+- **Agent Configuration Fix:** Removed all examples from Agent Builder (were causing silent responses)
+- **Simplified Instructions:** Created minimal agent instructions that work reliably
+- **CNF API Planning:** Created comprehensive PRD and tasks for Canadian Nutrient File integration (72 sub-tasks, deferred)
+- **Demo Page Updates:** Attempted clickable examples (browser caching issues), deployed clean version
+- **Cache Management:** Learned GCS cache-busting techniques (setmeta headers, URL versioning)
 
 ## Technology Stack
 - **Backend:** Python 3.12, Google Cloud Functions Framework (not Flask - see notes below)
@@ -85,12 +85,13 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
   - `data/nutrition_db.json` (master copy)
   - `cloud-functions/nutrition-analyzer/nutrition_db.json` (deployed copy)
 - **Webhook:** `cloud-functions/nutrition-analyzer/`
-  - `main.py` - Entry point (202 lines)
+  - `main.py` - Entry point (238 lines, includes multi-language support)
   - `nutrition_calculator.py` - Aggregation (237 lines)
   - `rule_engine.py` - Rules engine (349 lines)
   - `test_*.py` - Unit tests
 - **Agent Config:** `agent-config/`
-  - `agent-instructions.txt`
+  - `agent-instructions-simple.txt` - Working minimal instructions
+  - `agent-instructions.txt` - Original detailed version
   - `webhook-config.json`
   - `test-cases.md`
   - `SETUP_GUIDE_UPDATED.md`
@@ -136,6 +137,14 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 **SonarCloud:** https://sonarcloud.io/summary/new_code?id=adamkwhite_Virtual-Dietitian
 
 ## Lessons Learned
+**Session 8 Key Learnings:**
+1. **Agent Builder Examples Are Training Data:** Examples in Agent Builder teach behavior patterns - 11 examples showing "meal → tool call → response" inadvertently taught agent "tool call = end conversation"
+2. **Less Is More for Instructions:** Minimal agent instructions (3 lines) work better than complex detailed versions
+3. **GCS Browser Caching Is Aggressive:** Regular refreshes don't clear cache; requires hard refresh (`Ctrl+F5`), incognito mode, or `Cache-Control` headers
+4. **Cache-Control Headers:** Use `gsutil setmeta -h "Cache-Control:no-cache"` for development, versioned URLs (`?v=N`) for production
+5. **Multi-Language NLU Pattern:** Agent Builder handles language detection automatically; webhook only needs translation dictionary for database lookups
+6. **Feature Planning Value:** Creating comprehensive PRDs upfront (72 tasks for CNF API) enables quick "go/no-go" decisions
+
 **Session 7 Key Learnings:**
 1. **Workflow Discipline:** Always use feature branches, even for documentation changes
 2. **Quality Gates:** SonarCloud "Previous version" needs 2+ analyses to establish baseline
