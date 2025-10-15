@@ -3,7 +3,7 @@ Tiered rule engine for nutrition insights.
 Implements 3 types of deterministic business rules.
 """
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 class Rule:
@@ -24,7 +24,7 @@ class Rule:
 
     def evaluate(
         self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Dict[str, str]:
+    ) -> Optional[Dict[str, str]]:
         """
         Evaluate rule against nutrition data.
 
@@ -71,7 +71,7 @@ class CategoryRule(Rule):
 
     def evaluate(
         self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Dict[str, str]:
+    ) -> Optional[Dict[str, str]]:
         """Check if target category is in the meal."""
         if self.category in food_categories:
             return {"type": self.insight_type, "message": self.message}
@@ -121,7 +121,7 @@ class ThresholdRule(Rule):
 
     def evaluate(
         self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Dict[str, str]:
+    ) -> Optional[Dict[str, str]]:
         """Check if nutrient meets threshold condition."""
         nutrient_value = total_nutrition.get(self.nutrient, 0)
 
@@ -184,7 +184,7 @@ class MacroRatioRule(Rule):
 
     def evaluate(
         self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Dict[str, str]:
+    ) -> Optional[Dict[str, str]]:
         """Check if macro percentage is outside healthy range."""
         macro_key = f"{self.macro}_pct"
         macro_value = macro_percentages.get(macro_key, 0)
@@ -235,7 +235,7 @@ RULES = [
         threshold=5,
         operator="<",
         message=(
-            "This meal is low in fiber. Consider adding vegetables, " "fruits, or whole grains."
+            "This meal is low in fiber. Consider adding vegetables, fruits, " + "or whole grains."
         ),
         insight_type="recommendation",
     ),
@@ -262,7 +262,8 @@ RULES = [
             "to reach 20-35% of calories."
         ),
         above_message=(
-            "This meal is high in fat. Consider choosing leaner proteins or " "reducing added fats."
+            "This meal is high in fat. Consider choosing leaner proteins "
+            + "or reducing added fats."
         ),
     ),
 ]

@@ -1,0 +1,1734 @@
+[
+  {
+    "insertId": "68efc65f0007d7ef26ac80df",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1215",
+      "status": 200,
+      "responseSize": "780",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "74.125.210.169",
+      "serverIp": "34.143.77.2",
+      "latency": "1.178619231s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "service_name": "nutrition-analyzer",
+        "location": "us-central1",
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:05:50.120645Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/93f3637715e30a0280d295b538972fbb",
+    "receiveTimestamp": "2025-10-15T16:05:51.520465034Z",
+    "spanId": "89792541ec82cbb7",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.",
+    "insertId": "68efc65e000282cf4c94163b",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "service_name": "nutrition-analyzer"
+      }
+    },
+    "timestamp": "2025-10-15T16:05:50.164559Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "scaling_reason": "AUTOSCALING",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-10-15T16:05:50.171036735Z"
+  },
+  {
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"worker\" on port 8080.",
+    "insertId": "68efc65f0006af419accadfc",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "nutrition-analyzer",
+        "location": "us-central1",
+        "project_id": "virtualdietitian",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "service_name": "nutrition-analyzer"
+      }
+    },
+    "timestamp": "2025-10-15T16:05:51.438081Z",
+    "severity": "INFO",
+    "labels": {
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-22-full/runtimes/python312:python312_20251005_3_12_11_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-10-15T16:05:51.501142533Z"
+  },
+  {
+    "insertId": "68efc735000e30543561f6d4",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1283",
+      "status": 400,
+      "responseSize": "220",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "192.178.11.97",
+      "serverIp": "34.143.75.2",
+      "latency": "0.008575376s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "project_id": "virtualdietitian",
+        "configuration_name": "nutrition-analyzer",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-10-15T16:09:25.911351Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/cffa274b9c6e819f6c3f6a4ed9502d39",
+    "receiveTimestamp": "2025-10-15T16:09:25.936110501Z",
+    "spanId": "8daa3abf49dfcaf4",
+    "traceSampled": true
+  },
+  {
+    "insertId": "68efc7d400098b98f068260d",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1284",
+      "status": 400,
+      "responseSize": "220",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "74.125.210.200",
+      "serverIp": "34.143.75.2",
+      "latency": "0.003724709s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "nutrition-analyzer",
+        "configuration_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "project_id": "virtualdietitian",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-10-15T16:12:04.613419Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/6cba17d7e075449610055775ed586761",
+    "receiveTimestamp": "2025-10-15T16:12:04.634699116Z",
+    "spanId": "49b22447e186885e",
+    "traceSampled": true
+  },
+  {
+    "insertId": "68efc81a00056508d6fdb99c",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1212",
+      "status": 200,
+      "responseSize": "914",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "66.102.8.38",
+      "serverIp": "34.143.74.2",
+      "latency": "0.003757692s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "location": "us-central1",
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:13:14.340014Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98801e390d3e8bcdb38abdd46b849af85fa8b16fcfe88707ac1c8beae7c3e27e30d4dac23b259fee5acd3e34c090041a20cf53f56655ff6e55bb3f57a28a68e454c0f978ef7802eb5f8ec71"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/bb35d4524f68eb536910509d727b0945",
+    "receiveTimestamp": "2025-10-15T16:13:14.359935595Z",
+    "spanId": "d08332914d0dab6f",
+    "traceSampled": true
+  },
+  {
+    "insertId": "68efcd41000f1b5dd31cc291",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1231",
+      "status": 400,
+      "responseSize": "220",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "66.102.8.192",
+      "serverIp": "34.143.78.2",
+      "latency": "0.872599765s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "nutrition-analyzer",
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-10-15T16:35:12.913874Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/e490f4a0fb9967ce70f59b9abf006ee9",
+    "receiveTimestamp": "2025-10-15T16:35:13.993795241Z",
+    "spanId": "cab3169dc27cf1c1",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.",
+    "insertId": "68efcd40000ed6ac9653935c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "virtualdietitian",
+        "service_name": "nutrition-analyzer",
+        "configuration_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc"
+      }
+    },
+    "timestamp": "2025-10-15T16:35:12.972460Z",
+    "severity": "INFO",
+    "labels": {
+      "scaling_reason": "AUTOSCALING",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-10-15T16:35:12.976832487Z"
+  },
+  {
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"worker\" on port 8080.",
+    "insertId": "68efcd41000df1b0bedbcba8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian",
+        "service_name": "nutrition-analyzer",
+        "location": "us-central1",
+        "revision_name": "nutrition-analyzer-00004-hoc"
+      }
+    },
+    "timestamp": "2025-10-15T16:35:13.913840Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-22-full/runtimes/python312:python312_20251005_3_12_11_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-10-15T16:35:13.976647355Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "adamkwhite@gmail.com",
+        "principalSubject": "user:adamkwhite@gmail.com"
+      },
+      "requestMetadata": {
+        "callerIp": "99.229.225.11",
+        "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0,gzip(gfe),gzip(gfe)",
+        "requestAttributes": {
+          "time": "2025-10-15T16:37:43.995245689Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "dialogflow.googleapis.com",
+      "methodName": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+      "authorizationInfo": [
+        {
+          "resource": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "permission": "dialogflow.agents.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "dialogflow.googleapis.com",
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+            "type": "dialogflow.googleapis.com/Agent"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "request": {
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.UpdateAgentRequest",
+        "agent": {
+          "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "enableLogging": true,
+          "enableStackdriverLogging": false,
+          "displayName": "Virtual Dietitian"
+        }
+      },
+      "response": {
+        "displayName": "Virtual Dietitian",
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.Agent",
+        "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+        "enableLogging": true
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "global"
+        ]
+      }
+    },
+    "insertId": "1pmh9vbdd48o",
+    "resource": {
+      "type": "audited_resource",
+      "labels": {
+        "project_id": "virtualdietitian",
+        "method": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+        "service": "dialogflow.googleapis.com"
+      }
+    },
+    "timestamp": "2025-10-15T16:37:43.988506299Z",
+    "severity": "NOTICE",
+    "logName": "projects/virtualdietitian/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2025-10-15T16:37:44.552500508Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "adamkwhite@gmail.com",
+        "principalSubject": "user:adamkwhite@gmail.com"
+      },
+      "requestMetadata": {
+        "callerIp": "99.229.225.11",
+        "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0,gzip(gfe),gzip(gfe)",
+        "requestAttributes": {
+          "time": "2025-10-15T16:37:44.214301193Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "dialogflow.googleapis.com",
+      "methodName": "google.cloud.dialogflow.v3alpha1.Agents.UpdateGenerativeSettings",
+      "authorizationInfo": [
+        {
+          "resource": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/generativeSettings",
+          "permission": "dialogflow.agents.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "dialogflow.googleapis.com",
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/generativeSettings",
+            "type": "dialogflow.googleapis.com/AgentGenerativeSettings"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/generativeSettings",
+      "response": {
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.GenerativeSettings",
+        "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/generativeSettings"
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "global"
+        ]
+      }
+    },
+    "insertId": "1n3xg6idbyta",
+    "resource": {
+      "type": "audited_resource",
+      "labels": {
+        "service": "dialogflow.googleapis.com",
+        "project_id": "virtualdietitian",
+        "method": "google.cloud.dialogflow.v3alpha1.Agents.UpdateGenerativeSettings"
+      }
+    },
+    "timestamp": "2025-10-15T16:37:44.209690987Z",
+    "severity": "NOTICE",
+    "logName": "projects/virtualdietitian/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2025-10-15T16:37:44.970672674Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "adamkwhite@gmail.com",
+        "principalSubject": "user:adamkwhite@gmail.com"
+      },
+      "requestMetadata": {
+        "callerIp": "99.229.225.11",
+        "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0,gzip(gfe),gzip(gfe)",
+        "requestAttributes": {
+          "time": "2025-10-15T16:39:46.516346975Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "dialogflow.googleapis.com",
+      "methodName": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+      "authorizationInfo": [
+        {
+          "resource": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "permission": "dialogflow.agents.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "dialogflow.googleapis.com",
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+            "type": "dialogflow.googleapis.com/Agent"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "request": {
+        "agent": {
+          "enableStackdriverLogging": true,
+          "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "enableLogging": true,
+          "displayName": "Virtual Dietitian"
+        },
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.UpdateAgentRequest"
+      },
+      "response": {
+        "displayName": "Virtual Dietitian",
+        "enableLogging": true,
+        "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+        "enableStackdriverLogging": true,
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.Agent"
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "global"
+        ]
+      }
+    },
+    "insertId": "1j9tteydd1m8",
+    "resource": {
+      "type": "audited_resource",
+      "labels": {
+        "project_id": "virtualdietitian",
+        "method": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+        "service": "dialogflow.googleapis.com"
+      }
+    },
+    "timestamp": "2025-10-15T16:39:46.509127065Z",
+    "severity": "NOTICE",
+    "logName": "projects/virtualdietitian/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2025-10-15T16:39:46.700206907Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "adamkwhite@gmail.com",
+        "principalSubject": "user:adamkwhite@gmail.com"
+      },
+      "requestMetadata": {
+        "callerIp": "99.229.225.11",
+        "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0,gzip(gfe),gzip(gfe)",
+        "requestAttributes": {
+          "time": "2025-10-15T16:39:52.591029702Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "dialogflow.googleapis.com",
+      "methodName": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+      "authorizationInfo": [
+        {
+          "resource": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "permission": "dialogflow.agents.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "dialogflow.googleapis.com",
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+            "type": "dialogflow.googleapis.com/Agent"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "request": {
+        "agent": {
+          "enableStackdriverLogging": true,
+          "displayName": "Virtual Dietitian",
+          "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+          "enableLogging": true
+        },
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.UpdateAgentRequest"
+      },
+      "response": {
+        "enableLogging": true,
+        "displayName": "Virtual Dietitian",
+        "enableStackdriverLogging": true,
+        "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe",
+        "@type": "type.googleapis.com/google.cloud.dialogflow.v3alpha1.Agent"
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "global"
+        ]
+      }
+    },
+    "insertId": "13mlsdcoz8",
+    "resource": {
+      "type": "audited_resource",
+      "labels": {
+        "method": "google.cloud.dialogflow.v3alpha1.Agents.UpdateAgent",
+        "service": "dialogflow.googleapis.com",
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:39:52.585272962Z",
+    "severity": "NOTICE",
+    "logName": "projects/virtualdietitian/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2025-10-15T16:39:53.636723782Z"
+  },
+  {
+    "insertId": "-2h9sx9e13wnn",
+    "jsonPayload": {
+      "queryParams": {
+        "enableResourceProjectOverride": true,
+        "parameters": {},
+        "channel": "DF_MESSENGER"
+      },
+      "queryInput": {
+        "text": {
+          "text": "today I have eating 20 small apples"
+        },
+        "languageCode": "en"
+      },
+      "session": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/sessions/dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:40:53.900267Z",
+    "severity": "INFO",
+    "labels": {
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202",
+      "location_id": "global",
+      "environment_id": "",
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:40:58.392020616Z"
+  },
+  {
+    "insertId": "68efce96000c5bc9f90a0457",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1213",
+      "status": 200,
+      "responseSize": "914",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "66.102.8.75",
+      "serverIp": "34.143.77.2",
+      "latency": "0.061639132s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "nutrition-analyzer",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:40:54.739579Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/f037612d7d39b648667ac1d3d5578de2",
+    "receiveTimestamp": "2025-10-15T16:40:54.815677615Z",
+    "spanId": "aab63756d8a765f2",
+    "traceSampled": true
+  },
+  {
+    "insertId": "-2h9sx9e13wno",
+    "jsonPayload": {
+      "responseId": "e8dbf16f-7a6e-4306-9a79-71de129ef760",
+      "queryResult": {
+        "text": "today I have eating 20 small apples",
+        "advancedSettings": {
+          "speechSettings": {
+            "endpointerSensitivity": 90,
+            "noSpeechTimeout": "5s"
+          },
+          "audioExportGcsDestination": {},
+          "loggingSettings": {
+            "enableInteractionLogging": true,
+            "enableStackdriverLogging": true
+          },
+          "speechAdaptationSettings": {}
+        },
+        "intentDetectionConfidence": 1,
+        "match": {
+          "confidence": 1,
+          "matchType": "PLAYBOOK"
+        },
+        "responseMessages": [
+          {
+            "source": "VIRTUAL_AGENT",
+            "text": {
+              "text": [
+                "Wow, 20 small apples! That's a lot of apples. Let's get that analyzed for you.\n"
+              ]
+            }
+          },
+          {
+            "source": "VIRTUAL_AGENT",
+            "text": {
+              "text": [
+                "It looks like there might have been a slight hiccup with processing the quantity for the apples. The analysis returned the nutritional information for a *single* small apple, which is approximately 95 calories, 25g of carbs, 0.3g of fat, and 0.5g of protein. It's an excellent source of Vitamin C and antioxidants!\n\nHowever, it also still suggests that \"this meal is low in fiber. Consider adding vegetables, fruits, or whole grains,\" which doesn't seem right if you had 20 apples. It also recommends adding more protein and healthy fats.\n\nIt seems the tool might be struggling to scale up the nutritional information for very large quantities or might be providing insights based on a single serving rather than the total.\n\nGiven this, the nutritional information for 20 small apples would be roughly 20 times the values listed for one:\n*   **Calories:** ~1900\n*   **Carbs:** ~500g\n*   **Fat:** ~6g\n*   **Protein:** ~10g\n*   **Fiber:** ~88g\n*   **Vitamin C:** ~168mg\n\nWhile 20 apples would provide a lot of fiber and Vitamin C, they would still be very low in protein and healthy fats.\n\nWould you like me to try analyzing a different meal, or perhaps a smaller number of apples if you'd like to see if the tool processes that differently?"
+              ]
+            }
+          }
+        ],
+        "generativeInfo": {
+          "actionTracingInfo": {
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "today I have eating 20 small apples"
+                }
+              },
+              {
+                "agentUtterance": {
+                  "text": "Wow, 20 small apples! That's a lot of apples. Let's get that analyzed for you.\n"
+                }
+              },
+              {
+                "toolUse": {
+                  "action": "analyzeNutrition",
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "20 small apples"
+                    }
+                  },
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "outputActionParameters": {
+                    "200": {
+                      "follow_up": "Would you like ideas for adding more protein to your meals?",
+                      "total_nutrition": {
+                        "iron_mg": "0.2",
+                        "carbs_g": "25",
+                        "calories": "95",
+                        "protein_g": "0.5",
+                        "fat_g": "0.3",
+                        "sodium_mg": "2",
+                        "fiber_g": "4.4",
+                        "vitamin_c_mg": "8.4",
+                        "calcium_mg": "11"
+                      },
+                      "macro_percentages": {
+                        "fat_pct": "3",
+                        "carbs_pct": "96",
+                        "protein_pct": "2"
+                      },
+                      "insights": [
+                        {
+                          "type": "benefit",
+                          "message": "Excellent source of Vitamin C and antioxidants"
+                        },
+                        {
+                          "message": "This meal is low in fiber. Consider adding vegetables, fruits, or whole grains.",
+                          "type": "recommendation"
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories."
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories."
+                        }
+                      ]
+                    }
+                  },
+                  "displayName": "analyzeNutrition"
+                },
+                "completeTime": "2025-10-15T16:40:57.445165Z",
+                "startTime": "2025-10-15T16:40:57.445165Z"
+              },
+              {
+                "agentUtterance": {
+                  "text": "It looks like there might have been a slight hiccup with processing the quantity for the apples. The analysis returned the nutritional information for a *single* small apple, which is approximately 95 calories, 25g of carbs, 0.3g of fat, and 0.5g of protein. It's an excellent source of Vitamin C and antioxidants!\n\nHowever, it also still suggests that \"this meal is low in fiber. Consider adding vegetables, fruits, or whole grains,\" which doesn't seem right if you had 20 apples. It also recommends adding more protein and healthy fats.\n\nIt seems the tool might be struggling to scale up the nutritional information for very large quantities or might be providing insights based on a single serving rather than the total.\n\nGiven this, the nutritional information for 20 small apples would be roughly 20 times the values listed for one:\n*   **Calories:** ~1900\n*   **Carbs:** ~500g\n*   **Fat:** ~6g\n*   **Protein:** ~10g\n*   **Fiber:** ~88g\n*   **Vitamin C:** ~168mg\n\nWhile 20 apples would provide a lot of fiber and Vitamin C, they would still be very low in protein and healthy fats.\n\nWould you like me to try analyzing a different meal, or perhaps a smaller number of apples if you'd like to see if the tool processes that differently?"
+                }
+              }
+            ],
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/-/examples/-"
+          },
+          "currentPlaybooks": [
+            "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+          ]
+        },
+        "allowAnswerFeedback": true,
+        "diagnosticInfo": {
+          "Response Id": "e8dbf16f-7a6e-4306-9a79-71de129ef760",
+          "Session Id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+        },
+        "languageCode": "en",
+        "traceBlocks": [
+          {
+            "startTime": "2025-10-15T16:40:53.900885Z",
+            "completeTime": "2025-10-15T16:40:57.446354Z",
+            "actions": [
+              {
+                "completeTime": "2025-10-15T16:40:53.906153Z",
+                "displayName": "USER_UTTERANCE",
+                "userUtterance": {
+                  "text": "today I have eating 20 small apples"
+                },
+                "startTime": "2025-10-15T16:40:53.906152Z"
+              },
+              {
+                "llmCall": {
+                  "model": "gemini-2.5-flash",
+                  "tokenCount": {
+                    "totalInputTokenCount": "5125",
+                    "totalOutputTokenCount": "35",
+                    "conversationContextTokenCount": "5471"
+                  },
+                  "temperature": 0.9
+                },
+                "startTime": "2025-10-15T16:40:53.906170Z",
+                "completeTime": "2025-10-15T16:40:54.636984Z",
+                "displayName": "LLM_CALL"
+              },
+              {
+                "startTime": "2025-10-15T16:40:54.637037Z",
+                "agentUtterance": {
+                  "text": "Wow, 20 small apples! That's a lot of apples. Let's get that analyzed for you.\n"
+                },
+                "completeTime": "2025-10-15T16:40:54.637104Z",
+                "displayName": "AGENT_UTTERANCE"
+              },
+              {
+                "toolUse": {
+                  "action": "analyzeNutrition",
+                  "displayName": "nutrition-analyzer",
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "outputActionParameters": {
+                    "200": {
+                      "macro_percentages": {
+                        "fat_pct": "3",
+                        "protein_pct": "2",
+                        "carbs_pct": "96"
+                      },
+                      "follow_up": "Would you like ideas for adding more protein to your meals?",
+                      "total_nutrition": {
+                        "vitamin_c_mg": "8.4",
+                        "calcium_mg": "11",
+                        "protein_g": "0.5",
+                        "sodium_mg": "2",
+                        "fat_g": "0.3",
+                        "carbs_g": "25",
+                        "fiber_g": "4.4",
+                        "iron_mg": "0.2",
+                        "calories": "95"
+                      },
+                      "insights": [
+                        {
+                          "message": "Excellent source of Vitamin C and antioxidants",
+                          "type": "benefit"
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "This meal is low in fiber. Consider adding vegetables, fruits, or whole grains."
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories."
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories."
+                        }
+                      ]
+                    }
+                  },
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "20 small apples"
+                    }
+                  }
+                },
+                "completeTime": "2025-10-15T16:40:54.831611Z",
+                "displayName": "Tool use nutrition-analyzer analyzeNutrition",
+                "startTime": "2025-10-15T16:40:54.637141Z"
+              },
+              {
+                "displayName": "LLM_CALL",
+                "llmCall": {
+                  "tokenCount": {
+                    "totalInputTokenCount": "5322",
+                    "conversationContextTokenCount": "5791",
+                    "totalOutputTokenCount": "311"
+                  },
+                  "model": "gemini-2.5-flash",
+                  "temperature": 0.9
+                },
+                "startTime": "2025-10-15T16:40:54.831646Z",
+                "completeTime": "2025-10-15T16:40:57.444825Z"
+              },
+              {
+                "startTime": "2025-10-15T16:40:57.444873Z",
+                "agentUtterance": {
+                  "text": "It looks like there might have been a slight hiccup with processing the quantity for the apples. The analysis returned the nutritional information for a *single* small apple, which is approximately 95 calories, 25g of carbs, 0.3g of fat, and 0.5g of protein. It's an excellent source of Vitamin C and antioxidants!\n\nHowever, it also still suggests that \"this meal is low in fiber. Consider adding vegetables, fruits, or whole grains,\" which doesn't seem right if you had 20 apples. It also recommends adding more protein and healthy fats.\n\nIt seems the tool might be struggling to scale up the nutritional information for very large quantities or might be providing insights based on a single serving rather than the total.\n\nGiven this, the nutritional information for 20 small apples would be roughly 20 times the values listed for one:\n*   **Calories:** ~1900\n*   **Carbs:** ~500g\n*   **Fat:** ~6g\n*   **Protein:** ~10g\n*   **Fiber:** ~88g\n*   **Vitamin C:** ~168mg\n\nWhile 20 apples would provide a lot of fiber and Vitamin C, they would still be very low in protein and healthy fats.\n\nWould you like me to try analyzing a different meal, or perhaps a smaller number of apples if you'd like to see if the tool processes that differently?"
+                },
+                "displayName": "AGENT_UTTERANCE",
+                "completeTime": "2025-10-15T16:40:57.444900Z"
+              }
+            ],
+            "endState": "OUTPUT_STATE_PENDING",
+            "playbookTraceMetadata": {
+              "displayName": "Virtual Dietitian Main",
+              "playbook": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+            }
+          }
+        ]
+      },
+      "responseType": "FINAL",
+      "ulmCalls": 2
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:40:57.446543Z",
+    "severity": "INFO",
+    "labels": {
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "location_id": "global",
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202",
+      "environment_id": ""
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:40:58.392020616Z"
+  },
+  {
+    "insertId": "-2h9sx9e13y81",
+    "jsonPayload": {
+      "queryInput": {
+        "text": {
+          "text": "remove 5 apples and add a cup of oats"
+        },
+        "languageCode": "en"
+      },
+      "queryParams": {
+        "enableResourceProjectOverride": true,
+        "channel": "DF_MESSENGER",
+        "parameters": {}
+      },
+      "session": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/sessions/dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:41:47.816899Z",
+    "severity": "INFO",
+    "labels": {
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "location_id": "global",
+      "environment_id": "",
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:41:52.389402199Z"
+  },
+  {
+    "insertId": "68efcecc0009ed550dda0894",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1231",
+      "status": 200,
+      "responseSize": "871",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "66.102.8.229",
+      "serverIp": "34.143.79.2",
+      "latency": "0.002678120s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "nutrition-analyzer",
+        "service_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian",
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-10-15T16:41:48.639116Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/947dc9c5ee5bcd38e4ab9020af91f695",
+    "receiveTimestamp": "2025-10-15T16:41:48.656665107Z",
+    "spanId": "276809954bcd1604",
+    "traceSampled": true
+  },
+  {
+    "insertId": "-2h9sx9e13y82",
+    "jsonPayload": {
+      "responseId": "2a4e53b6-c2a9-4237-aa3a-3632bf4f991b",
+      "responseType": "FINAL",
+      "ulmCalls": 2,
+      "queryResult": {
+        "diagnosticInfo": {
+          "Response Id": "2a4e53b6-c2a9-4237-aa3a-3632bf4f991b",
+          "Session Id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+        },
+        "languageCode": "en",
+        "traceBlocks": [
+          {
+            "playbookTraceMetadata": {
+              "playbook": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784",
+              "displayName": "Virtual Dietitian Main"
+            },
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "remove 5 apples and add a cup of oats"
+                },
+                "displayName": "USER_UTTERANCE",
+                "completeTime": "2025-10-15T16:41:47.822963Z",
+                "startTime": "2025-10-15T16:41:47.822963Z"
+              },
+              {
+                "displayName": "LLM_CALL",
+                "llmCall": {
+                  "tokenCount": {
+                    "totalOutputTokenCount": "39",
+                    "totalInputTokenCount": "5643",
+                    "conversationContextTokenCount": "6126"
+                  },
+                  "model": "gemini-2.5-flash",
+                  "temperature": 0.9
+                },
+                "startTime": "2025-10-15T16:41:47.822977Z",
+                "completeTime": "2025-10-15T16:41:48.510083Z"
+              },
+              {
+                "completeTime": "2025-10-15T16:41:48.510237Z",
+                "agentUtterance": {
+                  "text": "Okay, so that's 15 small apples and a cup of oats. Let's analyze that!\n"
+                },
+                "displayName": "AGENT_UTTERANCE",
+                "startTime": "2025-10-15T16:41:48.510137Z"
+              },
+              {
+                "startTime": "2025-10-15T16:41:48.510284Z",
+                "completeTime": "2025-10-15T16:41:48.676171Z",
+                "displayName": "Tool use nutrition-analyzer analyzeNutrition",
+                "toolUse": {
+                  "action": "analyzeNutrition",
+                  "outputActionParameters": {
+                    "200": {
+                      "macro_percentages": {
+                        "carbs_pct": "80",
+                        "protein_pct": "8",
+                        "fat_pct": "11"
+                      },
+                      "insights": [
+                        {
+                          "type": "benefit",
+                          "message": "Excellent source of Vitamin C and antioxidants"
+                        },
+                        {
+                          "message": "Good source of fiber for digestive health",
+                          "type": "benefit"
+                        },
+                        {
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories.",
+                          "type": "recommendation"
+                        },
+                        {
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.",
+                          "type": "recommendation"
+                        }
+                      ],
+                      "total_nutrition": {
+                        "calcium_mg": "31",
+                        "protein_g": "5.5",
+                        "fiber_g": "8.4",
+                        "vitamin_c_mg": "8.4",
+                        "iron_mg": "1.9",
+                        "fat_g": "3.3",
+                        "carbs_g": "52",
+                        "calories": "245",
+                        "sodium_mg": "2"
+                      },
+                      "follow_up": "Would you like ideas for adding more protein to your meals?"
+                    }
+                  },
+                  "displayName": "nutrition-analyzer",
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "15 small apples and 1 cup of oats"
+                    }
+                  }
+                }
+              },
+              {
+                "startTime": "2025-10-15T16:41:48.676208Z",
+                "displayName": "LLM_CALL",
+                "llmCall": {
+                  "tokenCount": {
+                    "totalOutputTokenCount": "511",
+                    "totalInputTokenCount": "5834",
+                    "conversationContextTokenCount": "6442"
+                  },
+                  "model": "gemini-2.5-flash",
+                  "temperature": 0.9
+                },
+                "completeTime": "2025-10-15T16:41:51.541306Z"
+              },
+              {
+                "agentUtterance": {
+                  "text": "It looks like the analysis was performed for a single small apple and a cup of oats, rather than 15 apples. My apologies for this continued scaling issue with the tool!\n\nBased on the output for *one* small apple and one cup of oats:\nThis meal has approximately 245 calories, with 52g of carbs, 3.3g of fat, and 5.5g of protein. It's an excellent source of Vitamin C and antioxidants (from the apple), and a good source of fiber for digestive health (from the oats)!\n\nHowever, the tool still suggests considering adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories, and healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.\n\nIf we were to manually scale this for **15 small apples and 1 cup of oats**, the approximate totals would be:\n\n*   **Calories:** (15 * 95 from apple) + 245 (from 1 apple + oats) - 95 (to remove the duplicate apple) = 15 * 95 + (245-95) = 1425 + 150 = **~1575 calories**\n*   **Carbs:** (15 * 25g from apple) + 52g - 25g = 375 + 27 = **~402g**\n*   **Fat:** (15 * 0.3g from apple) + 3.3g - 0.3g = 4.5 + 3 = **~7.5g**\n*   **Protein:** (15 * 0.5g from apple) + 5.5g - 0.5g = 7.5 + 5 = **~12.5g**\n*   **Fiber:** (15 * 4.4g from apple) + 8.4g - 4.4g = 66 + 4 = **~70g**\n*   **Vitamin C:** (15 * 8.4mg from apple) + 8.4mg - 8.4mg = 126 + 0 = **~126mg**\n\nEven"
+                },
+                "completeTime": "2025-10-15T16:41:51.541412Z",
+                "startTime": "2025-10-15T16:41:51.541356Z",
+                "displayName": "AGENT_UTTERANCE"
+              }
+            ],
+            "endState": "OUTPUT_STATE_PENDING",
+            "completeTime": "2025-10-15T16:41:51.543330Z",
+            "startTime": "2025-10-15T16:41:47.817602Z"
+          }
+        ],
+        "text": "remove 5 apples and add a cup of oats",
+        "intentDetectionConfidence": 1,
+        "generativeInfo": {
+          "currentPlaybooks": [
+            "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+          ],
+          "actionTracingInfo": {
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/-/examples/-",
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "remove 5 apples and add a cup of oats"
+                }
+              },
+              {
+                "agentUtterance": {
+                  "text": "Okay, so that's 15 small apples and a cup of oats. Let's analyze that!\n"
+                }
+              },
+              {
+                "completeTime": "2025-10-15T16:41:51.541734Z",
+                "startTime": "2025-10-15T16:41:51.541734Z",
+                "toolUse": {
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "15 small apples and 1 cup of oats"
+                    }
+                  },
+                  "outputActionParameters": {
+                    "200": {
+                      "follow_up": "Would you like ideas for adding more protein to your meals?",
+                      "insights": [
+                        {
+                          "type": "benefit",
+                          "message": "Excellent source of Vitamin C and antioxidants"
+                        },
+                        {
+                          "type": "benefit",
+                          "message": "Good source of fiber for digestive health"
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories."
+                        },
+                        {
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.",
+                          "type": "recommendation"
+                        }
+                      ],
+                      "macro_percentages": {
+                        "carbs_pct": "80",
+                        "fat_pct": "11",
+                        "protein_pct": "8"
+                      },
+                      "total_nutrition": {
+                        "sodium_mg": "2",
+                        "iron_mg": "1.9",
+                        "fiber_g": "8.4",
+                        "calcium_mg": "31",
+                        "vitamin_c_mg": "8.4",
+                        "protein_g": "5.5",
+                        "fat_g": "3.3",
+                        "carbs_g": "52",
+                        "calories": "245"
+                      }
+                    }
+                  },
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "displayName": "analyzeNutrition",
+                  "action": "analyzeNutrition"
+                }
+              },
+              {
+                "agentUtterance": {
+                  "text": "It looks like the analysis was performed for a single small apple and a cup of oats, rather than 15 apples. My apologies for this continued scaling issue with the tool!\n\nBased on the output for *one* small apple and one cup of oats:\nThis meal has approximately 245 calories, with 52g of carbs, 3.3g of fat, and 5.5g of protein. It's an excellent source of Vitamin C and antioxidants (from the apple), and a good source of fiber for digestive health (from the oats)!\n\nHowever, the tool still suggests considering adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories, and healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.\n\nIf we were to manually scale this for **15 small apples and 1 cup of oats**, the approximate totals would be:\n\n*   **Calories:** (15 * 95 from apple) + 245 (from 1 apple + oats) - 95 (to remove the duplicate apple) = 15 * 95 + (245-95) = 1425 + 150 = **~1575 calories**\n*   **Carbs:** (15 * 25g from apple) + 52g - 25g = 375 + 27 = **~402g**\n*   **Fat:** (15 * 0.3g from apple) + 3.3g - 0.3g = 4.5 + 3 = **~7.5g**\n*   **Protein:** (15 * 0.5g from apple) + 5.5g - 0.5g = 7.5 + 5 = **~12.5g**\n*   **Fiber:** (15 * 4.4g from apple) + 8.4g - 4.4g = 66 + 4 = **~70g**\n*   **Vitamin C:** (15 * 8.4mg from apple) + 8.4mg - 8.4mg = 126 + 0 = **~126mg**\n\nEven"
+                }
+              }
+            ]
+          }
+        },
+        "allowAnswerFeedback": true,
+        "responseMessages": [
+          {
+            "source": "VIRTUAL_AGENT",
+            "text": {
+              "text": [
+                "Okay, so that's 15 small apples and a cup of oats. Let's analyze that!\n"
+              ]
+            }
+          },
+          {
+            "source": "VIRTUAL_AGENT",
+            "text": {
+              "text": [
+                "It looks like the analysis was performed for a single small apple and a cup of oats, rather than 15 apples. My apologies for this continued scaling issue with the tool!\n\nBased on the output for *one* small apple and one cup of oats:\nThis meal has approximately 245 calories, with 52g of carbs, 3.3g of fat, and 5.5g of protein. It's an excellent source of Vitamin C and antioxidants (from the apple), and a good source of fiber for digestive health (from the oats)!\n\nHowever, the tool still suggests considering adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories, and healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.\n\nIf we were to manually scale this for **15 small apples and 1 cup of oats**, the approximate totals would be:\n\n*   **Calories:** (15 * 95 from apple) + 245 (from 1 apple + oats) - 95 (to remove the duplicate apple) = 15 * 95 + (245-95) = 1425 + 150 = **~1575 calories**\n*   **Carbs:** (15 * 25g from apple) + 52g - 25g = 375 + 27 = **~402g**\n*   **Fat:** (15 * 0.3g from apple) + 3.3g - 0.3g = 4.5 + 3 = **~7.5g**\n*   **Protein:** (15 * 0.5g from apple) + 5.5g - 0.5g = 7.5 + 5 = **~12.5g**\n*   **Fiber:** (15 * 4.4g from apple) + 8.4g - 4.4g = 66 + 4 = **~70g**\n*   **Vitamin C:** (15 * 8.4mg from apple) + 8.4mg - 8.4mg = 126 + 0 = **~126mg**\n\nEven"
+              ]
+            }
+          }
+        ],
+        "advancedSettings": {
+          "loggingSettings": {
+            "enableInteractionLogging": true,
+            "enableStackdriverLogging": true
+          },
+          "speechAdaptationSettings": {},
+          "audioExportGcsDestination": {},
+          "speechSettings": {
+            "endpointerSensitivity": 90,
+            "noSpeechTimeout": "5s"
+          }
+        },
+        "match": {
+          "confidence": 1,
+          "matchType": "PLAYBOOK"
+        }
+      }
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:41:51.543502Z",
+    "severity": "INFO",
+    "labels": {
+      "environment_id": "",
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202",
+      "location_id": "global",
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:41:52.389402199Z"
+  },
+  {
+    "insertId": "p1drwye15mjo",
+    "jsonPayload": {
+      "session": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/sessions/dfMessenger-066adf3d-4b38-4171-88f0-0de5f5a828d2",
+      "queryInput": {
+        "text": {
+          "text": "I had oatmeal with blueberries for breakfast"
+        },
+        "languageCode": "en"
+      },
+      "queryParams": {
+        "enableResourceProjectOverride": true,
+        "channel": "DF_MESSENGER",
+        "parameters": {}
+      }
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:42:18.366538Z",
+    "severity": "INFO",
+    "labels": {
+      "session_id": "dfMessenger-066adf3d-4b38-4171-88f0-0de5f5a828d2",
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "environment_id": "",
+      "location_id": "global"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:42:20.953067215Z"
+  },
+  {
+    "insertId": "68efceea000e1098d6d0bc36",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://nutrition-analyzer-epp4v6loga-uc.a.run.app/",
+      "requestSize": "1222",
+      "status": 200,
+      "responseSize": "873",
+      "userAgent": "Google-Dialogflow",
+      "remoteIp": "66.102.8.99",
+      "serverIp": "34.143.74.2",
+      "latency": "0.002536100s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "nutrition-analyzer-00004-hoc",
+        "location": "us-central1",
+        "service_name": "nutrition-analyzer",
+        "configuration_name": "nutrition-analyzer",
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:42:18.917624Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "nutrition-analyzer",
+      "instanceId": "0069c7a98819af385673449b7efe4d46692d3d4d62caa4dbc4a9a9eab23c973c78fbf4501d3316b4a8b724bb9e1154225ff574d7cd5d3f8706f31a31931b2db9907c68c03c62dc237d3f2ee02561a3"
+    },
+    "logName": "projects/virtualdietitian/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/virtualdietitian/traces/d504fa701bf605cea470337921c167bb",
+    "receiveTimestamp": "2025-10-15T16:42:18.928166797Z",
+    "spanId": "729161b2ebee2c15",
+    "traceSampled": true
+  },
+  {
+    "insertId": "p1drwye15mjp",
+    "jsonPayload": {
+      "responseType": "FINAL",
+      "queryResult": {
+        "text": "I had oatmeal with blueberries for breakfast",
+        "intentDetectionConfidence": 1,
+        "generativeInfo": {
+          "actionTracingInfo": {
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "I had oatmeal with blueberries for breakfast"
+                }
+              },
+              {
+                "completeTime": "2025-10-15T16:42:20.440173Z",
+                "toolUse": {
+                  "displayName": "analyzeNutrition",
+                  "action": "analyzeNutrition",
+                  "outputActionParameters": {
+                    "200": {
+                      "macro_percentages": {
+                        "carbs_pct": "78",
+                        "protein_pct": "10",
+                        "fat_pct": "13"
+                      },
+                      "follow_up": "Would you like ideas for adding more protein to your meals?",
+                      "insights": [
+                        {
+                          "message": "Excellent source of Vitamin C and antioxidants",
+                          "type": "benefit"
+                        },
+                        {
+                          "type": "benefit",
+                          "message": "Good source of fiber for digestive health"
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories."
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories."
+                        }
+                      ],
+                      "total_nutrition": {
+                        "calcium_mg": "29",
+                        "carbs_g": "48.5",
+                        "vitamin_c_mg": "14.4",
+                        "fat_g": "3.5",
+                        "fiber_g": "7.6",
+                        "calories": "234",
+                        "sodium_mg": "1",
+                        "iron_mg": "2.1",
+                        "protein_g": "6.1"
+                      }
+                    }
+                  },
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "oatmeal with blueberries"
+                    }
+                  }
+                },
+                "startTime": "2025-10-15T16:42:20.440173Z"
+              },
+              {
+                "agentUtterance": {
+                  "text": "That sounds like a healthy start to your day! From what I can see, your oatmeal with blueberries was an excellent source of Vitamin C and antioxidants, and a good source of fiber for digestive health.\n\nHere's a quick nutritional breakdown:\n*   **Calories:** 234\n*   **Carbohydrates:** 48.5g (78% of your macros)\n*   **Protein:** 6.1g (10% of your macros)\n*   **Fat:** 3.5g (13% of your macros)\n\nTo make your meal even more balanced, you might consider adding more protein and healthy fats. For protein, options like chicken, fish, eggs, tofu, or beans work well. For healthy fats, avocado, nuts, or olive oil are great choices.\n\nWould you like ideas for adding more protein to your meals?"
+                }
+              }
+            ],
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/-/examples/-"
+          },
+          "currentPlaybooks": [
+            "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+          ]
+        },
+        "match": {
+          "confidence": 1,
+          "matchType": "PLAYBOOK"
+        },
+        "diagnosticInfo": {
+          "Response Id": "6a22f723-9ad4-49d6-959f-c84c19a1c4b6",
+          "Session Id": "dfMessenger-066adf3d-4b38-4171-88f0-0de5f5a828d2"
+        },
+        "languageCode": "en",
+        "allowAnswerFeedback": true,
+        "responseMessages": [
+          {
+            "text": {
+              "text": [
+                "That sounds like a healthy start to your day! From what I can see, your oatmeal with blueberries was an excellent source of Vitamin C and antioxidants, and a good source of fiber for digestive health.\n\nHere's a quick nutritional breakdown:\n*   **Calories:** 234\n*   **Carbohydrates:** 48.5g (78% of your macros)\n*   **Protein:** 6.1g (10% of your macros)\n*   **Fat:** 3.5g (13% of your macros)\n\nTo make your meal even more balanced, you might consider adding more protein and healthy fats. For protein, options like chicken, fish, eggs, tofu, or beans work well. For healthy fats, avocado, nuts, or olive oil are great choices.\n\nWould you like ideas for adding more protein to your meals?"
+              ]
+            },
+            "source": "VIRTUAL_AGENT"
+          }
+        ],
+        "advancedSettings": {
+          "speechSettings": {
+            "noSpeechTimeout": "5s",
+            "endpointerSensitivity": 90
+          },
+          "loggingSettings": {
+            "enableStackdriverLogging": true,
+            "enableInteractionLogging": true
+          },
+          "audioExportGcsDestination": {},
+          "speechAdaptationSettings": {}
+        },
+        "traceBlocks": [
+          {
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "I had oatmeal with blueberries for breakfast"
+                },
+                "completeTime": "2025-10-15T16:42:18.370380Z",
+                "startTime": "2025-10-15T16:42:18.370379Z",
+                "displayName": "USER_UTTERANCE"
+              },
+              {
+                "startTime": "2025-10-15T16:42:18.370392Z",
+                "displayName": "LLM_CALL",
+                "llmCall": {
+                  "retrievedExamples": [
+                    {
+                      "exampleDisplayName": "display_name_not_set",
+                      "exampleId": "id_not_set"
+                    },
+                    {
+                      "exampleId": "id_not_set",
+                      "exampleDisplayName": "display_name_not_set"
+                    },
+                    {
+                      "exampleId": "id_not_set",
+                      "exampleDisplayName": "display_name_not_set"
+                    }
+                  ],
+                  "model": "gemini-2.5-flash",
+                  "tokenCount": {
+                    "conversationContextTokenCount": "9",
+                    "totalOutputTokenCount": "9",
+                    "totalInputTokenCount": "393"
+                  },
+                  "temperature": 0.9
+                },
+                "completeTime": "2025-10-15T16:42:18.857383Z"
+              },
+              {
+                "startTime": "2025-10-15T16:42:18.857423Z",
+                "displayName": "Tool use nutrition-analyzer analyzeNutrition",
+                "completeTime": "2025-10-15T16:42:18.941599Z",
+                "toolUse": {
+                  "outputActionParameters": {
+                    "200": {
+                      "insights": [
+                        {
+                          "type": "benefit",
+                          "message": "Excellent source of Vitamin C and antioxidants"
+                        },
+                        {
+                          "type": "benefit",
+                          "message": "Good source of fiber for digestive health"
+                        },
+                        {
+                          "type": "recommendation",
+                          "message": "Consider adding more protein (chicken, fish, eggs, tofu, beans) to reach 15-35% of calories."
+                        },
+                        {
+                          "message": "Consider adding healthy fats (avocado, nuts, olive oil) to reach 20-35% of calories.",
+                          "type": "recommendation"
+                        }
+                      ],
+                      "follow_up": "Would you like ideas for adding more protein to your meals?",
+                      "macro_percentages": {
+                        "fat_pct": "13",
+                        "carbs_pct": "78",
+                        "protein_pct": "10"
+                      },
+                      "total_nutrition": {
+                        "vitamin_c_mg": "14.4",
+                        "calories": "234",
+                        "fiber_g": "7.6",
+                        "fat_g": "3.5",
+                        "sodium_mg": "1",
+                        "calcium_mg": "29",
+                        "protein_g": "6.1",
+                        "iron_mg": "2.1",
+                        "carbs_g": "48.5"
+                      }
+                    }
+                  },
+                  "tool": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/tools/c9a15932-cd8b-488c-af20-378685161ae0",
+                  "action": "analyzeNutrition",
+                  "inputActionParameters": {
+                    "requestBody": {
+                      "meal_description": "oatmeal with blueberries"
+                    }
+                  },
+                  "displayName": "nutrition-analyzer"
+                }
+              },
+              {
+                "llmCall": {
+                  "temperature": 0.9,
+                  "tokenCount": {
+                    "conversationContextTokenCount": "287",
+                    "totalInputTokenCount": "554",
+                    "totalOutputTokenCount": "183"
+                  },
+                  "retrievedExamples": [
+                    {
+                      "exampleId": "id_not_set",
+                      "exampleDisplayName": "display_name_not_set"
+                    },
+                    {
+                      "exampleDisplayName": "display_name_not_set",
+                      "exampleId": "id_not_set"
+                    },
+                    {
+                      "exampleDisplayName": "display_name_not_set",
+                      "exampleId": "id_not_set"
+                    },
+                    {
+                      "exampleDisplayName": "display_name_not_set",
+                      "exampleId": "id_not_set"
+                    },
+                    {
+                      "exampleDisplayName": "display_name_not_set",
+                      "exampleId": "id_not_set"
+                    },
+                    {
+                      "exampleId": "id_not_set",
+                      "exampleDisplayName": "display_name_not_set"
+                    }
+                  ],
+                  "model": "gemini-2.5-flash"
+                },
+                "completeTime": "2025-10-15T16:42:20.439990Z",
+                "displayName": "LLM_CALL",
+                "startTime": "2025-10-15T16:42:18.941644Z"
+              },
+              {
+                "displayName": "AGENT_UTTERANCE",
+                "completeTime": "2025-10-15T16:42:20.440054Z",
+                "startTime": "2025-10-15T16:42:20.440021Z",
+                "agentUtterance": {
+                  "text": "That sounds like a healthy start to your day! From what I can see, your oatmeal with blueberries was an excellent source of Vitamin C and antioxidants, and a good source of fiber for digestive health.\n\nHere's a quick nutritional breakdown:\n*   **Calories:** 234\n*   **Carbohydrates:** 48.5g (78% of your macros)\n*   **Protein:** 6.1g (10% of your macros)\n*   **Fat:** 3.5g (13% of your macros)\n\nTo make your meal even more balanced, you might consider adding more protein and healthy fats. For protein, options like chicken, fish, eggs, tofu, or beans work well. For healthy fats, avocado, nuts, or olive oil are great choices.\n\nWould you like ideas for adding more protein to your meals?"
+                }
+              }
+            ],
+            "playbookTraceMetadata": {
+              "playbook": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784",
+              "displayName": "Virtual Dietitian Main"
+            },
+            "endState": "OUTPUT_STATE_PENDING",
+            "startTime": "2025-10-15T16:42:18.366894Z",
+            "completeTime": "2025-10-15T16:42:20.440438Z"
+          }
+        ]
+      },
+      "ulmCalls": 2,
+      "responseId": "6a22f723-9ad4-49d6-959f-c84c19a1c4b6"
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:42:20.440615Z",
+    "severity": "INFO",
+    "labels": {
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "location_id": "global",
+      "session_id": "dfMessenger-066adf3d-4b38-4171-88f0-0de5f5a828d2",
+      "environment_id": ""
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:42:20.953067215Z"
+  },
+  {
+    "insertId": "p1drwye15oxh",
+    "jsonPayload": {
+      "queryParams": {
+        "channel": "DF_MESSENGER",
+        "parameters": {},
+        "enableResourceProjectOverride": true
+      },
+      "queryInput": {
+        "languageCode": "en",
+        "text": {
+          "text": "the response is truncated can I get the rest after Even"
+        }
+      },
+      "session": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/sessions/dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:43:41.647928Z",
+    "severity": "INFO",
+    "labels": {
+      "environment_id": "",
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202",
+      "location_id": "global"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:43:43.548323630Z"
+  },
+  {
+    "insertId": "p1drwye15oxi",
+    "jsonPayload": {
+      "queryResult": {
+        "advancedSettings": {
+          "speechAdaptationSettings": {},
+          "audioExportGcsDestination": {},
+          "speechSettings": {
+            "endpointerSensitivity": 90,
+            "noSpeechTimeout": "5s"
+          },
+          "loggingSettings": {
+            "enableStackdriverLogging": true,
+            "enableInteractionLogging": true
+          }
+        },
+        "diagnosticInfo": {
+          "Session Id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202",
+          "Response Id": "09281cfb-b76f-45ff-b789-b5507c5622e3"
+        },
+        "traceBlocks": [
+          {
+            "actions": [
+              {
+                "displayName": "USER_UTTERANCE",
+                "userUtterance": {
+                  "text": "the response is truncated can I get the rest after Even"
+                },
+                "completeTime": "2025-10-15T16:43:41.654695Z",
+                "startTime": "2025-10-15T16:43:41.654694Z"
+              },
+              {
+                "startTime": "2025-10-15T16:43:41.654713Z",
+                "llmCall": {
+                  "model": "gemini-2.5-flash",
+                  "temperature": 0.9,
+                  "tokenCount": {
+                    "totalOutputTokenCount": "158",
+                    "conversationContextTokenCount": "6978",
+                    "totalInputTokenCount": "6356"
+                  }
+                },
+                "completeTime": "2025-10-15T16:43:43.156389Z",
+                "displayName": "LLM_CALL"
+              },
+              {
+                "startTime": "2025-10-15T16:43:43.156428Z",
+                "completeTime": "2025-10-15T16:43:43.156450Z",
+                "agentUtterance": {
+                  "text": "You are absolutely right! My apologies, it seems I got cut off mid-sentence.\n\nHere's the rest of what I was trying to say:\n\nEven with **15 apples and a cup of oats**, while your fiber and Vitamin C intake would be quite high, the meal would still be relatively low in protein and healthy fats for such a large caloric intake. The insights about adding more protein and healthy fats would still be relevant to achieve a more balanced macro-nutrient profile.\n\nIt's clear that the tool struggles with scaling quantities, so my manual calculation was an attempt to provide you with the full picture for your intended meal.\n\nWhat would you like to analyze next? I'm hoping to find a combination that the tool can process perfectly for you!"
+                },
+                "displayName": "AGENT_UTTERANCE"
+              }
+            ],
+            "endState": "OUTPUT_STATE_PENDING",
+            "playbookTraceMetadata": {
+              "displayName": "Virtual Dietitian Main",
+              "playbook": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+            },
+            "completeTime": "2025-10-15T16:43:43.158202Z",
+            "startTime": "2025-10-15T16:43:41.648641Z"
+          }
+        ],
+        "intentDetectionConfidence": 1,
+        "allowAnswerFeedback": true,
+        "languageCode": "en",
+        "match": {
+          "matchType": "PLAYBOOK",
+          "confidence": 1
+        },
+        "generativeInfo": {
+          "actionTracingInfo": {
+            "name": "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/-/examples/-",
+            "actions": [
+              {
+                "userUtterance": {
+                  "text": "the response is truncated can I get the rest after Even"
+                }
+              },
+              {
+                "agentUtterance": {
+                  "text": "You are absolutely right! My apologies, it seems I got cut off mid-sentence.\n\nHere's the rest of what I was trying to say:\n\nEven with **15 apples and a cup of oats**, while your fiber and Vitamin C intake would be quite high, the meal would still be relatively low in protein and healthy fats for such a large caloric intake. The insights about adding more protein and healthy fats would still be relevant to achieve a more balanced macro-nutrient profile.\n\nIt's clear that the tool struggles with scaling quantities, so my manual calculation was an attempt to provide you with the full picture for your intended meal.\n\nWhat would you like to analyze next? I'm hoping to find a combination that the tool can process perfectly for you!"
+                }
+              }
+            ]
+          },
+          "currentPlaybooks": [
+            "projects/virtualdietitian/locations/global/agents/70e21911-92e8-418f-9a11-aa98868ba1fe/playbooks/8cc7ad66-4dee-48a4-8050-ed730cf1e784"
+          ]
+        },
+        "text": "the response is truncated can I get the rest after Even",
+        "responseMessages": [
+          {
+            "source": "VIRTUAL_AGENT",
+            "text": {
+              "text": [
+                "You are absolutely right! My apologies, it seems I got cut off mid-sentence.\n\nHere's the rest of what I was trying to say:\n\nEven with **15 apples and a cup of oats**, while your fiber and Vitamin C intake would be quite high, the meal would still be relatively low in protein and healthy fats for such a large caloric intake. The insights about adding more protein and healthy fats would still be relevant to achieve a more balanced macro-nutrient profile.\n\nIt's clear that the tool struggles with scaling quantities, so my manual calculation was an attempt to provide you with the full picture for your intended meal.\n\nWhat would you like to analyze next? I'm hoping to find a combination that the tool can process perfectly for you!"
+              ]
+            }
+          }
+        ]
+      },
+      "responseType": "FINAL",
+      "responseId": "09281cfb-b76f-45ff-b789-b5507c5622e3",
+      "ulmCalls": 1
+    },
+    "resource": {
+      "type": "global",
+      "labels": {
+        "project_id": "virtualdietitian"
+      }
+    },
+    "timestamp": "2025-10-15T16:43:43.158363Z",
+    "severity": "INFO",
+    "labels": {
+      "agent_id": "70e21911-92e8-418f-9a11-aa98868ba1fe",
+      "environment_id": "",
+      "location_id": "global",
+      "session_id": "dfMessenger-f688c34d-7ee3-4856-b5ff-63bd04964202"
+    },
+    "logName": "projects/virtualdietitian/logs/dialogflow-runtime.googleapis.com%2Frequests",
+    "receiveTimestamp": "2025-10-15T16:43:43.548323630Z"
+  }
+]
