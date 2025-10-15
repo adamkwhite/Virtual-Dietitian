@@ -24,3 +24,8 @@ testpaths = ["tests", "cloud-functions/nutrition-analyzer"]
 python_files = "test_*.py"
 python_functions = "test_*"
 addopts = "-v --cov=cloud-functions --cov-report=term-missing"
+
+[tool.coverage.run]
+omit = [
+    "*/usda_client.py",  # USDA API integration disabled (feature flag off)
+]
