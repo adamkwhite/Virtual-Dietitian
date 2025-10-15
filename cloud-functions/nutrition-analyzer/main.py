@@ -26,7 +26,6 @@ FOOD_TRANSLATIONS = {
     "poulet": "chicken",
     "riz": "rice",
     "quinoa": "quinoa",
-    "brocoli": "broccoli",
     "pomme": "apple",
     "banane": "banana",
     "lait": "milk",
@@ -81,8 +80,8 @@ def parse_meal_description(meal_description: str):
     # Translate non-English food names to English
     translated_words = []
     for word in words:
-        # Clean up any remaining apostrophes or special chars
-        clean_word = re.sub(r"[''']", "", word)
+        # Clean up any remaining apostrophes or special chars (ASCII + Unicode quotes)
+        clean_word = re.sub(r"['\u2018\u2019]", "", word)
 
         if clean_word in FOOD_TRANSLATIONS:
             translated_words.append(FOOD_TRANSLATIONS[clean_word])
