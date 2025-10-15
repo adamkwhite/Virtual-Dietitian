@@ -6,6 +6,7 @@ Tests CNF API client, food search, nutrition fetching, and caching.
 from unittest.mock import MagicMock, patch
 
 from cnf_client import CNFClient, get_cnf_client
+from nutrition_utils import infer_food_category
 
 
 class TestCNFClientInitialization:
@@ -327,11 +328,7 @@ class TestNormalizeNutrientData:
 
 
 class TestInferCategory:
-    """Test food category inference."""
-
-    def setup_method(self):
-        """Setup client."""
-        self.client = CNFClient()
+    """Test food category inference using shared utility."""
 
     def test_infer_category_protein(self):
         """Test high protein foods categorized as protein."""
@@ -344,7 +341,7 @@ class TestInferCategory:
             "calcium_mg": 50.0,
             "calories": 150.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "protein"
 
     def test_infer_category_dairy(self):
@@ -358,7 +355,7 @@ class TestInferCategory:
             "calcium_mg": 300.0,
             "calories": 120.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "dairy"
 
     def test_infer_category_fat(self):
@@ -372,7 +369,7 @@ class TestInferCategory:
             "calcium_mg": 20.0,
             "calories": 500.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "fat"
 
     def test_infer_category_fruit(self):
@@ -386,7 +383,7 @@ class TestInferCategory:
             "calcium_mg": 20.0,
             "calories": 60.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "fruit"
 
     def test_infer_category_vegetable(self):
@@ -400,7 +397,7 @@ class TestInferCategory:
             "calcium_mg": 30.0,
             "calories": 40.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "vegetable"
 
     def test_infer_category_grain(self):
@@ -414,7 +411,7 @@ class TestInferCategory:
             "calcium_mg": 20.0,
             "calories": 300.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "grain"
 
     def test_infer_category_low_calorie_default(self):
@@ -428,7 +425,7 @@ class TestInferCategory:
             "calcium_mg": 10.0,
             "calories": 20.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         assert category == "vegetable"
 
 
@@ -485,7 +482,7 @@ class TestEdgeCases:
             "calcium_mg": 0.0,
             "calories": 0.0,
         }
-        category = self.client._infer_category(nutrition)
+        category = infer_food_category(nutrition)
         # Should default to vegetable for very low calorie
         assert category == "vegetable"
 

@@ -7,6 +7,7 @@ import os
 from typing import Dict, List, Optional
 
 import requests
+from nutrition_utils import infer_food_category
 
 
 class USDAClient:
@@ -158,61 +159,10 @@ class USDAClient:
             if key not in nutrition_data:
                 nutrition_data[key] = 0.0
 
-        # Infer category based on macros
-        nutrition_data["category"] = self._infer_category(nutrition_data)
+        # Infer category using shared utility
+        nutrition_data["category"] = infer_food_category(nutrition_data)
 
         return nutrition_data
-
-    def _infer_category(self, nutrition: Dict) -> str:
-        """
-        Infer food category based on nutritional profile.
-
-        Categories match nutrition_db.json:
-        - protein: High protein
-        - grain: High carbs, moderate fiber
-        - fruit: High carbs, high vitamin C
-        - vegetable: Low cal, high fiber/vitamins
-        - dairy: Calcium-rich
-        - fat: High fat
-        """
-        protein = nutrition.get("protein_g", 0)
-        carbs = nutrition.get("carbs_g", 0)
-        fat = nutrition.get("fat_g", 0)
-        fiber = nutrition.get("fiber_g", 0)
-        vitamin_c = nutrition.get("vitamin_c_mg", 0)
-        calcium = nutrition.get("calcium_mg", 0)
-        calories = nutrition.get("calories", 0)
-
-        # High protein (>15g per 100g)
-        if protein > 15:
-            return "protein"
-
-        # High calcium (dairy)
-        if calcium > 100:
-            return "dairy"
-
-        # High fat
-        if fat > 40:
-            return "fat"
-
-        # High vitamin C (likely fruit)
-        if vitamin_c > 20:
-            return "fruit"
-
-        # Low calorie with fiber (likely vegetable)
-        if calories < 100 and fiber > 2:
-            return "vegetable"
-
-        # High carbs (likely grain)
-        if carbs > 50:
-            return "grain"
-
-        # Default to vegetable for low-calorie items
-        if calories < 50:
-            return "vegetable"
-
-        # Default
-        return "grain"
 
 
 # Singleton instance
