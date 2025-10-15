@@ -48,37 +48,69 @@ def load_nutrition_db():
 NUTRITION_DB = load_nutrition_db()
 
 
-def find_food(food_name: str, use_usda_fallback: bool = False) -> Dict[str, Any]:
+def find_food(
+    food_name: str, use_cnf_fallback: bool = False, use_usda_fallback: bool = False
+) -> Dict[str, Any]:
     """
     Find food in database by name or alias.
-    Optionally falls back to USDA API if not found in static database.
+    Supports 3-tier fallback: Local DB → CNF API → USDA API.
 
     How it works:
-    - Converts input to lowercase: "CHICKEN" -> "chicken"
-    - Looks up in our dictionary: O(1) operation
-    - If not found and use_usda_fallback=True, queries USDA API
+    - Tier 1: Converts input to lowercase and looks up in our 47-food dictionary (O(1))
+    - Tier 2: If not found and use_cnf_fallback=True, queries CNF API (5,690 foods)
+    - Tier 3: If not found and use_usda_fallback=True, queries USDA API (500,000+ foods)
     - Returns food data if found, None if not
 
     Args:
         food_name: Name of food (case-insensitive)
-        use_usda_fallback: If True, query USDA API when not in static DB
+        use_cnf_fallback: If True, query CNF API when not in static DB
+        use_usda_fallback: If True, query USDA API when not in static DB or CNF
 
     Returns:
         Food data dict with nutrition info, or None if not found
 
     Example:
-        find_food("chicken") -> {id, name, nutrition: {calories: 165, ...}}
-        find_food("grilled chicken") -> same result (alias match)
-        find_food("pizza") -> None (not in our 47-food database)
-        find_food("pizza", use_usda_fallback=True) -> USDA API result
+        find_food("chicken") -> local DB result
+        find_food("gouda", use_cnf_fallback=True) -> CNF API result
+        find_food("exotic_fruit", use_cnf_fallback=True, use_usda_fallback=True) -> USDA result
     """
-    # First, try static database
+    # Tier 1: Static database (47 foods)
     static_result = NUTRITION_DB.get(food_name.lower())
 
     if static_result:
         return static_result
 
-    # Fallback to USDA API if enabled
+    # Tier 2: CNF API (5,690 foods)
+    if use_cnf_fallback:
+        try:
+            from cnf_client import get_cnf_client
+
+            cnf_client = get_cnf_client()
+            nutrition_data = cnf_client.get_nutrition_per_100g(food_name)
+
+            if nutrition_data:
+                # Convert CNF format to our internal format
+                return {
+                    "id": f"cnf_{food_name.lower().replace(' ', '_')}",
+                    "name": food_name.title(),
+                    "category": nutrition_data["category"],
+                    "nutrition": {
+                        "calories": nutrition_data["calories"],
+                        "protein_g": nutrition_data["protein_g"],
+                        "carbs_g": nutrition_data["carbs_g"],
+                        "fat_g": nutrition_data["fat_g"],
+                        "fiber_g": nutrition_data["fiber_g"],
+                        "sodium_mg": nutrition_data["sodium_mg"],
+                        "vitamin_c_mg": nutrition_data["vitamin_c_mg"],
+                        "iron_mg": nutrition_data["iron_mg"],
+                        "calcium_mg": nutrition_data["calcium_mg"],
+                    },
+                    "source": "cnf",
+                }
+        except Exception as e:
+            print(f"CNF API fallback failed for '{food_name}': {e}")
+
+    # Tier 3: USDA API (500,000+ foods)
     if use_usda_fallback:
         try:
             from usda_client import get_usda_client
@@ -112,15 +144,18 @@ def find_food(food_name: str, use_usda_fallback: bool = False) -> Dict[str, Any]
 
 
 def calculate_nutrition(
-    food_items: List[Dict[str, Any]], use_usda_fallback: bool = False
+    food_items: List[Dict[str, Any]],
+    use_cnf_fallback: bool = False,
+    use_usda_fallback: bool = False,
 ) -> Dict[str, Any]:
     """
     Calculate total nutrition from list of food items.
+    Supports 3-tier fallback: Local DB → CNF API → USDA API.
 
     How it works:
     1. Initialize totals to zero for all nutrients
     2. Loop through each food item
-    3. Find food in database, skip if not found (track unknown foods)
+    3. Find food in database (tries local, CNF, USDA in order)
     4. Multiply nutrition by quantity and add to totals
     5. Calculate macro percentages
     6. Return complete nutrition analysis
@@ -129,6 +164,8 @@ def calculate_nutrition(
         food_items: List of dicts with 'name' and optional 'quantity' (default 1.0)
                    Example: [{"name": "oatmeal", "quantity": 1},
                             {"name": "blueberries", "quantity": 0.5}]
+        use_cnf_fallback: If True, query CNF API when not in static DB
+        use_usda_fallback: If True, query USDA API when not in static DB or CNF
 
     Returns:
         Dict with:
@@ -158,8 +195,10 @@ def calculate_nutrition(
         food_name = item.get("name", "")
         quantity = float(item.get("quantity", 1.0))  # Default to 1 serving
 
-        # Look up food in database (with optional USDA fallback)
-        food_data = find_food(food_name, use_usda_fallback=use_usda_fallback)
+        # Look up food in database (with 3-tier fallback)
+        food_data = find_food(
+            food_name, use_cnf_fallback=use_cnf_fallback, use_usda_fallback=use_usda_fallback
+        )
 
         if not food_data:
             # Food not found - track it and skip
