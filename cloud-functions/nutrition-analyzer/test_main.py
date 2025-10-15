@@ -153,16 +153,19 @@ class TestParseMealDescriptionSpanish:
 class TestParseMealDescriptionEdgeCases:
     """Test edge cases and mixed scenarios."""
 
-    def test_unknown_food(self):
-        """Test handling of unknown foods."""
+    def test_unknown_food_passes_through(self):
+        """Test unknown foods pass through to 3-tier fallback."""
         result = parse_meal_description("pizza")
-        assert len(result) == 0
+        assert len(result) == 1
+        assert result[0]["name"] == "pizza"
 
     def test_mixed_known_unknown(self):
-        """Test mix of known and unknown foods."""
+        """Test mix of known and unknown foods (both pass through)."""
         result = parse_meal_description("chicken and pizza")
-        assert len(result) == 1
-        assert result[0]["name"] == "chicken"
+        assert len(result) == 2
+        food_names = [item["name"] for item in result]
+        assert "chicken" in food_names
+        assert "pizza" in food_names
 
     def test_empty_string(self):
         """Test empty meal description."""
@@ -190,3 +193,34 @@ class TestParseMealDescriptionEdgeCases:
         result = parse_meal_description("chicken rice broccoli")
         for item in result:
             assert item["quantity"] == 1.0
+
+    def test_cnf_passthrough(self):
+        """Test CNF foods (not in local DB) pass through to 3-tier fallback."""
+        result = parse_meal_description("I ate gouda")
+        assert len(result) == 1
+        assert result[0]["name"] == "gouda"
+
+    def test_stopwords_filtered(self):
+        """Test stopwords are filtered from passthrough."""
+        result = parse_meal_description("I had some cheese")
+        # Should find: cheese (local DB)
+        # Should filter: I, had, some (all stopwords)
+        assert len(result) == 1
+        assert result[0]["name"] == "cheese"
+
+    def test_short_words_filtered(self):
+        """Test very short words (<3 chars) are filtered."""
+        result = parse_meal_description("I ate an apple")
+        # Should find: apple (local DB)
+        # Should filter: I, ate, an (stopwords or too short)
+        assert len(result) == 1
+        assert result[0]["name"] == "apple"
+
+    def test_mixed_local_and_cnf_foods(self):
+        """Test mix of local DB and CNF foods both pass through."""
+        result = parse_meal_description("oatmeal with gouda and crackers")
+        # Should find: oatmeal (local DB), gouda (CNF), crackers (passthrough)
+        assert len(result) >= 2
+        food_names = [item["name"] for item in result]
+        assert "oatmeal" in food_names
+        assert "gouda" in food_names

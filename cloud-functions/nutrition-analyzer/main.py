@@ -54,11 +54,13 @@ def parse_meal_description(meal_description: str):
     """
     Parse natural language meal description into food items.
 
-    Simple word-matching approach for MVP:
+    Enhanced word-matching with 3-tier fallback support:
     - Split description into words
     - Translate French/Spanish food names to English
-    - Check each word (and 2-word phrases) against database
-    - Return list of found foods with default quantity = 1
+    - Check each word (and 2-word phrases) against local database
+    - Pass through unknown food-like words to 3-tier fallback (Local → CNF → USDA)
+    - Filter out common non-food words (stopwords)
+    - Return list of found/potential foods with default quantity = 1
 
     Args:
         meal_description: Natural language meal description (English, French, or Spanish)
@@ -66,6 +68,63 @@ def parse_meal_description(meal_description: str):
     Returns:
         List of dicts: [{"name": "oatmeal", "quantity": 1}, ...]
     """
+    # Stopwords: common words that aren't foods (English, French, Spanish)
+    # These prevent false matches when passing unknown words to API fallback
+    STOPWORDS = {
+        # English
+        "with",
+        "and",
+        "or",
+        "the",
+        "a",
+        "an",
+        "for",
+        "of",
+        "in",
+        "on",
+        "at",
+        "to",
+        "i",
+        "ate",
+        "had",
+        "have",
+        "some",
+        "my",
+        "is",
+        "was",
+        "were",
+        "are",
+        # French
+        "j'ai",
+        "jai",
+        "ai",
+        "et",
+        "de",
+        "des",
+        "le",
+        "la",
+        "les",
+        "un",
+        "une",
+        "du",
+        "avec",
+        "mangé",
+        "mange",
+        # Spanish
+        "y",
+        "con",
+        "el",
+        "la",
+        "los",
+        "las",
+        "un",
+        "una",
+        "de",
+        "del",
+        "comí",
+        "comi",
+        "comí",
+    }
     # Normalize: lowercase, remove extra punctuation
     text = meal_description.lower()
 
@@ -99,17 +158,26 @@ def parse_meal_description(meal_description: str):
     i = 0
 
     while i < len(translated_words):
+        current_word = translated_words[i]
+
         # Try 2-word phrases first (e.g., "almond butter")
         if i < len(translated_words) - 1:
-            two_word = f"{translated_words[i]} {translated_words[i+1]}"
+            two_word = f"{current_word} {translated_words[i+1]}"
             if two_word in NUTRITION_DB:
                 found_foods.append({"name": two_word, "quantity": 1.0})
                 i += 2
                 continue
 
-        # Try single word (e.g., "oatmeal")
-        if translated_words[i] in NUTRITION_DB:
-            found_foods.append({"name": translated_words[i], "quantity": 1.0})
+        # Try single word in local database (e.g., "oatmeal")
+        if current_word in NUTRITION_DB:
+            found_foods.append({"name": current_word, "quantity": 1.0})
+        # Pass through unknown food-like words to 3-tier fallback (CNF/USDA)
+        # Filter out: stopwords, very short words (< 3 chars), numbers
+        elif (
+            current_word not in STOPWORDS and len(current_word) >= 3 and not current_word.isdigit()
+        ):
+            # Potential food not in local DB - let 3-tier fallback handle it
+            found_foods.append({"name": current_word, "quantity": 1.0})
 
         i += 1
 
