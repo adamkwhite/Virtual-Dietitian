@@ -15,6 +15,40 @@ from rule_engine import apply_rules
 # Set env var ENABLE_USDA_API=true to enable
 ENABLE_USDA_API = os.environ.get("ENABLE_USDA_API", "false").lower() == "true"
 
+# Multi-language food name translations
+# Maps French/Spanish food names to English equivalents in nutrition_db.json
+FOOD_TRANSLATIONS = {
+    # French
+    "avoine": "oatmeal",
+    "flocons": "oatmeal",  # "flocons d'avoine" = oatmeal flakes
+    "myrtilles": "blueberries",
+    "poulet": "chicken",
+    "riz": "rice",
+    "quinoa": "quinoa",
+    "brocoli": "broccoli",
+    "pomme": "apple",
+    "banane": "banana",
+    "lait": "milk",
+    "œuf": "egg",
+    "oeuf": "egg",  # alternate spelling without accent
+    "œufs": "egg",
+    "oeufs": "egg",
+    # Spanish
+    "avena": "oatmeal",
+    "arándanos": "blueberries",
+    "arandanos": "blueberries",  # without accent
+    "pollo": "chicken",
+    "arroz": "rice",
+    "brócoli": "broccoli",
+    "brocoli": "broccoli",  # without accent
+    "manzana": "apple",
+    "plátano": "banana",
+    "platano": "banana",  # without accent
+    "leche": "milk",
+    "huevo": "egg",
+    "huevos": "egg",
+}
+
 
 def parse_meal_description(meal_description: str):
     """
@@ -22,35 +56,60 @@ def parse_meal_description(meal_description: str):
 
     Simple word-matching approach for MVP:
     - Split description into words
+    - Translate French/Spanish food names to English
     - Check each word (and 2-word phrases) against database
     - Return list of found foods with default quantity = 1
 
     Args:
-        meal_description: Natural language meal description
+        meal_description: Natural language meal description (English, French, or Spanish)
 
     Returns:
         List of dicts: [{"name": "oatmeal", "quantity": 1}, ...]
     """
     # Normalize: lowercase, remove extra punctuation
     text = meal_description.lower()
+
+    # Remove French/Spanish contractions (l', d', etc.) to get base words
+    text = re.sub(r"\b[ld]'", "", text)  # l'avoine → avoine, d'orange → orange
+
+    # Remove commas and periods
     text = re.sub(r"[,.]", " ", text)
+
     words = text.split()
+
+    # Translate non-English food names to English
+    translated_words = []
+    for word in words:
+        # Clean up any remaining apostrophes or special chars
+        clean_word = re.sub(r"[''']", "", word)
+
+        if clean_word in FOOD_TRANSLATIONS:
+            translated_words.append(FOOD_TRANSLATIONS[clean_word])
+        elif word in NUTRITION_DB:
+            # Already English, keep as-is
+            translated_words.append(word)
+        elif clean_word in NUTRITION_DB:
+            # Cleaned version is in DB
+            translated_words.append(clean_word)
+        else:
+            # Not recognized, keep original
+            translated_words.append(word)
 
     found_foods = []
     i = 0
 
-    while i < len(words):
+    while i < len(translated_words):
         # Try 2-word phrases first (e.g., "almond butter")
-        if i < len(words) - 1:
-            two_word = f"{words[i]} {words[i+1]}"
+        if i < len(translated_words) - 1:
+            two_word = f"{translated_words[i]} {translated_words[i+1]}"
             if two_word in NUTRITION_DB:
                 found_foods.append({"name": two_word, "quantity": 1.0})
                 i += 2
                 continue
 
         # Try single word (e.g., "oatmeal")
-        if words[i] in NUTRITION_DB:
-            found_foods.append({"name": words[i], "quantity": 1.0})
+        if translated_words[i] in NUTRITION_DB:
+            found_foods.append({"name": translated_words[i], "quantity": 1.0})
 
         i += 1
 
