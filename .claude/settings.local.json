@@ -24,7 +24,8 @@
       "mcp__time__get_current_time",
       "Bash(gcloud storage cp:*)",
       "Bash(gh issue list:*)",
-      "Bash(python -m pytest:*)"
+      "Bash(python -m pytest:*)",
+      "Bash(gcloud iam service-accounts list:*)"
     ],
     "deny": [],
     "ask": []
