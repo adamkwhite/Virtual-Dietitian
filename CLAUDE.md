@@ -25,7 +25,7 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE + CNF API Integration (Sessions 1-9 done)
+**Implementation Status:** Phase 2 COMPLETE + CNF Natural Language Integration (Sessions 1-10 done)
 **Current Branch:** main
 **Last Updated:** October 15, 2025
 
@@ -39,18 +39,31 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 7: Code Quality & SonarCloud Integration
 - ✅ Session 8: Multi-Language Support & Agent Configuration Fixes
 - ✅ Session 9: CNF API Integration & Code Quality Refactoring
+- ✅ Session 10: Parser Enhancement for CNF Natural Language Queries
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
 - ✅ Nutrition database: 47 foods + CNF API (5,690 foods) + USDA API (500,000+ foods)
 - ✅ 3-tier fallback system: Local DB → CNF API → USDA API
+- ✅ Natural language support for CNF foods via enhanced parser
 - ✅ Tiered rule engine with 3 rule types
-- ✅ Unit tests: 89 tests, 100% coverage on CNF client (94% overall)
+- ✅ Unit tests: 93 tests, 100% coverage on CNF client (94% overall)
 - ✅ Agent Builder configuration complete
 - ✅ Demo script and test cases documented
 - ✅ SonarCloud integration with CI/CD pipeline
 - ✅ Demo page deployed to GCS
 - ✅ Observability features enabled (Cloud Logging, Conversation History)
+
+### Recent Changes (Session 10 - October 15, 2025)
+- **Parser Enhancement:** Natural language support for CNF API foods (5,690 foods)
+- **Stopword Filtering:** Added 50+ stopwords in English, French, Spanish
+- **Passthrough Logic:** Unknown foods now pass to 3-tier fallback (Local → CNF → USDA)
+- **Test Updates:** Added 4 new tests, updated 2 existing tests (93 tests total)
+- **SonarCloud Fixes:** Resolved 7 code smells (duplicate keys, type hints, string concatenation)
+- **USDA Coverage Exclusion:** Excluded usda_client.py from coverage (feature flag off)
+- **Claude Settings Cleanup:** Fixed invalid settings.local.json (31 entries → 20 patterns)
+- **Slash Commands Fixed:** Added frontmatter to enable autocomplete discovery
+- **PRs Merged:** #17 (SonarCloud fixes), #18 (USDA exclusion), #19 (Parser enhancement - pending)
 
 ### Recent Changes (Session 9 - October 15, 2025)
 - **CNF API Integration:** Added Canadian Nutrient File API client (5,690 foods)
@@ -154,6 +167,16 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 **SonarCloud:** https://sonarcloud.io/summary/new_code?id=adamkwhite_Virtual-Dietitian
 
 ## Lessons Learned
+**Session 10 Key Learnings:**
+1. **Claude Code Settings Validation:** Invalid permission patterns cause "Found 1 invalid file settings" warnings - use wildcards (`"Bash(git commit:*)"`) instead of specific command strings with heredocs
+2. **SonarCloud Type Hints:** Methods that return `None` sometimes need `Optional[Dict]` return type hints, not just `Dict` (Python type checker strictness)
+3. **Coverage Exclusion Strategy:** Use `pyproject.toml` `[tool.coverage.run]` omit config to exclude feature-flagged modules from coverage reports
+4. **Parser Passthrough Logic:** Unknown foods can pass to API fallback if they're "food-like" (not stopwords, >=3 chars, not numeric) - enables CNF natural language queries
+5. **Multi-language Stopwords:** Need language-specific stopword lists (English, French, Spanish) to filter non-food words before API fallback
+6. **Test Consolidation Best Practice:** Always add new tests to existing test files, don't create temporary test files that need to be merged later
+7. **Separate PR per Concern:** Even closely related changes need separate PRs for clean change tracking (CLAUDE.md workflow enforcement prevents commit history pollution)
+8. **Test Updates for New Behavior:** When adding features that change expected behavior, update existing tests to match new behavior (e.g., `test_unknown_food` → `test_unknown_food_passes_through`)
+
 **Session 9 Key Learnings:**
 1. **Always Deploy After Merging:** PR merged code isn't live until deployed via gcloud CLI
 2. **SonarCloud Duplication Detection:** 21.9% duplication threshold triggers quality gate failures
