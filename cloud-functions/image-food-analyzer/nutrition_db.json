@@ -1,0 +1,850 @@
+{
+  "foods": [
+    {
+      "id": "chicken_breast_001",
+      "name": "Chicken Breast",
+      "aliases": ["chicken", "grilled chicken", "chicken breast"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 165,
+        "protein_g": 31,
+        "carbs_g": 0,
+        "fat_g": 3.6,
+        "fiber_g": 0,
+        "sodium_mg": 74,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.9,
+        "calcium_mg": 15
+      }
+    },
+    {
+      "id": "salmon_001",
+      "name": "Salmon",
+      "aliases": ["salmon", "grilled salmon", "baked salmon"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 206,
+        "protein_g": 22,
+        "carbs_g": 0,
+        "fat_g": 13,
+        "fiber_g": 0,
+        "sodium_mg": 59,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.3,
+        "calcium_mg": 9
+      }
+    },
+    {
+      "id": "tofu_001",
+      "name": "Tofu",
+      "aliases": ["tofu", "bean curd"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 76,
+        "protein_g": 8,
+        "carbs_g": 1.9,
+        "fat_g": 4.8,
+        "fiber_g": 0.3,
+        "sodium_mg": 7,
+        "vitamin_c_mg": 0.1,
+        "iron_mg": 5.4,
+        "calcium_mg": 350
+      }
+    },
+    {
+      "id": "eggs_001",
+      "name": "Eggs",
+      "aliases": ["egg", "eggs", "boiled egg", "scrambled eggs"],
+      "category": "protein",
+      "serving_size_g": 50,
+      "nutrition": {
+        "calories": 78,
+        "protein_g": 6.3,
+        "carbs_g": 0.6,
+        "fat_g": 5.3,
+        "fiber_g": 0,
+        "sodium_mg": 62,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.9,
+        "calcium_mg": 28
+      }
+    },
+    {
+      "id": "greek_yogurt_001",
+      "name": "Greek Yogurt",
+      "aliases": ["greek yogurt", "yogurt", "plain yogurt"],
+      "category": "protein",
+      "serving_size_g": 150,
+      "nutrition": {
+        "calories": 97,
+        "protein_g": 10,
+        "carbs_g": 3.6,
+        "fat_g": 5,
+        "fiber_g": 0,
+        "sodium_mg": 36,
+        "vitamin_c_mg": 0.8,
+        "iron_mg": 0.1,
+        "calcium_mg": 110
+      }
+    },
+    {
+      "id": "almonds_001",
+      "name": "Almonds",
+      "aliases": ["almonds", "almond"],
+      "category": "protein",
+      "serving_size_g": 28,
+      "nutrition": {
+        "calories": 164,
+        "protein_g": 6,
+        "carbs_g": 6,
+        "fat_g": 14,
+        "fiber_g": 3.5,
+        "sodium_mg": 0,
+        "vitamin_c_mg": 0,
+        "iron_mg": 1.1,
+        "calcium_mg": 76
+      }
+    },
+    {
+      "id": "turkey_001",
+      "name": "Turkey Breast",
+      "aliases": ["turkey", "turkey breast", "ground turkey"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 135,
+        "protein_g": 30,
+        "carbs_g": 0,
+        "fat_g": 0.7,
+        "fiber_g": 0,
+        "sodium_mg": 55,
+        "vitamin_c_mg": 0,
+        "iron_mg": 1.4,
+        "calcium_mg": 10
+      }
+    },
+    {
+      "id": "tuna_001",
+      "name": "Tuna",
+      "aliases": ["tuna", "canned tuna", "tuna fish"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 116,
+        "protein_g": 26,
+        "carbs_g": 0,
+        "fat_g": 0.8,
+        "fiber_g": 0,
+        "sodium_mg": 247,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.8,
+        "calcium_mg": 7
+      }
+    },
+    {
+      "id": "black_beans_001",
+      "name": "Black Beans",
+      "aliases": ["black beans", "beans"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 132,
+        "protein_g": 8.9,
+        "carbs_g": 23.7,
+        "fat_g": 0.5,
+        "fiber_g": 8.7,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 0,
+        "iron_mg": 2.1,
+        "calcium_mg": 27
+      }
+    },
+    {
+      "id": "lentils_001",
+      "name": "Lentils",
+      "aliases": ["lentils", "lentil"],
+      "category": "protein",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 116,
+        "protein_g": 9,
+        "carbs_g": 20,
+        "fat_g": 0.4,
+        "fiber_g": 7.9,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 1.5,
+        "iron_mg": 3.3,
+        "calcium_mg": 19
+      }
+    },
+    {
+      "id": "oatmeal_001",
+      "name": "Oatmeal",
+      "aliases": ["oatmeal", "oats", "rolled oats"],
+      "category": "grain",
+      "serving_size_g": 40,
+      "nutrition": {
+        "calories": 150,
+        "protein_g": 5,
+        "carbs_g": 27,
+        "fat_g": 3,
+        "fiber_g": 4,
+        "sodium_mg": 0,
+        "vitamin_c_mg": 0,
+        "iron_mg": 1.7,
+        "calcium_mg": 20
+      }
+    },
+    {
+      "id": "brown_rice_001",
+      "name": "Brown Rice",
+      "aliases": ["brown rice", "rice"],
+      "category": "grain",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 112,
+        "protein_g": 2.6,
+        "carbs_g": 23.5,
+        "fat_g": 0.9,
+        "fiber_g": 1.8,
+        "sodium_mg": 1,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.4,
+        "calcium_mg": 10
+      }
+    },
+    {
+      "id": "quinoa_001",
+      "name": "Quinoa",
+      "aliases": ["quinoa"],
+      "category": "grain",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 120,
+        "protein_g": 4.4,
+        "carbs_g": 21.3,
+        "fat_g": 1.9,
+        "fiber_g": 2.8,
+        "sodium_mg": 7,
+        "vitamin_c_mg": 0,
+        "iron_mg": 1.5,
+        "calcium_mg": 17
+      }
+    },
+    {
+      "id": "whole_wheat_bread_001",
+      "name": "Whole Wheat Bread",
+      "aliases": ["whole wheat bread", "bread", "wheat bread"],
+      "category": "grain",
+      "serving_size_g": 30,
+      "nutrition": {
+        "calories": 69,
+        "protein_g": 3.6,
+        "carbs_g": 11.6,
+        "fat_g": 0.9,
+        "fiber_g": 1.9,
+        "sodium_mg": 132,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.9,
+        "calcium_mg": 25
+      }
+    },
+    {
+      "id": "pasta_001",
+      "name": "Whole Wheat Pasta",
+      "aliases": ["pasta", "whole wheat pasta", "spaghetti"],
+      "category": "grain",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 124,
+        "protein_g": 5.3,
+        "carbs_g": 26.5,
+        "fat_g": 0.5,
+        "fiber_g": 3.9,
+        "sodium_mg": 4,
+        "vitamin_c_mg": 0,
+        "iron_mg": 1.3,
+        "calcium_mg": 15
+      }
+    },
+    {
+      "id": "sweet_potato_001",
+      "name": "Sweet Potato",
+      "aliases": ["sweet potato", "yam"],
+      "category": "grain",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 86,
+        "protein_g": 1.6,
+        "carbs_g": 20.1,
+        "fat_g": 0.1,
+        "fiber_g": 3,
+        "sodium_mg": 55,
+        "vitamin_c_mg": 2.4,
+        "iron_mg": 0.6,
+        "calcium_mg": 30
+      }
+    },
+    {
+      "id": "bagel_001",
+      "name": "Bagel",
+      "aliases": ["bagel", "whole wheat bagel"],
+      "category": "grain",
+      "serving_size_g": 85,
+      "nutrition": {
+        "calories": 227,
+        "protein_g": 9,
+        "carbs_g": 45,
+        "fat_g": 1.4,
+        "fiber_g": 2.5,
+        "sodium_mg": 430,
+        "vitamin_c_mg": 0,
+        "iron_mg": 3.1,
+        "calcium_mg": 65
+      }
+    },
+    {
+      "id": "couscous_001",
+      "name": "Couscous",
+      "aliases": ["couscous"],
+      "category": "grain",
+      "serving_size_g": 100,
+      "nutrition": {
+        "calories": 112,
+        "protein_g": 3.8,
+        "carbs_g": 23.2,
+        "fat_g": 0.2,
+        "fiber_g": 1.4,
+        "sodium_mg": 5,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.4,
+        "calcium_mg": 8
+      }
+    },
+    {
+      "id": "apple_001",
+      "name": "Apple",
+      "aliases": ["apple", "apples"],
+      "category": "fruit",
+      "serving_size_g": 182,
+      "nutrition": {
+        "calories": 95,
+        "protein_g": 0.5,
+        "carbs_g": 25,
+        "fat_g": 0.3,
+        "fiber_g": 4.4,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 8.4,
+        "iron_mg": 0.2,
+        "calcium_mg": 11
+      }
+    },
+    {
+      "id": "banana_001",
+      "name": "Banana",
+      "aliases": ["banana", "bananas"],
+      "category": "fruit",
+      "serving_size_g": 118,
+      "nutrition": {
+        "calories": 105,
+        "protein_g": 1.3,
+        "carbs_g": 27,
+        "fat_g": 0.4,
+        "fiber_g": 3.1,
+        "sodium_mg": 1,
+        "vitamin_c_mg": 10.3,
+        "iron_mg": 0.3,
+        "calcium_mg": 6
+      }
+    },
+    {
+      "id": "blueberries_001",
+      "name": "Blueberries",
+      "aliases": ["blueberries", "blueberry"],
+      "category": "fruit",
+      "serving_size_g": 148,
+      "nutrition": {
+        "calories": 84,
+        "protein_g": 1.1,
+        "carbs_g": 21.5,
+        "fat_g": 0.5,
+        "fiber_g": 3.6,
+        "sodium_mg": 1,
+        "vitamin_c_mg": 14.4,
+        "iron_mg": 0.4,
+        "calcium_mg": 9
+      }
+    },
+    {
+      "id": "strawberries_001",
+      "name": "Strawberries",
+      "aliases": ["strawberries", "strawberry"],
+      "category": "fruit",
+      "serving_size_g": 152,
+      "nutrition": {
+        "calories": 49,
+        "protein_g": 1,
+        "carbs_g": 11.7,
+        "fat_g": 0.5,
+        "fiber_g": 3,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 89.4,
+        "iron_mg": 0.6,
+        "calcium_mg": 24
+      }
+    },
+    {
+      "id": "orange_001",
+      "name": "Orange",
+      "aliases": ["orange", "oranges"],
+      "category": "fruit",
+      "serving_size_g": 131,
+      "nutrition": {
+        "calories": 62,
+        "protein_g": 1.2,
+        "carbs_g": 15.4,
+        "fat_g": 0.2,
+        "fiber_g": 3.1,
+        "sodium_mg": 0,
+        "vitamin_c_mg": 69.7,
+        "iron_mg": 0.1,
+        "calcium_mg": 52
+      }
+    },
+    {
+      "id": "mango_001",
+      "name": "Mango",
+      "aliases": ["mango", "mangoes"],
+      "category": "fruit",
+      "serving_size_g": 165,
+      "nutrition": {
+        "calories": 99,
+        "protein_g": 1.4,
+        "carbs_g": 24.7,
+        "fat_g": 0.6,
+        "fiber_g": 2.6,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 60.1,
+        "iron_mg": 0.3,
+        "calcium_mg": 18
+      }
+    },
+    {
+      "id": "grapes_001",
+      "name": "Grapes",
+      "aliases": ["grapes", "grape"],
+      "category": "fruit",
+      "serving_size_g": 151,
+      "nutrition": {
+        "calories": 104,
+        "protein_g": 1.1,
+        "carbs_g": 27.3,
+        "fat_g": 0.2,
+        "fiber_g": 1.4,
+        "sodium_mg": 3,
+        "vitamin_c_mg": 16.3,
+        "iron_mg": 0.5,
+        "calcium_mg": 15
+      }
+    },
+    {
+      "id": "pineapple_001",
+      "name": "Pineapple",
+      "aliases": ["pineapple"],
+      "category": "fruit",
+      "serving_size_g": 165,
+      "nutrition": {
+        "calories": 82,
+        "protein_g": 0.9,
+        "carbs_g": 21.6,
+        "fat_g": 0.2,
+        "fiber_g": 2.3,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 78.9,
+        "iron_mg": 0.5,
+        "calcium_mg": 21
+      }
+    },
+    {
+      "id": "watermelon_001",
+      "name": "Watermelon",
+      "aliases": ["watermelon"],
+      "category": "fruit",
+      "serving_size_g": 152,
+      "nutrition": {
+        "calories": 46,
+        "protein_g": 0.9,
+        "carbs_g": 11.5,
+        "fat_g": 0.2,
+        "fiber_g": 0.6,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 12.3,
+        "iron_mg": 0.4,
+        "calcium_mg": 11
+      }
+    },
+    {
+      "id": "broccoli_001",
+      "name": "Broccoli",
+      "aliases": ["broccoli"],
+      "category": "vegetable",
+      "serving_size_g": 91,
+      "nutrition": {
+        "calories": 31,
+        "protein_g": 2.6,
+        "carbs_g": 6,
+        "fat_g": 0.3,
+        "fiber_g": 2.4,
+        "sodium_mg": 30,
+        "vitamin_c_mg": 81.2,
+        "iron_mg": 0.7,
+        "calcium_mg": 43
+      }
+    },
+    {
+      "id": "spinach_001",
+      "name": "Spinach",
+      "aliases": ["spinach"],
+      "category": "vegetable",
+      "serving_size_g": 30,
+      "nutrition": {
+        "calories": 7,
+        "protein_g": 0.9,
+        "carbs_g": 1.1,
+        "fat_g": 0.1,
+        "fiber_g": 0.7,
+        "sodium_mg": 24,
+        "vitamin_c_mg": 8.4,
+        "iron_mg": 0.8,
+        "calcium_mg": 30
+      }
+    },
+    {
+      "id": "carrots_001",
+      "name": "Carrots",
+      "aliases": ["carrots", "carrot"],
+      "category": "vegetable",
+      "serving_size_g": 61,
+      "nutrition": {
+        "calories": 25,
+        "protein_g": 0.6,
+        "carbs_g": 6,
+        "fat_g": 0.1,
+        "fiber_g": 1.7,
+        "sodium_mg": 42,
+        "vitamin_c_mg": 3.6,
+        "iron_mg": 0.2,
+        "calcium_mg": 20
+      }
+    },
+    {
+      "id": "tomato_001",
+      "name": "Tomato",
+      "aliases": ["tomato", "tomatoes"],
+      "category": "vegetable",
+      "serving_size_g": 123,
+      "nutrition": {
+        "calories": 22,
+        "protein_g": 1.1,
+        "carbs_g": 4.8,
+        "fat_g": 0.2,
+        "fiber_g": 1.5,
+        "sodium_mg": 6,
+        "vitamin_c_mg": 16.9,
+        "iron_mg": 0.3,
+        "calcium_mg": 12
+      }
+    },
+    {
+      "id": "avocado_001",
+      "name": "Avocado",
+      "aliases": ["avocado"],
+      "category": "vegetable",
+      "serving_size_g": 136,
+      "nutrition": {
+        "calories": 218,
+        "protein_g": 2.7,
+        "carbs_g": 11.6,
+        "fat_g": 19.9,
+        "fiber_g": 9.1,
+        "sodium_mg": 10,
+        "vitamin_c_mg": 13.6,
+        "iron_mg": 0.8,
+        "calcium_mg": 17
+      }
+    },
+    {
+      "id": "bell_pepper_001",
+      "name": "Bell Pepper",
+      "aliases": ["bell pepper", "pepper", "red pepper", "green pepper"],
+      "category": "vegetable",
+      "serving_size_g": 119,
+      "nutrition": {
+        "calories": 30,
+        "protein_g": 1.2,
+        "carbs_g": 7.2,
+        "fat_g": 0.2,
+        "fiber_g": 2.5,
+        "sodium_mg": 5,
+        "vitamin_c_mg": 152.1,
+        "iron_mg": 0.5,
+        "calcium_mg": 8
+      }
+    },
+    {
+      "id": "cucumber_001",
+      "name": "Cucumber",
+      "aliases": ["cucumber", "cucumbers"],
+      "category": "vegetable",
+      "serving_size_g": 104,
+      "nutrition": {
+        "calories": 16,
+        "protein_g": 0.7,
+        "carbs_g": 3.6,
+        "fat_g": 0.1,
+        "fiber_g": 0.5,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 2.9,
+        "iron_mg": 0.3,
+        "calcium_mg": 16
+      }
+    },
+    {
+      "id": "kale_001",
+      "name": "Kale",
+      "aliases": ["kale"],
+      "category": "vegetable",
+      "serving_size_g": 67,
+      "nutrition": {
+        "calories": 33,
+        "protein_g": 2.9,
+        "carbs_g": 6,
+        "fat_g": 0.6,
+        "fiber_g": 2,
+        "sodium_mg": 29,
+        "vitamin_c_mg": 80.4,
+        "iron_mg": 1.1,
+        "calcium_mg": 101
+      }
+    },
+    {
+      "id": "zucchini_001",
+      "name": "Zucchini",
+      "aliases": ["zucchini", "courgette"],
+      "category": "vegetable",
+      "serving_size_g": 124,
+      "nutrition": {
+        "calories": 21,
+        "protein_g": 1.5,
+        "carbs_g": 3.9,
+        "fat_g": 0.4,
+        "fiber_g": 1.2,
+        "sodium_mg": 10,
+        "vitamin_c_mg": 22.2,
+        "iron_mg": 0.5,
+        "calcium_mg": 20
+      }
+    },
+    {
+      "id": "cauliflower_001",
+      "name": "Cauliflower",
+      "aliases": ["cauliflower"],
+      "category": "vegetable",
+      "serving_size_g": 107,
+      "nutrition": {
+        "calories": 27,
+        "protein_g": 2.1,
+        "carbs_g": 5.3,
+        "fat_g": 0.3,
+        "fiber_g": 2.1,
+        "sodium_mg": 32,
+        "vitamin_c_mg": 51.6,
+        "iron_mg": 0.4,
+        "calcium_mg": 24
+      }
+    },
+    {
+      "id": "milk_001",
+      "name": "Milk",
+      "aliases": ["milk", "whole milk", "2% milk"],
+      "category": "dairy",
+      "serving_size_g": 244,
+      "nutrition": {
+        "calories": 149,
+        "protein_g": 7.7,
+        "carbs_g": 11.7,
+        "fat_g": 7.9,
+        "fiber_g": 0,
+        "sodium_mg": 105,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.1,
+        "calcium_mg": 276
+      }
+    },
+    {
+      "id": "cheese_cheddar_001",
+      "name": "Cheddar Cheese",
+      "aliases": ["cheese", "cheddar", "cheddar cheese"],
+      "category": "dairy",
+      "serving_size_g": 28,
+      "nutrition": {
+        "calories": 113,
+        "protein_g": 7,
+        "carbs_g": 0.4,
+        "fat_g": 9.3,
+        "fiber_g": 0,
+        "sodium_mg": 174,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.2,
+        "calcium_mg": 200
+      }
+    },
+    {
+      "id": "butter_001",
+      "name": "Butter",
+      "aliases": ["butter"],
+      "category": "dairy",
+      "serving_size_g": 14,
+      "nutrition": {
+        "calories": 100,
+        "protein_g": 0.1,
+        "carbs_g": 0,
+        "fat_g": 11.5,
+        "fiber_g": 0,
+        "sodium_mg": 2,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 3
+      }
+    },
+    {
+      "id": "cottage_cheese_001",
+      "name": "Cottage Cheese",
+      "aliases": ["cottage cheese"],
+      "category": "dairy",
+      "serving_size_g": 113,
+      "nutrition": {
+        "calories": 98,
+        "protein_g": 12,
+        "carbs_g": 4.5,
+        "fat_g": 4.3,
+        "fiber_g": 0,
+        "sodium_mg": 406,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.1,
+        "calcium_mg": 70
+      }
+    },
+    {
+      "id": "mozzarella_001",
+      "name": "Mozzarella Cheese",
+      "aliases": ["mozzarella", "mozzarella cheese"],
+      "category": "dairy",
+      "serving_size_g": 28,
+      "nutrition": {
+        "calories": 85,
+        "protein_g": 6.3,
+        "carbs_g": 0.6,
+        "fat_g": 6.3,
+        "fiber_g": 0,
+        "sodium_mg": 176,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.1,
+        "calcium_mg": 143
+      }
+    },
+    {
+      "id": "cream_cheese_001",
+      "name": "Cream Cheese",
+      "aliases": ["cream cheese"],
+      "category": "dairy",
+      "serving_size_g": 28,
+      "nutrition": {
+        "calories": 99,
+        "protein_g": 1.8,
+        "carbs_g": 1.6,
+        "fat_g": 9.9,
+        "fiber_g": 0,
+        "sodium_mg": 105,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.3,
+        "calcium_mg": 29
+      }
+    },
+    {
+      "id": "olive_oil_001",
+      "name": "Olive Oil",
+      "aliases": ["olive oil", "evoo", "extra virgin olive oil"],
+      "category": "fat",
+      "serving_size_g": 14,
+      "nutrition": {
+        "calories": 119,
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 13.5,
+        "fiber_g": 0,
+        "sodium_mg": 0,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.1,
+        "calcium_mg": 0
+      }
+    },
+    {
+      "id": "almond_butter_001",
+      "name": "Almond Butter",
+      "aliases": ["almond butter"],
+      "category": "fat",
+      "serving_size_g": 16,
+      "nutrition": {
+        "calories": 98,
+        "protein_g": 3.4,
+        "carbs_g": 3,
+        "fat_g": 8.9,
+        "fiber_g": 1.6,
+        "sodium_mg": 1,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.6,
+        "calcium_mg": 56
+      }
+    },
+    {
+      "id": "peanut_butter_001",
+      "name": "Peanut Butter",
+      "aliases": ["peanut butter", "pb"],
+      "category": "fat",
+      "serving_size_g": 16,
+      "nutrition": {
+        "calories": 96,
+        "protein_g": 3.6,
+        "carbs_g": 3.6,
+        "fat_g": 8.2,
+        "fiber_g": 0.9,
+        "sodium_mg": 73,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0.3,
+        "calcium_mg": 8
+      }
+    },
+    {
+      "id": "coconut_oil_001",
+      "name": "Coconut Oil",
+      "aliases": ["coconut oil"],
+      "category": "fat",
+      "serving_size_g": 14,
+      "nutrition": {
+        "calories": 121,
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 13.5,
+        "fiber_g": 0,
+        "sodium_mg": 0,
+        "vitamin_c_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0
+      }
+    }
+  ]
+}

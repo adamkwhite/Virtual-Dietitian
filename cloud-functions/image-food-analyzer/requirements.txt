@@ -2,5 +2,7 @@ functions-framework==3.*
 google-cloud-vision==3.*
 google-cloud-storage==2.*
 Pillow==10.*
+requests==2.*
+python-dotenv==1.*
 pytest==8.*
 pytest-cov==6.*
