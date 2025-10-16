@@ -21,7 +21,10 @@
       "Bash(gh pr:*)",
       "Read(//home/adam/Code/**)",
       "WebSearch",
-      "mcp__time__get_current_time"
+      "mcp__time__get_current_time",
+      "Bash(gcloud storage cp:*)",
+      "Bash(gh issue list:*)",
+      "Bash(python -m pytest:*)"
     ],
     "deny": [],
     "ask": []
