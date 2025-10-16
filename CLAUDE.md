@@ -25,8 +25,8 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE + CNF Natural Language Integration (Sessions 1-10 done)
-**Current Branch:** main
+**Implementation Status:** Phase 2 COMPLETE + Image Processing Feature (Experimental) (Sessions 1-11 done)
+**Current Branch:** main (experimental: feature/image-food-logging)
 **Last Updated:** October 15, 2025
 
 ### Completed Sessions
@@ -40,6 +40,7 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 8: Multi-Language Support & Agent Configuration Fixes
 - ✅ Session 9: CNF API Integration & Code Quality Refactoring
 - ✅ Session 10: Parser Enhancement for CNF Natural Language Queries
+- ✅ Session 11: Image-Based Food Logging PRD & Infrastructure Setup
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
@@ -53,6 +54,20 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ SonarCloud integration with CI/CD pipeline
 - ✅ Demo page deployed to GCS
 - ✅ Observability features enabled (Cloud Logging, Conversation History)
+
+### Recent Changes (Session 11 - October 15, 2025)
+- **Image Processing PRD:** Created comprehensive PRD for image-based food logging (32-hour estimate)
+- **Task Breakdown:** Generated 72 sub-tasks across 8 parent tasks (detailed implementation plan)
+- **GCP Infrastructure:** Completed full Vision API setup (Task 1.0 - 9/9 sub-tasks)
+- **Vision API Enabled:** Activated Cloud Vision API in virtualdietitian project
+- **Service Account:** Created vision-api-sa with Vision + Storage permissions
+- **Cloud Storage:** Created gs://virtualdietitian-food-images bucket (us-central1)
+- **Lifecycle Policy:** Configured 90-day auto-deletion for uploaded images
+- **Security:** Enforced public access prevention (private bucket)
+- **CORS Configuration:** Enabled for demo webpage uploads (wildcard for development)
+- **Automation Script:** Created scripts/setup-image-processing.sh (5KB, executable)
+- **Feature Branch:** Created feature/image-food-logging experimental branch
+- **Progress:** 1/8 parent tasks complete (12.5%), 9/72 sub-tasks complete
 
 ### Recent Changes (Session 10 - October 15, 2025)
 - **Parser Enhancement:** Natural language support for CNF API foods (5,690 foods)
@@ -127,6 +142,11 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
   - `SETUP_GUIDE_UPDATED.md`
 - **Demo:** `docs/demo/demo-script.md`
 - **Documentation:** `docs/deployment/`, `docs/demo/`
+- **Image Processing (Experimental):** `docs/features/image-food-logging-PLANNED/`
+  - `prd.md` - Comprehensive PRD (32-hour estimate, detailed specs)
+  - `tasks.md` - Task breakdown (72 sub-tasks across 8 parent tasks)
+  - `status.md` - Progress tracker (1/8 tasks complete, 9/72 sub-tasks complete)
+- **Infrastructure:** `scripts/setup-image-processing.sh` - GCP Vision API setup automation
 
 ## Known Issues
 - **Issue #6:** SonarCloud GitHub Action is deprecated (needs migration to sonarqube-scan-action)
@@ -135,6 +155,15 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - User feedback buttons not appearing on demo page (deferred troubleshooting)
 
 ## Next Steps
+**Immediate (Experimental Feature):**
+- Continue image-food-logging feature (Branch: feature/image-food-logging)
+  - Build Vision API client for food detection (Task 2.0 - 11 sub-tasks)
+  - Create food label mapping and serving size logic (Task 3.0 - 11 sub-tasks)
+  - Implement Cloud Function endpoint for image analysis (Task 4.0 - 16 sub-tasks)
+  - Add image upload UI to demo webpage (Task 5.0 - 17 sub-tasks)
+  - Testing, monitoring, and deployment (Tasks 6.0-8.0 - 29 sub-tasks)
+  - Progress: 1/8 parent tasks (12.5%), 9/72 sub-tasks (12.5%)
+
 **Immediate (Technical Debt):**
 - Add comprehensive unit tests for `usda_client.py` to reach ~90%+ coverage
 - Migrate to non-deprecated SonarCloud action
@@ -150,6 +179,8 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 **External Services:**
 - GCP Cloud Functions (Python 3.12 runtime)
 - Vertex AI Agent Builder
+- Google Cloud Vision API (experimental, image food detection)
+- Google Cloud Storage (experimental, image storage)
 - USDA FoodData Central API (optional, feature-flagged)
 - SonarCloud (code quality analysis)
 
@@ -158,6 +189,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - requests==2.* (HTTP client for USDA API)
 - python-dotenv==1.* (environment variables)
 - pytest==8.*, pytest-cov==6.* (testing)
+- google-cloud-vision==3.* (experimental, Vision API client)
+- google-cloud-storage==2.* (experimental, image storage)
+- Pillow==10.* (experimental, image preprocessing)
 
 ## Live Demo
 **Demo URL:** https://storage.googleapis.com/virtual-dietitian-demo/index.html
@@ -167,6 +201,18 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 **SonarCloud:** https://sonarcloud.io/summary/new_code?id=adamkwhite_Virtual-Dietitian
 
 ## Lessons Learned
+**Session 11 Key Learnings:**
+1. **PRD Structure Decision:** Use Option 2 (Comprehensive Engineering PRD) for complex technical features with infrastructure changes - provides detailed specs, code examples, and risk mitigation
+2. **ML Service Cost Comparison:** Always research pricing before committing - Google Vision API free tier (1,000 images/month, $1.50/1k after) vs LogMeal ($100-500/month) vs Clarifai ($30-300/month plans)
+3. **GCP Infrastructure Automation:** Create reusable bash scripts for setup tasks - enables quick recreation on new projects or disaster recovery (scripts/setup-image-processing.sh saved 30+ minutes of manual setup)
+4. **Service Account Security:** Store keys in ~/.gcp/ directory with restrictive permissions (600) - keeps credentials out of project repos and version control
+5. **Cloud Storage Lifecycle Policies:** Configure auto-deletion policies upfront (90-day lifecycle) - prevents unexpected storage costs and manual cleanup
+6. **CORS Wildcard for Development:** Use `"origin": ["*"]` during development, restrict to specific domains in production - balances flexibility with security
+7. **Task Breakdown Value:** Breaking 32-hour project into 72 sub-tasks provides clear stopping points and progress tracking - enables pause/resume without losing context
+8. **Experimental Branch Strategy:** Use feature branches for experimental work (feature/image-food-logging) - keeps main branch stable while exploring new capabilities
+9. **Infrastructure Validation:** Always test infrastructure with real operations (upload/read/delete) before proceeding - catches permission or configuration issues early
+10. **Documentation-First Approach:** Creating PRD + tasks before coding clarifies scope, identifies dependencies, and prevents scope creep - 2 hours planning saves 10 hours rework
+
 **Session 10 Key Learnings:**
 1. **Claude Code Settings Validation:** Invalid permission patterns cause "Found 1 invalid file settings" warnings - use wildcards (`"Bash(git commit:*)"`) instead of specific command strings with heredocs
 2. **SonarCloud Type Hints:** Methods that return `None` sometimes need `Optional[Dict]` return type hints, not just `Dict` (Python type checker strictness)
