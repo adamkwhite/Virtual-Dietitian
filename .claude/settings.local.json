@@ -22,7 +22,10 @@
       "Read(//home/adam/Code/**)",
       "WebSearch",
       "mcp__time__get_current_time",
-      "Bash(gcloud iam service-accounts list:*)"
+      "Bash(gcloud iam service-accounts list:*)",
+      "Read(//home/adam/.gcp/**)",
+      "Bash(export GOOGLE_APPLICATION_CREDENTIALS=~/.gcp/virtualdietitian-vision-sa.json)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
