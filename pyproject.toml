@@ -19,6 +19,39 @@ profile = "black"
 line_length = 100
 skip_gitignore = true
 
+[tool.ruff]
+# Same line length as black
+line-length = 100
+target-version = "py312"
+
+# Exclude directories
+extend-exclude = [
+    ".git",
+    ".venv",
+    ".env",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Enable these rule categories
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (import sorting)
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+]
+
+# Ignore rules that conflict with black or are too strict
+ignore = []
+
+[tool.ruff.lint.isort]
+# Black-compatible import sorting
+force-single-line = false
+force-sort-within-sections = false
+
 [tool.pytest.ini_options]
 testpaths = ["tests", "cloud-functions/nutrition-analyzer"]
 python_files = "test_*.py"

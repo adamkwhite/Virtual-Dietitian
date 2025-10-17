@@ -6,7 +6,7 @@ Supports fallback to USDA API when foods not in static database.
 
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
 from config import Config
 
@@ -28,7 +28,7 @@ def load_nutrition_db():
     """
     db_path = os.path.join(os.path.dirname(__file__), Config.NUTRITION_DB_PATH)
 
-    with open(db_path, "r") as f:
+    with open(db_path) as f:
         data = json.load(f)
 
     # Build lookup dictionary for O(1) search
@@ -50,7 +50,7 @@ NUTRITION_DB = load_nutrition_db()
 
 def find_food(
     food_name: str, use_cnf_fallback: bool = False, use_usda_fallback: bool = False
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Find food in database by name or alias.
     Supports 3-tier fallback: Local DB → CNF API → USDA API.
@@ -144,10 +144,10 @@ def find_food(
 
 
 def calculate_nutrition(
-    food_items: List[Dict[str, Any]],
+    food_items: list[dict[str, Any]],
     use_cnf_fallback: bool = False,
     use_usda_fallback: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate total nutrition from list of food items.
     Supports 3-tier fallback: Local DB → CNF API → USDA API.
@@ -239,7 +239,7 @@ def calculate_nutrition(
     return result
 
 
-def calculate_macro_percentages(protein_g: float, carbs_g: float, fat_g: float) -> Dict[str, int]:
+def calculate_macro_percentages(protein_g: float, carbs_g: float, fat_g: float) -> dict[str, int]:
     """
     Calculate percentage of calories from each macronutrient.
 

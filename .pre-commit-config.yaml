@@ -11,19 +11,16 @@ repos:
         language_version: python3.12
         args: ['--line-length=100']
 
-  # Import sorting with isort
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+  # Linting and import sorting with Ruff (replaces flake8 + isort)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
     hooks:
-      - id: isort
-        args: ['--profile=black', '--line-length=100']
-
-  # Linting with Flake8
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.1
-    hooks:
-      - id: flake8
-        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+      # Run the linter
+      - id: ruff
+        args: ['--fix', '--line-length=100']
+      # Run the formatter (optional, can replace black eventually)
+      - id: ruff-format
+        args: ['--line-length=100']
 
   # Trailing whitespace and file endings
   - repo: https://github.com/pre-commit/pre-commit-hooks

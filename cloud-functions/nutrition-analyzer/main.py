@@ -70,7 +70,7 @@ def parse_meal_description(meal_description: str):
     """
     # Stopwords: common words that aren't foods (English, French, Spanish)
     # These prevent false matches when passing unknown words to API fallback
-    STOPWORDS = {
+    stopwords = {
         # English
         "with",
         "and",
@@ -174,7 +174,7 @@ def parse_meal_description(meal_description: str):
         # Pass through unknown food-like words to 3-tier fallback (CNF/USDA)
         # Filter out: stopwords, very short words (< 3 chars), numbers
         elif (
-            current_word not in STOPWORDS and len(current_word) >= 3 and not current_word.isdigit()
+            current_word not in stopwords and len(current_word) >= 3 and not current_word.isdigit()
         ):
             # Potential food not in local DB - let 3-tier fallback handle it
             found_foods.append({"name": current_word, "quantity": 1.0})
