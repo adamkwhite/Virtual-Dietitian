@@ -3,8 +3,6 @@ Tiered rule engine for nutrition insights.
 Implements 3 types of deterministic business rules.
 """
 
-from typing import Dict, List, Optional
-
 
 class Rule:
     """
@@ -23,8 +21,8 @@ class Rule:
         self.rule_type = rule_type
 
     def evaluate(
-        self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Optional[Dict[str, str]]:
+        self, total_nutrition: dict, macro_percentages: dict, food_categories: list[str]
+    ) -> dict[str, str] | None:
         """
         Evaluate rule against nutrition data.
 
@@ -70,8 +68,8 @@ class CategoryRule(Rule):
         self.insight_type = insight_type
 
     def evaluate(
-        self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Optional[Dict[str, str]]:
+        self, total_nutrition: dict, macro_percentages: dict, food_categories: list[str]
+    ) -> dict[str, str] | None:
         """Check if target category is in the meal."""
         if self.category in food_categories:
             return {"type": self.insight_type, "message": self.message}
@@ -120,8 +118,8 @@ class ThresholdRule(Rule):
         self.insight_type = insight_type
 
     def evaluate(
-        self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Optional[Dict[str, str]]:
+        self, total_nutrition: dict, macro_percentages: dict, food_categories: list[str]
+    ) -> dict[str, str] | None:
         """Check if nutrient meets threshold condition."""
         nutrient_value = total_nutrition.get(self.nutrient, 0)
 
@@ -183,8 +181,8 @@ class MacroRatioRule(Rule):
         self.above_message = above_message
 
     def evaluate(
-        self, total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-    ) -> Optional[Dict[str, str]]:
+        self, total_nutrition: dict, macro_percentages: dict, food_categories: list[str]
+    ) -> dict[str, str] | None:
         """Check if macro percentage is outside healthy range."""
         macro_key = f"{self.macro}_pct"
         macro_value = macro_percentages.get(macro_key, 0)
@@ -270,8 +268,8 @@ RULES = [
 
 
 def apply_rules(
-    total_nutrition: Dict, macro_percentages: Dict, food_categories: List[str]
-) -> List[Dict[str, str]]:
+    total_nutrition: dict, macro_percentages: dict, food_categories: list[str]
+) -> list[dict[str, str]]:
     """
     Apply all rules to nutrition data and collect insights.
 

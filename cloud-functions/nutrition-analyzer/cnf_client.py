@@ -3,8 +3,6 @@ Canadian Nutrient File (CNF) API client.
 Provides food lookup and nutrition data from Health Canada database.
 """
 
-from typing import Dict, List, Optional
-
 import requests
 from nutrition_utils import infer_food_category
 
@@ -19,7 +17,7 @@ class CNFClient:
         self._foods_list = None  # Cached list of all 5,690 foods
         self._nutrition_cache = {}  # Cached nutrition data by food_code
 
-    def get_cnf_foods_list(self) -> List[Dict]:
+    def get_cnf_foods_list(self) -> list[dict]:
         """
         Get list of all CNF foods (downloads once, then caches).
 
@@ -51,7 +49,7 @@ class CNFClient:
             print(f"[CNF] Error downloading food list: {e}")
             return []
 
-    def search_food(self, query: str) -> Optional[int]:
+    def search_food(self, query: str) -> int | None:
         """
         Search for food by name (fuzzy matching).
 
@@ -89,7 +87,7 @@ class CNFClient:
 
         return None
 
-    def get_nutrition_per_100g(self, food_name: str) -> Optional[Dict]:
+    def get_nutrition_per_100g(self, food_name: str) -> dict | None:
         """
         Get nutrition data per 100g for a food item.
 
@@ -125,7 +123,7 @@ class CNFClient:
         # Fetch nutrition data (with caching)
         return self._fetch_nutrition_data(food_code)
 
-    def _fetch_nutrition_data(self, food_code: int) -> Optional[Dict]:
+    def _fetch_nutrition_data(self, food_code: int) -> dict | None:
         """
         Fetch nutrition data for a specific food code.
 
@@ -161,7 +159,7 @@ class CNFClient:
             print(f"[CNF] Error fetching nutrition for food_code {food_code}: {e}")
             return None
 
-    def _normalize_nutrient_data(self, cnf_data: List[Dict]) -> Dict:
+    def _normalize_nutrient_data(self, cnf_data: list[dict]) -> dict:
         """
         Map CNF nutrient data to our schema.
 

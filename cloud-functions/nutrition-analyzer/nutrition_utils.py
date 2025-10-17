@@ -3,10 +3,8 @@ Shared utility functions for nutrition data processing.
 Used by CNF and USDA API clients.
 """
 
-from typing import Dict
 
-
-def infer_food_category(nutrition: Dict) -> str:
+def infer_food_category(nutrition: dict) -> str:
     """
     Infer food category based on nutritional profile.
 

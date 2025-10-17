@@ -12,7 +12,7 @@ def convert_md_to_pdf(md_file: str, pdf_file: str):
     """Convert markdown file to styled PDF."""
 
     # Read markdown content
-    with open(md_file, "r", encoding="utf-8") as f:
+    with open(md_file, encoding="utf-8") as f:
         md_content = f.read()
 
     # Convert markdown to HTML with better list handling

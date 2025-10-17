@@ -4,7 +4,6 @@ Provides food lookup and nutrition data retrieval from USDA database.
 """
 
 import os
-from typing import Dict, List, Optional
 
 import requests
 from nutrition_utils import infer_food_category
@@ -15,7 +14,7 @@ class USDAClient:
 
     BASE_URL = "https://api.nal.usda.gov/fdc/v1"
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: str | None = None):
         """
         Initialize USDA API client.
 
@@ -24,7 +23,7 @@ class USDAClient:
         """
         self.api_key = api_key or os.environ.get("USDA_API_KEY", "DEMO_KEY")
 
-    def search_food(self, query: str, page_size: int = 5) -> List[Dict]:
+    def search_food(self, query: str, page_size: int = 5) -> list[dict]:
         """
         Search for foods matching the query.
 
@@ -61,7 +60,7 @@ class USDAClient:
             print(f"Error searching USDA API for '{query}': {e}")
             return []
 
-    def get_food_details(self, fdc_id: int) -> Optional[Dict]:
+    def get_food_details(self, fdc_id: int) -> dict | None:
         """
         Get detailed nutrition information for a specific food.
 
@@ -82,7 +81,7 @@ class USDAClient:
             print(f"Error fetching USDA food details for FDC ID {fdc_id}: {e}")
             return None
 
-    def get_nutrition_per_100g(self, food_name: str) -> Optional[Dict]:
+    def get_nutrition_per_100g(self, food_name: str) -> dict | None:
         """
         Get nutrition data per 100g for a food item.
 
