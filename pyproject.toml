@@ -62,3 +62,35 @@ addopts = "-v --cov=cloud-functions --cov-report=term-missing"
 omit = [
     "*/usda_client.py",  # USDA API integration disabled (feature flag off)
 ]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false  # Gradual adoption
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_optional = true
+
+# Exclude directories
+exclude = [
+    'venv/',
+    '.venv/',
+    'build/',
+    'dist/',
+]
+
+[tool.bandit]
+exclude_dirs = [
+    "tests/",
+    "venv/",
+    ".venv/",
+]
+# Lightweight pre-commit: only high severity
+# Comprehensive CI/CD: all severities
+skips = [
+    "B101",  # assert_used - common in tests (but tests/ excluded anyway)
+]
