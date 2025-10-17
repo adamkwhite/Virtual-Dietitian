@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Dietitian - Multimodal Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a73e8;
+        }
+        .instructions {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #5f6368;
+        }
+        .instructions ol {
+            margin: 10px 0;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+    </style>
+
+    <!-- Dialogflow Messenger Integration -->
+    <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+
+</head>
+<body>
+    <h1>Virtual Dietitian - Multimodal Test</h1>
+
+    <div class="instructions">
+        <h2>🍎 How to Analyze Food Images</h2>
+        <ol>
+            <li><strong>Upload</strong> a food photo using the file picker below</li>
+            <li><strong>Click "Analyze Food"</strong> to detect foods with Vision API</li>
+            <li><strong>Review detected foods</strong> and their confidence scores</li>
+            <li><strong>Click "Send to Agent"</strong> to automatically get nutrition analysis in the chat</li>
+        </ol>
+    </div>
+
+    <div class="instructions">
+        <h2>📤 Upload Your Image</h2>
+        <input type="file" id="imageUpload" accept="image/*" style="margin: 10px 0;">
+        <button id="analyzeBtn" style="padding: 8px 16px; background: #1a73e8; color: white; border: none; border-radius: 4px; cursor: pointer;">Analyze Food</button>
+        <div id="uploadStatus" style="margin-top: 10px;"></div>
+        <div id="results" style="margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 8px; display: none;">
+            <h3 style="margin-top: 0; color: #2e7d32;">Detected Foods:</h3>
+            <div id="foodList"></div>
+            <button id="sendToAgent" style="margin-top: 10px; padding: 8px 16px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Send to Agent for Nutrition Analysis</button>
+        </div>
+    </div>
+
+    <!-- Dialogflow Messenger will appear here automatically -->
+
+    <df-messenger
+      project-id="virtualdietitian"
+      agent-id="70e21911-92e8-418f-9a11-aa98868ba1fe"
+      language-code="en"
+      max-query-length="-1"
+      allow-feedback="all">
+      <df-messenger-chat-bubble
+        chat-title="Virtual Dietitician"
+        enable-file-upload>
+      </df-messenger-chat-bubble>
+    </df-messenger>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
+
+    <script>
+        // Cloud Function endpoint for image analysis
+        const IMAGE_ANALYZER_URL = 'https://us-central1-virtualdietitian.cloudfunctions.net/image-food-analyzer';
+
+        let detectedFoods = [];
+
+        document.getElementById('analyzeBtn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('imageUpload');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select an image first');
+                return;
+            }
+
+            const statusDiv = document.getElementById('uploadStatus');
+            const resultsDiv = document.getElementById('results');
+
+            statusDiv.innerHTML = '<p style="color: #1a73e8;">⏳ Analyzing image...</p>';
+            resultsDiv.style.display = 'none';
+
+            try {
+                // Create form data
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('user_id', 'test-user-' + Date.now());
+
+                // Upload to Cloud Function
+                const response = await fetch(IMAGE_ANALYZER_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    displayResults(data);
+                    statusDiv.innerHTML = '<p style="color: #34a853;">✅ Analysis complete!</p>';
+                } else {
+                    statusDiv.innerHTML = `<p style="color: #ea4335;">❌ Error: ${data.error || 'Unknown error'}</p>`;
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                statusDiv.innerHTML = `<p style="color: #ea4335;">❌ Error: ${error.message}</p>`;
+            }
+        });
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            const foodListDiv = document.getElementById('foodList');
+
+            detectedFoods = data.detected_foods || [];
+
+            if (detectedFoods.length === 0) {
+                foodListDiv.innerHTML = '<p>No foods detected in the image.</p>';
+                resultsDiv.style.display = 'block';
+                return;
+            }
+
+            let html = '<ul style="margin: 0; padding-left: 20px;">';
+            detectedFoods.forEach(food => {
+                const mapped = food.status === 'found' ? `→ ${food.food_name} (${food.source})` : '(not in database)';
+                html += `<li><strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}% confidence) ${mapped}</li>`;
+            });
+            html += '</ul>';
+
+            foodListDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+
+            // Show "Send to Agent" button if we have mapped foods
+            const hasMappedFoods = detectedFoods.some(f => f.status === 'found');
+            document.getElementById('sendToAgent').style.display = hasMappedFoods ? 'block' : 'none';
+        }
+
+        document.getElementById('sendToAgent').addEventListener('click', async () => {
+            // Get all mapped food names, deduplicate, and filter generic terms
+            const genericTerms = ['food', 'produce', 'ingredient', 'dish', 'meal'];
+
+            const foodNames = [...new Set(detectedFoods
+                .filter(f => f.status === 'found')
+                .map(f => f.food_name)
+                .filter(name => !genericTerms.includes(name.toLowerCase()))
+            )].join(', ');
+
+            if (!foodNames) {
+                alert('No specific foods were identified. Try uploading a clearer image.');
+                return;
+            }
+
+            // Send query to Dialogflow Messenger automatically
+            const message = `I had ${foodNames}`;
+            const dfMessenger = document.querySelector('df-messenger');
+            const dfMessengerBubble = document.querySelector('df-messenger-chat-bubble');
+
+            if (dfMessenger && dfMessengerBubble) {
+                // Send query and open chat automatically
+                dfMessenger.sendQuery(message);
+                dfMessengerBubble.openChat();
+            } else {
+                console.error('df-messenger element not found');
+                alert('Chat widget not loaded. Please refresh the page.');
+            }
+        });
+    </script>
+
+</body>
+</html>

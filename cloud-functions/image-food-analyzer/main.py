@@ -390,3 +390,206 @@ def analyze_food_image(request):
             500,
             headers,
         )
+
+
+def download_from_gcs(image_url: str) -> Optional[bytes]:
+    """
+    Download image from Google Cloud Storage URL.
+
+    Args:
+        image_url: GCS URL in format gs://bucket/path or https://storage.googleapis.com/bucket/path
+
+    Returns:
+        Image bytes if successful, None otherwise
+    """
+    try:
+        # Convert https URL to gs:// format if needed
+        if image_url.startswith("https://storage.googleapis.com/"):
+            # Extract bucket and path from https URL
+            # https://storage.googleapis.com/bucket-name/path/to/file.jpg
+            parts = image_url.replace("https://storage.googleapis.com/", "").split("/", 1)
+            bucket_name = parts[0]
+            blob_name = parts[1] if len(parts) > 1 else ""
+        elif image_url.startswith("gs://"):
+            # gs://bucket-name/path/to/file.jpg
+            parts = image_url.replace("gs://", "").split("/", 1)
+            bucket_name = parts[0]
+            blob_name = parts[1] if len(parts) > 1 else ""
+        else:
+            logger.error(f"Invalid GCS URL format: {image_url}")
+            return None
+
+        # Download from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+
+        image_bytes = blob.download_as_bytes()
+        logger.info(f"Downloaded {len(image_bytes)} bytes from {image_url}")
+        return image_bytes
+
+    except Exception as e:
+        logger.error(f"Failed to download from GCS: {e}")
+        return None
+
+
+@functions_framework.http
+def analyze_from_url(request):
+    """
+    HTTP Cloud Function entry point for analyzing images from GCS URLs.
+
+    This endpoint is designed for Agent Builder integration where the agent
+    receives a GCS URL from file uploads in Dialogflow Messenger.
+
+    Request Format (application/json):
+    {
+        "image_url": "gs://bucket/path/to/image.jpg"
+    }
+
+    Response Format:
+    {
+        "status": "success",
+        "detected_foods": [...],
+        "food_list": "broccoli, chicken, rice",
+        "total_detected": 3
+    }
+    """
+    # Handle CORS preflight
+    if request.method == "OPTIONS":
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST",
+            "Access-Control-Allow-Headers": "Content-Type",
+        }
+        return ("", 204, headers)
+
+    # Set CORS headers
+    headers = {"Access-Control-Allow-Origin": "*"}
+
+    try:
+        # Parse JSON request
+        request_json = request.get_json(silent=True)
+        if not request_json or "image_url" not in request_json:
+            return (
+                jsonify(
+                    {
+                        "status": "error",
+                        "error": "Missing 'image_url' in request body",
+                        "suggestions": [
+                            "Provide a Google Cloud Storage URL in the request body",
+                            'Format: {"image_url": "gs://bucket/path/to/image.jpg"}',
+                        ],
+                    }
+                ),
+                400,
+                headers,
+            )
+
+        image_url = request_json["image_url"]
+        logger.info(f"Received image URL: {image_url}")
+
+        # Download image from GCS
+        image_bytes = download_from_gcs(image_url)
+        if not image_bytes:
+            return (
+                jsonify(
+                    {
+                        "status": "error",
+                        "error": "Failed to download image from GCS",
+                        "suggestions": [
+                            "Verify the GCS URL is correct",
+                            "Ensure the Cloud Function has access to the bucket",
+                            "Check if the file exists at the specified path",
+                        ],
+                    }
+                ),
+                400,
+                headers,
+            )
+
+        # Validate image
+        validation_error = validate_image(image_bytes, "image/jpeg")
+        if validation_error:
+            return (
+                jsonify(
+                    {
+                        "status": "error",
+                        "error": validation_error,
+                        "suggestions": ["Ensure the file is a valid JPEG or PNG image"],
+                    }
+                ),
+                400,
+                headers,
+            )
+
+        # Detect food using Vision API
+        logger.info("Calling Vision API for food detection...")
+        detector = VisionFoodDetector()
+        vision_results = detector.detect_food(image_bytes, min_confidence=0.75)
+
+        if not vision_results:
+            return (
+                jsonify(
+                    {
+                        "status": "no_food_detected",
+                        "error": "No food items detected in the image",
+                        "detected_foods": [],
+                        "food_list": "",
+                        "total_detected": 0,
+                    }
+                ),
+                200,
+                headers,
+            )
+
+        logger.info(f"Vision API detected {len(vision_results)} food items")
+
+        # Map Vision labels to database foods
+        mapper = FoodLabelMapper(
+            nutrition_db=NUTRITION_DB, cnf_client=CNF_CLIENT, usda_client=USDA_CLIENT
+        )
+
+        mapped_foods = []
+        for vision_result in vision_results:
+            mapped_food = mapper.process_vision_result(vision_result)
+            mapped_foods.append(mapped_food)
+            if mapped_food:
+                logger.info(
+                    f"Mapped '{vision_result['label']}' → '{mapped_food['name']}' "
+                    f"({mapped_food['grams']}g, source: {mapped_food['source']})"
+                )
+
+        # Build response
+        response_data = build_detected_foods_response(vision_results, mapped_foods)
+        response_data["status"] = "success"
+
+        # Add food_list for easy agent parsing (deduplicated, no generic terms)
+        generic_terms = ["food", "produce", "ingredient", "dish", "meal"]
+        food_names = [
+            f["food_name"]
+            for f in response_data["detected_foods"]
+            if f.get("status") == "found" and f["food_name"] not in generic_terms
+        ]
+        unique_foods = list(dict.fromkeys(food_names))  # Preserve order while deduplicating
+        response_data["food_list"] = ", ".join(unique_foods)
+
+        logger.info(f"Successfully processed image: food_list={response_data['food_list']}")
+
+        return jsonify(response_data), 200, headers
+
+    except Exception as e:
+        logger.error(f"Error processing image from URL: {e}", exc_info=True)
+        return (
+            jsonify(
+                {
+                    "status": "error",
+                    "error": f"Internal server error: {str(e)}",
+                    "suggestions": [
+                        "Try uploading a different image",
+                        "Contact support if the problem persists",
+                    ],
+                }
+            ),
+            500,
+            headers,
+        )

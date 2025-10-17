@@ -209,23 +209,22 @@ class FoodLabelMapper:
             return None
 
         try:
-            # Search CNF API
-            results = self.cnf_client.search_food(label)
-            if results:
-                # Get nutrition data for first result
-                food_code = results[0]["food_code"]
-                nutrition = self.cnf_client.get_nutrition(food_code)
+            # Search CNF API (returns food_code if found)
+            food_code = self.cnf_client.search_food(label)
+            if food_code:
+                # Get nutrition data
+                nutrition = self.cnf_client.get_nutrition_per_100g(label)
                 if nutrition:
                     # Format to match our schema
                     return {
-                        "name": results[0]["description"].lower(),
-                        "calories": nutrition.get("energy_kcal", 0),
+                        "name": label.lower(),
+                        "calories": nutrition.get("calories", 0),
                         "protein": nutrition.get("protein_g", 0),
-                        "carbs": nutrition.get("carbohydrate_g", 0),
+                        "carbs": nutrition.get("carbs_g", 0),
                         "fat": nutrition.get("fat_g", 0),
-                        "fiber": nutrition.get("fibre_g", 0),
-                        "sugar": nutrition.get("sugars_g", 0),
-                        "category": category,
+                        "fiber": nutrition.get("fiber_g", 0),
+                        "sugar": nutrition.get("sugar_g", 0),
+                        "category": nutrition.get("category", category),
                     }
         except Exception as e:
             logger.error(f"CNF API search failed for '{label}': {e}")
