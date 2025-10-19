@@ -99,12 +99,9 @@ def parse_meal_description(meal_description: str):
         "jai",
         "ai",
         "et",
-        "de",
         "des",
         "le",
-        "la",
         "les",
-        "un",
         "une",
         "du",
         "avec",
@@ -114,16 +111,16 @@ def parse_meal_description(meal_description: str):
         "y",
         "con",
         "el",
-        "la",
         "los",
         "las",
-        "un",
         "una",
-        "de",
         "del",
-        "comí",
         "comi",
-        "comí",
+        # Shared French/Spanish
+        "de",  # French: "of/from", Spanish: "of/from"
+        "la",  # French: "the" (feminine), Spanish: "the" (feminine)
+        "un",  # French: "a/an" (masculine), Spanish: "a/an" (masculine)
+        "comí",  # Spanish: "I ate" (with accent)
     }
     # Normalize: lowercase, remove extra punctuation
     text = meal_description.lower()
