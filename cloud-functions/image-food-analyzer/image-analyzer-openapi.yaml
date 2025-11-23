@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Image Food Analyzer
+  version: 1.0.0
+  description: Analyzes food images to detect food items using Google Cloud Vision API
+servers:
+  - url: https://image-food-analyzer-url-epp4v6loga-uc.a.run.app
+paths:
+  /:
+    post:
+      operationId: analyzeImageUrl
+      summary: Analyze food image from GCS URL
+      description: Takes a Google Cloud Storage URL of an uploaded image and detects food items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image_url:
+                  type: string
+                  description: Google Cloud Storage URL of the image (gs://bucket/path or https://storage.googleapis.com/...)
+              required:
+                - image_url
+      responses:
+        '200':
+          description: Successfully detected foods in the image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Success status
+                  detected_foods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                          description: Vision API label
+                        confidence:
+                          type: number
+                          description: Detection confidence (0-1)
+                        food_name:
+                          type: string
+                          description: Mapped food name from database
+                        category:
+                          type: string
+                          description: Food category (protein, grain, fruit, vegetable, dairy, other)
+                        source:
+                          type: string
+                          description: Database source (local, cnf, usda)
+                        status:
+                          type: string
+                          description: Mapping status (found or not_found)
+                  food_list:
+                    type: string
+                    description: Comma-separated list of detected food names for easy parsing
+                  total_detected:
+                    type: integer
+                    description: Number of foods detected
+        '400':
+          description: Bad request (invalid URL or unsupported format)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  error:
+                    type: string
+                  suggestions:
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  error:
+                    type: string
