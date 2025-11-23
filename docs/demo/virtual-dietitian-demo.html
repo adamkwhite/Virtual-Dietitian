@@ -163,6 +163,12 @@
             display: inline-block;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-prompt:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .chat-prompt-text {
@@ -176,6 +182,11 @@
             animation: bounce 2s infinite;
             margin-top: 20px;
             display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .arrow:hover {
+            transform: scale(1.2);
         }
 
         @keyframes bounce {
@@ -251,11 +262,11 @@
 
         <div class="demo-section">
             <h2>Try It Now</h2>
-            <p>Click the chat bubble in the bottom right corner to start analyzing your meals with AI</p>
-            <div class="chat-prompt">
+            <p>Click below to start analyzing your meals with AI</p>
+            <div class="chat-prompt" id="openChatBtn" style="cursor: pointer;" onclick="openChat()">
                 <span class="chat-prompt-text">👉 Start chatting to analyze your meal</span>
             </div>
-            <div class="arrow">↘️</div>
+            <div class="arrow" style="cursor: pointer;" onclick="openChat()">↘️</div>
         </div>
 
         <div class="features">
@@ -292,5 +303,14 @@
             chat-title="Virtual Dietitian">
         </df-messenger-chat-bubble>
     </df-messenger>
+
+    <script>
+        function openChat() {
+            const dfMessengerBubble = document.querySelector('df-messenger-chat-bubble');
+            if (dfMessengerBubble) {
+                dfMessengerBubble.openChat();
+            }
+        }
+    </script>
 </body>
 </html>
