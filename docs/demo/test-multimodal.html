@@ -152,12 +152,32 @@
                 return;
             }
 
-            let html = '<ul style="margin: 0; padding-left: 20px;">';
+            let html = '<ul style="margin: 0; padding-left: 20px; list-style: none;">';
             detectedFoods.forEach(food => {
-                const mapped = food.status === 'found' ? `→ ${food.food_name} (${food.source})` : '(not in database)';
-                html += `<li><strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}% confidence) ${mapped}</li>`;
+                if (food.status === 'found') {
+                    // Green checkmark for recognized foods
+                    html += `<li style="margin: 8px 0; padding: 8px; background: #e8f5e9; border-radius: 4px; border-left: 4px solid #34a853;">
+                        <span style="color: #34a853; font-weight: bold;">&#10003;</span>
+                        <strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}%)
+                        &rarr; ${food.food_name} <span style="color: #666; font-size: 12px;">(${food.source})</span>
+                    </li>`;
+                } else {
+                    // Red X for unrecognized foods
+                    html += `<li style="margin: 8px 0; padding: 8px; background: #fce8e6; border-radius: 4px; border-left: 4px solid #ea4335;">
+                        <span style="color: #ea4335; font-weight: bold;">&#10007;</span>
+                        <strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}%)
+                        <span style="color: #c5221f; font-style: italic;">- not in database</span>
+                    </li>`;
+                }
             });
             html += '</ul>';
+
+            // Add summary
+            const foundCount = detectedFoods.filter(f => f.status === 'found').length;
+            const notFoundCount = detectedFoods.length - foundCount;
+            html += `<p style="margin-top: 12px; font-size: 14px; color: #666;">
+                <strong>${foundCount}</strong> item(s) recognized, <strong>${notFoundCount}</strong> not in database
+            </p>`;
 
             foodListDiv.innerHTML = html;
             resultsDiv.style.display = 'block';
