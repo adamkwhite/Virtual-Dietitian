@@ -25,9 +25,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE + Image Processing Feature (Experimental) (Sessions 1-11 done)
-**Current Branch:** main (experimental: feature/image-food-logging)
-**Last Updated:** October 15, 2025
+**Implementation Status:** Phase 2 COMPLETE + Code Quality Improvements (Sessions 1-12 done)
+**Current Branch:** main
+**Last Updated:** October 16-17, 2025
 
 ### Completed Sessions
 - ✅ Session 1: GCP Setup & Environment Configuration
@@ -41,6 +41,7 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 9: CNF API Integration & Code Quality Refactoring
 - ✅ Session 10: Parser Enhancement for CNF Natural Language Queries
 - ✅ Session 11: Image-Based Food Logging PRD & Infrastructure Setup
+- ✅ Session 12: Code Quality Tooling Migration (Ruff, Security Scans, SonarCloud Fixes)
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
@@ -54,6 +55,16 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ SonarCloud integration with CI/CD pipeline
 - ✅ Demo page deployed to GCS
 - ✅ Observability features enabled (Cloud Logging, Conversation History)
+
+### Recent Changes (Session 12 - October 16-17, 2025)
+- **Ruff Migration (PR #22):** Replaced flake8 + isort with ruff for 10-100x faster linting
+- **SonarCloud Coverage Fix (PR #24):** Excluded feature-flagged usda_client.py from coverage analysis
+- **Simplified Pre-commit Hooks (PR #23):** Removed overkill checks (bandit, safety, commitlint from pre-commit)
+- **Security Workflow:** Created weekly CI/CD security scans (bandit + safety in GitHub Actions)
+- **Essential Tooling:** Kept fast pre-commit hooks (ruff, black, mypy manual stage, standard hooks)
+- **Git Rebase Practice:** Successfully rebased security branch to include ruff + SonarCloud fixes
+- **Configuration Cleanup:** Updated .gitignore to exclude MCP artifacts, test fixtures, cloud function venvs
+- **PRs Merged:** #22 (Ruff migration), #24 (SonarCloud exclusion), #23 (Simplified security checks)
 
 ### Recent Changes (Session 11 - October 15, 2025)
 - **Image Processing PRD:** Created comprehensive PRD for image-based food logging (32-hour estimate)
@@ -102,8 +113,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 ## Technology Stack
 - **Backend:** Python 3.12, Google Cloud Functions Framework (not Flask - see notes below)
 - **Testing:** pytest, pytest-cov
-- **Code Quality:** SonarCloud, black, isort, flake8, pre-commit hooks
-- **CI/CD:** GitHub Actions (linting → testing → code analysis)
+- **Code Quality:** SonarCloud, ruff (linting + imports), black (formatting), mypy (type checking), pre-commit hooks
+- **Security:** Bandit (security scanning), Safety (dependency CVE checking)
+- **CI/CD:** GitHub Actions (linting → testing → security → code analysis)
 - **Cloud Platform:** Google Cloud Platform
   - Cloud Functions Gen2 (serverless compute)
   - Vertex AI Agent Builder (conversational AI)

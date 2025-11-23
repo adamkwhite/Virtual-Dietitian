@@ -193,6 +193,15 @@ dmyp.json
 # Ruff cache
 .ruff_cache/
 
+# MCP (Model Context Protocol) testing artifacts
+.playwright-mcp/
+
+# Test fixtures (can be regenerated)
+tests/fixtures/
+
+# Cloud function virtual environments
+*-venv/
+
 # ==============================================================================
 # DOCUMENTATION BUILD
 # ==============================================================================
