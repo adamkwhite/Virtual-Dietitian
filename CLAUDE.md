@@ -25,9 +25,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE + Image Processing Feature (Experimental) (Sessions 1-11 done)
-**Current Branch:** main (experimental: feature/image-food-logging)
-**Last Updated:** October 15, 2025
+**Implementation Status:** Phase 2 COMPLETE + Image Processing Feature MERGED (Sessions 1-13 done)
+**Current Branch:** main
+**Last Updated:** November 22, 2025
 
 ### Completed Sessions
 - ✅ Session 1: GCP Setup & Environment Configuration
@@ -41,6 +41,8 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 9: CNF API Integration & Code Quality Refactoring
 - ✅ Session 10: Parser Enhancement for CNF Natural Language Queries
 - ✅ Session 11: Image-Based Food Logging PRD & Infrastructure Setup
+- ✅ Session 12: Code Quality Tooling Migration (Ruff, Security Scans, SonarCloud Fixes)
+- ✅ Session 13: Image Feature Merge + UI/UX Bug Fixes (7 issues closed)
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
@@ -55,19 +57,28 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Demo page deployed to GCS
 - ✅ Observability features enabled (Cloud Logging, Conversation History)
 
+### Recent Changes (Session 13 - November 22, 2025)
+- **Image Feature Merged:** PR #20 merged image-food-logging feature branch to main
+- **Issue #30 Fixed:** Visual indicators (green/red) for recognized vs unrecognized foods (PR #36)
+- **Issue #27 Fixed:** Show detected foods in chat when sending to agent (PR #37)
+- **Issue #28 Fixed:** Improved UX for non-food detection with dynamic headings (PR #38)
+- **Issue #29 Fixed:** Checkboxes to select which foods to send to agent (PR #39)
+- **Issue #26 Fixed:** Auto-clear results when selecting new image (PR #40)
+- **Issue #32 Fixed:** Main page "Try It Now" section now clickable (PR #41)
+- **Issue #25 Fixed:** Analyze button opens file picker when no file selected (PR #42)
+- **Demo Pages Deployed:** Both index.html and test-multimodal.html updated in GCS
+- **7 Issues Closed:** All UI/UX issues from user testing addressed
+
+### Recent Changes (Session 12 - October 16-17, 2025)
+- **Ruff Migration (PR #22):** Replaced flake8 + isort with ruff for 10-100x faster linting
+- **SonarCloud Coverage Fix (PR #24):** Excluded feature-flagged usda_client.py from coverage
+- **Simplified Pre-commit Hooks (PR #23):** Removed overkill checks from pre-commit
+- **Security Workflow:** Created weekly CI/CD security scans (bandit + safety in GitHub Actions)
+
 ### Recent Changes (Session 11 - October 15, 2025)
-- **Image Processing PRD:** Created comprehensive PRD for image-based food logging (32-hour estimate)
-- **Task Breakdown:** Generated 72 sub-tasks across 8 parent tasks (detailed implementation plan)
-- **GCP Infrastructure:** Completed full Vision API setup (Task 1.0 - 9/9 sub-tasks)
-- **Vision API Enabled:** Activated Cloud Vision API in virtualdietitian project
-- **Service Account:** Created vision-api-sa with Vision + Storage permissions
-- **Cloud Storage:** Created gs://virtualdietitian-food-images bucket (us-central1)
-- **Lifecycle Policy:** Configured 90-day auto-deletion for uploaded images
-- **Security:** Enforced public access prevention (private bucket)
-- **CORS Configuration:** Enabled for demo webpage uploads (wildcard for development)
-- **Automation Script:** Created scripts/setup-image-processing.sh (5KB, executable)
-- **Feature Branch:** Created feature/image-food-logging experimental branch
-- **Progress:** 1/8 parent tasks complete (12.5%), 9/72 sub-tasks complete
+- **Image Processing PRD:** Created comprehensive PRD for image-based food logging
+- **GCP Infrastructure:** Vision API setup, service account, Cloud Storage bucket
+- **Feature Implementation:** Vision API client, food label mapper, Cloud Function endpoint
 
 ### Recent Changes (Session 10 - October 15, 2025)
 - **Parser Enhancement:** Natural language support for CNF API foods (5,690 foods)
@@ -142,35 +153,32 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
   - `SETUP_GUIDE_UPDATED.md`
 - **Demo:** `docs/demo/demo-script.md`
 - **Documentation:** `docs/deployment/`, `docs/demo/`
-- **Image Processing (Experimental):** `docs/features/image-food-logging-PLANNED/`
-  - `prd.md` - Comprehensive PRD (32-hour estimate, detailed specs)
-  - `tasks.md` - Task breakdown (72 sub-tasks across 8 parent tasks)
-  - `status.md` - Progress tracker (1/8 tasks complete, 9/72 sub-tasks complete)
+- **Image Processing (MERGED to main):** `cloud-functions/image-food-analyzer/`
+  - `main.py` - Cloud Function for image analysis (595 lines)
+  - `vision_client.py` - Vision API client (266 lines)
+  - `food_label_mapper.py` - Maps Vision labels to foods (324 lines)
+  - `test_*.py` - Unit tests for image processing
+- **Demo Pages:** `docs/demo/`
+  - `virtual-dietitian-demo.html` - Main landing page (deployed as index.html)
+  - `test-multimodal.html` - Image upload + analysis page
 - **Infrastructure:** `scripts/setup-image-processing.sh` - GCP Vision API setup automation
 
 ## Known Issues
-- **Issue #6:** SonarCloud GitHub Action is deprecated (needs migration to sonarqube-scan-action)
-- **Issue #7:** USDA client module has 0% test coverage (only affects overall coverage metric)
+- **Issue #7:** USDA client module has 0% test coverage (deferred - USDA API unavailable)
+- **Issue #31:** Commercial packaged items not in database (feature request)
+- **Issue #33:** Lack of Calendar (future feature)
 - USDA API feature flag requires API key configuration
-- User feedback buttons not appearing on demo page (deferred troubleshooting)
 
 ## Next Steps
-**Immediate (Experimental Feature):**
-- Continue image-food-logging feature (Branch: feature/image-food-logging)
-  - Build Vision API client for food detection (Task 2.0 - 11 sub-tasks)
-  - Create food label mapping and serving size logic (Task 3.0 - 11 sub-tasks)
-  - Implement Cloud Function endpoint for image analysis (Task 4.0 - 16 sub-tasks)
-  - Add image upload UI to demo webpage (Task 5.0 - 17 sub-tasks)
-  - Testing, monitoring, and deployment (Tasks 6.0-8.0 - 29 sub-tasks)
-  - Progress: 1/8 parent tasks (12.5%), 9/72 sub-tasks (12.5%)
-
 **Immediate (Technical Debt):**
-- Add comprehensive unit tests for `usda_client.py` to reach ~90%+ coverage
-- Migrate to non-deprecated SonarCloud action
+- Migrate to non-deprecated SonarCloud action (Issue #6)
+- Add comprehensive unit tests for `usda_client.py` when API available
 
 **Phase 3 (Planned Features):**
 - Multi-turn conversations with context tracking
 - Meal history persistence (database integration)
+- Calendar integration for meal tracking (Issue #33)
+- Commercial packaged food recognition (Issue #31)
 - Dietary goal setting and progress monitoring
 - Personalized recommendations based on user patterns
 - Export nutrition reports (PDF, CSV)
