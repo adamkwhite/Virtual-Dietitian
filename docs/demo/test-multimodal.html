@@ -178,16 +178,23 @@
             }
 
             let html = '<ul style="margin: 0; padding-left: 20px; list-style: none;">';
-            detectedFoods.forEach(food => {
+            let foodIndex = 0;
+            detectedFoods.forEach((food, index) => {
                 if (food.status === 'found') {
-                    // Green checkmark for recognized foods
+                    // Checkbox + label for recognized foods (checked by default)
                     html += `<li style="margin: 8px 0; padding: 8px; background: #e8f5e9; border-radius: 4px; border-left: 4px solid #34a853;">
-                        <span style="color: #34a853; font-weight: bold;">&#10003;</span>
-                        <strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}%)
-                        &rarr; ${food.food_name} <span style="color: #666; font-size: 12px;">(${food.source})</span>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" class="food-checkbox" data-index="${index}" data-food-name="${food.food_name}" checked
+                                style="width: 18px; height: 18px; margin-right: 10px; cursor: pointer;">
+                            <span>
+                                <strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}%)
+                                &rarr; ${food.food_name} <span style="color: #666; font-size: 12px;">(${food.source})</span>
+                            </span>
+                        </label>
                     </li>`;
+                    foodIndex++;
                 } else {
-                    // Red X for unrecognized items (may not be food)
+                    // Red X for unrecognized items (may not be food) - no checkbox
                     html += `<li style="margin: 8px 0; padding: 8px; background: #fce8e6; border-radius: 4px; border-left: 4px solid #ea4335;">
                         <span style="color: #ea4335; font-weight: bold;">&#10007;</span>
                         <strong>${food.label}</strong> (${(food.confidence * 100).toFixed(0)}%)
@@ -216,17 +223,18 @@
         }
 
         document.getElementById('sendToAgent').addEventListener('click', async () => {
-            // Get all mapped food names, deduplicate, and filter generic terms
+            // Get only CHECKED food names from checkboxes
             const genericTerms = ['food', 'produce', 'ingredient', 'dish', 'meal'];
+            const checkedBoxes = document.querySelectorAll('.food-checkbox:checked');
 
-            const foodNames = [...new Set(detectedFoods
-                .filter(f => f.status === 'found')
-                .map(f => f.food_name)
-                .filter(name => !genericTerms.includes(name.toLowerCase()))
+            const foodNames = [...new Set(
+                Array.from(checkedBoxes)
+                    .map(cb => cb.dataset.foodName)
+                    .filter(name => !genericTerms.includes(name.toLowerCase()))
             )].join(', ');
 
             if (!foodNames) {
-                alert('No specific foods were identified. Try uploading a clearer image.');
+                alert('Please select at least one food item to analyze.');
                 return;
             }
 
