@@ -52,7 +52,7 @@
 
     <div class="instructions">
         <h2>📤 Upload Your Image</h2>
-        <input type="file" id="imageUpload" accept="image/*" style="margin: 10px 0;">
+        <input type="file" id="imageUpload" accept="image/*" capture="environment" style="margin: 10px 0;">
         <button id="analyzeBtn" style="padding: 8px 16px; background: #1a73e8; color: white; border: none; border-radius: 4px; cursor: pointer;">Analyze Food</button>
         <div id="uploadStatus" style="margin-top: 10px;"></div>
         <div id="results" style="margin-top: 15px; padding: 15px; border-radius: 8px; display: none;">
@@ -113,7 +113,8 @@
             const file = fileInput.files[0];
 
             if (!file) {
-                alert('Please select an image first');
+                // No file selected - open the file picker instead of showing error
+                fileInput.click();
                 return;
             }
 
