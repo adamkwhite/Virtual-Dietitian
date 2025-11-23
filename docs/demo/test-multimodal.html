@@ -208,9 +208,18 @@
             const dfMessengerBubble = document.querySelector('df-messenger-chat-bubble');
 
             if (dfMessenger && dfMessengerBubble) {
-                // Send query and open chat automatically
-                dfMessenger.sendQuery(message);
+                // Open chat first so user can see the message
                 dfMessengerBubble.openChat();
+
+                // Display the user message in chat before sending
+                // This shows what foods were detected and sent to the agent
+                dfMessenger.renderCustomText(`Analyzing: ${foodNames}`, true);
+
+                // Small delay to ensure message renders before response
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                // Send query to agent
+                dfMessenger.sendQuery(message);
             } else {
                 console.error('df-messenger element not found');
                 alert('Chat widget not loaded. Please refresh the page.');
