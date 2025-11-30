@@ -185,6 +185,9 @@ logs/
 # Testcontainers (creates temp files for integration tests)
 .testcontainers/
 
+# Playwright MCP (local MCP server state)
+.playwright-mcp/
+
 # MyPy type checking cache
 .mypy_cache/
 .dmypy.json
