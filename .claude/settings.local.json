@@ -28,7 +28,9 @@
       "Bash(gcloud iam service-accounts list:*)",
       "Read(//home/adam/.gcp/**)",
       "Bash(export GOOGLE_APPLICATION_CREDENTIALS=~/.gcp/virtualdietitian-vision-sa.json)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git pull:*)",
+      "Bash(gh issue close:*)"
     ],
     "deny": [],
     "ask": []
