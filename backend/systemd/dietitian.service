@@ -1,0 +1,15 @@
+[Unit]
+Description=Virtual Dietitian FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=adam
+WorkingDirectory=/home/adam/Code/Virtual-Dietitian/backend
+ExecStart=/home/adam/Code/Virtual-Dietitian/backend/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8001
+Restart=always
+RestartSec=5
+EnvironmentFile=/home/adam/Code/Virtual-Dietitian/backend/.env
+
+[Install]
+WantedBy=multi-user.target
