@@ -25,9 +25,9 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Scalability:** Serverless-first design (1 to 1M users without architectural changes)
 
 ## Current Status
-**Implementation Status:** Phase 2 COMPLETE + Image Processing Feature MERGED (Sessions 1-14 done)
+**Implementation Status:** Phase 2 COMPLETE + VPS Migration COMPLETE (Sessions 1-15 done)
 **Current Branch:** main
-**Last Updated:** November 30, 2025
+**Last Updated:** April 3, 2026
 
 ### Completed Sessions
 - ✅ Session 1: GCP Setup & Environment Configuration
@@ -44,6 +44,7 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Session 12: Code Quality Tooling Migration (Ruff, Security Scans, SonarCloud Fixes)
 - ✅ Session 13: Image Feature Merge + UI/UX Bug Fixes (7 issues closed)
 - ✅ Session 14: Repository Cleanup & Test Fixture Optimization (PR #44)
+- ✅ Session 15: VPS Migration - FastAPI + OpenRouter Backend (PR #50)
 
 ### Key Deliverables
 - ✅ Cloud Function deployed: `nutrition-analyzer` (us-central1)
@@ -52,11 +53,23 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - ✅ Natural language support for CNF foods via enhanced parser
 - ✅ Tiered rule engine with 3 rule types
 - ✅ Unit tests: 93 tests, 100% coverage on CNF client (94% overall)
-- ✅ Agent Builder configuration complete
+- ✅ Agent Builder configuration complete (replaced by FastAPI + OpenRouter in Session 15)
 - ✅ Demo script and test cases documented
 - ✅ SonarCloud integration with CI/CD pipeline
-- ✅ Demo page deployed to GCS
-- ✅ Observability features enabled (Cloud Logging, Conversation History)
+- ✅ Demo page deployed to VPS (dietitian.adamkwhite.com)
+- ✅ Self-hosted FastAPI backend with OpenRouter (Gemini Flash 2.0)
+- ✅ Custom chat widget replacing Dialogflow df-messenger
+
+### Recent Changes (Session 15 - April 3, 2026)
+- **VPS Migration (PR #50):** Migrated entire backend from GCP to self-hosted VPS
+- **FastAPI Backend:** New `backend/app.py` with `/api/chat` endpoint using OpenRouter (Gemini Flash 2.0)
+- **LLM Tool-Calling:** Gemini Flash decides when to call nutrition analyzer via OpenAI-compatible tool-calling API
+- **Custom Chat Widget:** Replaced Dialogflow df-messenger with inline HTML/JS chat widget
+- **DNS + SSL:** Set up dietitian.adamkwhite.com with nginx + Let's Encrypt on Hostinger VPS
+- **Systemd Service:** `dietitian.service` running uvicorn on port 8001, auto-restart
+- **sys.path Import Pattern:** Backend imports existing nutrition modules from `cloud-functions/nutrition-analyzer/` without copying
+- **SonarCloud Token Issue:** SONAR_TOKEN returning HTTP 403 — needs investigation (pre-existing)
+- **Issue #49 Closed:** Migration tracking issue completed
 
 ### Recent Changes (Session 14 - November 30, 2025)
 - **Repository Cleanup (PR #44):** Cleaned up uncommitted files from previous sessions
@@ -135,12 +148,17 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Deployment:** gcloud CLI, bash scripts
 
 ### Technology Notes
-**Why Functions Framework (not Flask)?**
-- We use `@functions_framework.http` decorator (Google's official framework)
+**Backend Architecture (Session 15+):**
+- FastAPI backend on VPS, OpenRouter API (Gemini Flash 2.0) for conversational AI
+- OpenAI SDK with `base_url="https://openrouter.ai/api/v1"` (same pattern as job-agent project)
+- LLM tool-calling pattern: Gemini Flash decides when to invoke nutrition analyzer
+- Existing nutrition modules imported via `sys.path` — no code duplication
+- Stateless backend: frontend sends conversation history with each request
+
+**Why Functions Framework (not Flask) in nutrition-analyzer?**
+- Original Cloud Function code uses `@functions_framework.http` decorator
 - Flask is a transitive dependency, only import `jsonify()` utility
-- Functions Framework handles GCP Cloud Functions integration automatically
-- Simpler deployment, no WSGI/routing configuration needed
-- Perfect fit for serverless webhook endpoints
+- Functions Framework installed in backend venv to allow importing `main.py` without modification
 
 ## Key Files
 - **Status:** `docs/PROJECT_STATUS.md` (current project state)
@@ -156,8 +174,12 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
   - `usda_client.py` - USDA API client (176 lines)
   - `nutrition_utils.py` - Shared utilities (64 lines)
   - `test_*.py` - Unit tests (89 tests total)
-- **Agent Config:** `agent-config/`
-  - `agent-instructions-simple.txt` - Working minimal instructions
+- **Backend (VPS):** `backend/`
+  - `app.py` - FastAPI app with OpenRouter integration (165 lines)
+  - `requirements.txt` - Backend dependencies
+  - `systemd/dietitian.service` - Systemd unit file
+- **Agent Config (legacy):** `agent-config/`
+  - `agent-instructions-simple.txt` - System prompt source for OpenRouter
   - `agent-instructions.txt` - Original detailed version
   - `webhook-config.json`
   - `test-cases.md`
@@ -179,11 +201,14 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 - **Issue #31:** Commercial packaged items not in database (feature request)
 - **Issue #33:** Lack of Calendar (future feature)
 - USDA API feature flag requires API key configuration
+- **SonarCloud Token:** SONAR_TOKEN returning HTTP 403 in CI — needs token refresh
 
 ## Next Steps
 **Immediate (Technical Debt):**
+- Fix SonarCloud SONAR_TOKEN (HTTP 403 in CI)
 - Migrate to non-deprecated SonarCloud action (Issue #6)
 - Add comprehensive unit tests for `usda_client.py` when API available
+- Add unit tests for `backend/app.py`
 
 **Phase 3 (Planned Features):**
 - Multi-turn conversations with context tracking
@@ -196,30 +221,43 @@ Build a conversational AI agent that analyzes meal descriptions and provides nut
 
 ## Dependencies
 **External Services:**
-- GCP Cloud Functions (Python 3.12 runtime)
-- Vertex AI Agent Builder
-- Google Cloud Vision API (experimental, image food detection)
-- Google Cloud Storage (experimental, image storage)
+- Hostinger VPS (Ubuntu, nginx, systemd)
+- OpenRouter API (Gemini Flash 2.0 via OpenAI-compatible endpoint)
+- CNF API (Canadian Nutrient File, 5,690 foods)
 - USDA FoodData Central API (optional, feature-flagged)
 - SonarCloud (code quality analysis)
+- Let's Encrypt (SSL certificates)
 
-**Python Libraries:**
-- functions-framework==3.* (Cloud Functions integration)
-- requests==2.* (HTTP client for USDA API)
-- python-dotenv==1.* (environment variables)
-- pytest==8.*, pytest-cov==6.* (testing)
-- google-cloud-vision==3.* (experimental, Vision API client)
-- google-cloud-storage==2.* (experimental, image storage)
-- Pillow==10.* (experimental, image preprocessing)
+**Python Libraries (Backend):**
+- fastapi>=0.115 (web framework)
+- uvicorn>=0.34 (ASGI server)
+- openai>=1.60 (OpenRouter API client)
+- python-dotenv>=1.0 (environment variables)
+- requests>=2.31 (HTTP client for APIs)
+- functions-framework>=3.0 (enables importing nutrition-analyzer modules)
+
+**Python Libraries (Testing):**
+- pytest==8.*, pytest-cov==6.*
 
 ## Live Demo
-**Demo URL:** https://storage.googleapis.com/virtual-dietitian-demo/index.html
-**Cloud Function:** https://nutrition-analyzer-epp4v6loga-uc.a.run.app
-**GCP Project:** virtualdietitian
-**Region:** us-central1
+**Demo URL:** https://dietitian.adamkwhite.com
+**Backend API:** https://dietitian.adamkwhite.com/api/chat
+**Health Check:** https://dietitian.adamkwhite.com/api/health
+**VPS:** Hostinger (srv1412298), systemd service `dietitian`
+**Repo on VPS:** `/home/adam/Code/Virtual-Dietitian/` (branch: feature/fastapi-openrouter-backend)
+**Legacy GCP (expired):** virtualdietitian project, us-central1
 **SonarCloud:** https://sonarcloud.io/summary/new_code?id=adamkwhite_Virtual-Dietitian
 
 ## Lessons Learned
+**Session 15 Key Learnings:**
+1. **sys.path Import for Code Reuse:** Adding existing module directories to `sys.path` avoids duplicating code — but watch for top-level imports in the source module (e.g., `functions_framework`) that must be installed in the new venv
+2. **OpenRouter Model IDs:** OpenRouter model names differ from provider names — `google/gemini-2.0-flash-001` not `google/gemini-flash-2.0`. Use env var override for easy fixing without redeployment
+3. **Port Conflicts on systemd Restart:** Fast restart loops can leave zombie processes holding the port. Use `fuser -k <port>/tcp` before restarting to clear stale bindings
+4. **LLM Tool-Calling over Heuristics:** Using the LLM's native tool-calling to decide "is this a meal?" is more robust than regex — handles ambiguity, multilingual input, and conversational context naturally
+5. **Stateless Chat Backend:** Sending conversation history from the frontend eliminates server-side session management — simple, scalable, no state to lose on restart
+6. **Let's Encrypt "No such authorization":** Can be transient — retry after a minute often succeeds, even when DNS is already resolving correctly
+7. **GCP Free Trial Expiry:** All services stop immediately — no grace period. Self-hosted VPS eliminates this single point of failure for demo/portfolio projects
+
 **Session 14 Key Learnings:**
 1. **Pre-commit Large File Checks:** Default 500KB limit blocks legitimate test fixtures - adjust `--maxkb` parameter in `.pre-commit-config.yaml` to accommodate realistic test data
 2. **ImageMagick Quality Settings:** quality=75 with 4:2:0 sampling provides excellent balance for test fixtures (3.5MB → 1.5MB = 57% reduction without visible quality loss)
