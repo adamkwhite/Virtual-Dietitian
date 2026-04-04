@@ -38,7 +38,7 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
 )
 
-MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-flash-2.0")
+MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
 
 SYSTEM_PROMPT = """\
 You are a Virtual Dietitian AI assistant. You help users analyze \
