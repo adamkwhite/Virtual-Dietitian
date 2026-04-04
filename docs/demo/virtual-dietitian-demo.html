@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Dietitian - AI-Powered Nutrition Analysis</title>
-    <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
-    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -194,20 +192,6 @@
             50% { transform: translateY(-10px); }
         }
 
-        df-messenger {
-            z-index: 999;
-            position: fixed;
-            --df-messenger-font-color: #1D1C1C;
-            --df-messenger-font-family: Inter, sans-serif;
-            --df-messenger-chat-background: #ffffff;
-            --df-messenger-message-user-background: #FFDC00;
-            --df-messenger-message-bot-background: #f5f5f5;
-            --df-messenger-send-icon-color: #FFDC00;
-            --df-messenger-send-icon-color-hover: #ffc400;
-            bottom: 24px;
-            right: 24px;
-        }
-
         .footer {
             text-align: center;
             padding: 40px;
@@ -215,6 +199,165 @@
             font-size: 14px;
             border-top: 1px solid #f0f0f0;
             margin-top: 60px;
+        }
+
+        /* Chat Widget */
+        .chat-bubble {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #FFDC00;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 1000;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .chat-panel {
+            position: fixed;
+            bottom: 96px;
+            right: 24px;
+            width: 400px;
+            height: 520px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-panel.open {
+            display: flex;
+        }
+
+        .chat-header {
+            background: #1D1C1C;
+            color: #FFDC00;
+            padding: 16px 20px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+        .chat-close:hover {
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-msg.user {
+            background: #FFDC00;
+            color: #1D1C1C;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-msg.bot {
+            background: #f5f5f5;
+            color: #1D1C1C;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg.bot strong {
+            color: #1D1C1C;
+        }
+
+        .chat-typing {
+            align-self: flex-start;
+            padding: 10px 14px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #999;
+            display: none;
+        }
+
+        .chat-typing.visible {
+            display: block;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid #f0f0f0;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus {
+            border-color: #FFDC00;
+        }
+
+        .chat-send {
+            background: #FFDC00;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .chat-send:hover {
+            background: #ffc400;
+        }
+
+        .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         @media (max-width: 768px) {
@@ -241,6 +384,13 @@
             .features {
                 grid-template-columns: 1fr;
             }
+
+            .chat-panel {
+                width: calc(100vw - 16px);
+                height: calc(100vh - 120px);
+                right: 8px;
+                bottom: 88px;
+            }
         }
     </style>
 </head>
@@ -264,24 +414,24 @@
             <h2>Try It Now</h2>
             <p>Click below to start analyzing your meals with AI</p>
             <div class="chat-prompt" id="openChatBtn" style="cursor: pointer;" onclick="openChat()">
-                <span class="chat-prompt-text">👉 Start chatting to analyze your meal</span>
+                <span class="chat-prompt-text">Start chatting to analyze your meal</span>
             </div>
-            <div class="arrow" style="cursor: pointer;" onclick="openChat()">↘️</div>
+            <div class="arrow" style="cursor: pointer;" onclick="openChat()">&#8600;&#65039;</div>
         </div>
 
         <div class="features">
             <div class="feature-card">
-                <span class="feature-icon">🥗</span>
+                <span class="feature-icon">&#129367;</span>
                 <h3>Instant Analysis</h3>
                 <p>Describe your meal in plain English and get comprehensive nutritional breakdown in seconds.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">💡</span>
+                <span class="feature-icon">&#128161;</span>
                 <h3>Smart Insights</h3>
                 <p>Receive personalized recommendations based on your meal's nutritional profile and health goals.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">🎯</span>
+                <span class="feature-icon">&#127919;</span>
                 <h3>Actionable Guidance</h3>
                 <p>Get practical suggestions to optimize your nutrition and maintain balanced eating habits.</p>
             </div>
@@ -293,22 +443,98 @@
         <p style="margin-top: 10px; color: #ccc; font-size: 12px;">This is a demonstration of AI-powered nutrition analysis technology</p>
     </div>
 
-    <df-messenger
-        project-id="virtualdietitian"
-        agent-id="70e21911-92e8-418f-9a11-aa98868ba1fe"
-        language-code="en"
-        max-query-length="-1"
-        enable-user-feedback="true">
-        <df-messenger-chat-bubble
-            chat-title="Virtual Dietitian">
-        </df-messenger-chat-bubble>
-    </df-messenger>
+    <!-- Chat Widget -->
+    <button class="chat-bubble" id="chatBubble" onclick="toggleChat()" title="Chat with Virtual Dietitian">&#128172;</button>
+
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+            <span>Virtual Dietitian</span>
+            <button class="chat-close" onclick="toggleChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg bot">Hi! I'm your Virtual Dietitian. Tell me what you ate and I'll analyze the nutrition for you.</div>
+        </div>
+        <div class="chat-typing" id="chatTyping">Analyzing...</div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="e.g. I had oatmeal with blueberries" onkeydown="if(event.key==='Enter')sendMessage()">
+            <button class="chat-send" id="chatSend" onclick="sendMessage()">&#10148;</button>
+        </div>
+    </div>
 
     <script>
+        const chatPanel = document.getElementById('chatPanel');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatTyping = document.getElementById('chatTyping');
+        let history = [];
+        let sending = false;
+
+        function toggleChat() {
+            chatPanel.classList.toggle('open');
+            if (chatPanel.classList.contains('open')) {
+                chatInput.focus();
+            }
+        }
+
         function openChat() {
-            const dfMessengerBubble = document.querySelector('df-messenger-chat-bubble');
-            if (dfMessengerBubble) {
-                dfMessengerBubble.openChat();
+            if (!chatPanel.classList.contains('open')) {
+                chatPanel.classList.add('open');
+                chatInput.focus();
+            }
+        }
+
+        function addMessage(text, role) {
+            const div = document.createElement('div');
+            div.className = 'chat-msg ' + (role === 'user' ? 'user' : 'bot');
+            // Convert markdown bold to HTML
+            div.innerHTML = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text || sending) return;
+
+            sending = true;
+            chatSend.disabled = true;
+            chatInput.value = '';
+
+            addMessage(text, 'user');
+            history.push({ role: 'user', content: text });
+
+            chatTyping.classList.add('visible');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text, history: history }),
+                });
+
+                if (!res.ok) throw new Error('Server error');
+
+                const data = await res.json();
+                const reply = data.reply || 'Sorry, I had trouble processing that. Please try again.';
+
+                addMessage(reply, 'bot');
+                history.push({ role: 'assistant', content: reply });
+
+                // Cap history to prevent token bloat
+                if (history.length > 40) {
+                    history = history.slice(-20);
+                }
+            } catch (err) {
+                addMessage('Sorry, something went wrong. Please try again.', 'bot');
+            } finally {
+                chatTyping.classList.remove('visible');
+                sending = false;
+                chatSend.disabled = false;
+                chatInput.focus();
             }
         }
     </script>
