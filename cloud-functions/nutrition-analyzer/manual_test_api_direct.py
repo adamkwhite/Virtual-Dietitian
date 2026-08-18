@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.environ.get("USDA_API_KEY")
-print(f"API Key: {api_key[:10]}... (length: {len(api_key)})")
+print(f"API Key: {api_key[:4]}... (loaded)")
 print()
 
 # Test 1: Simple search
