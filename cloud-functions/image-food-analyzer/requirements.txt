@@ -1,8 +1,11 @@
-functions-framework==3.*
-google-cloud-vision==3.*
-google-cloud-storage==2.*
-Pillow==10.*
-requests==2.*
-python-dotenv==1.*
-pytest==8.*
-pytest-cov==6.*
+# Exact pins, not `==X.*` wildcards: GitHub's dependency graph could not resolve
+# a version from the wildcards, so all 19 packages showed up with no version and
+# Dependabot silently closed 12 real Pillow CVEs as "fixed". See PR for details.
+functions-framework==3.10.2
+google-cloud-vision==3.15.0
+google-cloud-storage==2.19.0
+Pillow==12.3.0
+requests==2.34.2
+python-dotenv==1.2.3
+pytest==8.4.2
+pytest-cov==6.3.0
