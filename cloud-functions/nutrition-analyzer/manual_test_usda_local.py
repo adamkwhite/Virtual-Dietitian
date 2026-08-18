@@ -53,7 +53,7 @@ def test_usda_api_food():
         print("   Get your API key at: https://fdc.nal.usda.gov/api-key-signup.html")
         return None
 
-    print(f"Using API key: {api_key[:4]}...")
+    print(f"Using API key: {api_key[:10]}...")
 
     food_items = [{"name": "sushi", "quantity": 1}]
 
