@@ -1,15 +1,18 @@
 # Cloud Function Dependencies for Virtual Dietitian
 # Python 3.12 compatible versions
+#
+# Exact pins, not `==X.*` wildcards: the dependency graph cannot resolve a
+# version from a wildcard, which silently disables Dependabot alerting.
 
 # Cloud Functions framework
-functions-framework==3.*
+functions-framework==3.10.2
 
 # HTTP requests (for USDA API)
-requests==2.*
+requests==2.34.2
 
 # Environment variables
-python-dotenv==1.*
+python-dotenv==1.2.3
 
 # Testing (for local development)
-pytest==8.*
-pytest-cov==6.*
+pytest==8.4.2
+pytest-cov==6.3.0
